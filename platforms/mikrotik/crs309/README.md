@@ -7,7 +7,7 @@
 - Configuration type: curated, anonymized Layer 2 switching reference
 - Source export date: not relied on; the source device clock was not a trustworthy backup timestamp
 
-This reference is based on a CRS309 export supplied for portfolio documentation. It preserves representative bridge VLAN filtering, tagged-only bridge ports, VLAN membership, trunk roles, and management-plane examples while removing site, provider, customer, serial, software ID, user, email, and other identifying values.
+This reference is based on a CRS309 export supplied for portfolio documentation. It is the canonical location for the current public example; the older top-level CRS309 reference is retained separately for provenance. It preserves representative bridge VLAN filtering, tagged-only bridge ports, VLAN membership, trunk roles, and management-plane examples while removing site, provider, customer, serial, software ID, user, email, and other identifying values.
 
 ## Switching design represented
 
@@ -24,6 +24,10 @@ This reference is based on a CRS309 export supplied for portfolio documentation.
 The source uses a CRS309-1G-8S+ with eight SFP+ ports. The curated export retains the source's bridge/VLAN architecture and representative port membership, but uses generic interface comments and renamed port aliases where needed. The original service/provider labels and site-specific IP addresses are not published.
 
 This is not a RouterOS 7 conversion. RouterOS 7 equivalents should be maintained as a separately labelled variant and validated against the target release.
+
+## Management-plane defaults
+
+SNMP and RoMON commands are intentionally omitted from the public example. Connection tracking is left at the platform default rather than disabled. If management monitoring is needed in an authorized lab, configure SNMPv3 with unique credentials and restrict access to a management network.
 
 ## Validation and safety
 
