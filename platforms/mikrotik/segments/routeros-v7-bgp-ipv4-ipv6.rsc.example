@@ -1,0 +1,67 @@
+# RouterOS 7 BGP policy example
+# Design equivalent of selected RouterOS 6.46.8 BGP concepts.
+# Documentation-only addresses and ASNs. Standalone lab segment.
+# Verify exact properties against the RouterOS 7 release installed.
+
+# Ensure the lab interfaces below exist and have the corresponding addresses.
+/ip address
+add address=198.51.100.2/30 interface=ether1 comment=LAB-IPV4-TRANSIT
+/ipv6 address
+add address=2001:db8:100:1::2/64 interface=ether1 advertise=no comment=LAB-IPV6-TRANSIT
+
+/routing bgp instance
+add name=LAB-BGP as=64520 router-id=192.0.2.1
+
+# v7 advertises networks from an address list, provided a matching route exists.
+/ip firewall address-list
+add list=LAB-BGP-V4-ORIGIN address=203.0.113.0/24
+/ip route
+add dst-address=203.0.113.0/24 type=blackhole comment=LAB-ORIGINATED-V4
+
+# Explicit IPv4 import and export policy. Unmatched routes are rejected.
+/routing filter rule
+add chain=LAB-V4-IN rule="if (dst == 0.0.0.0/0) { accept }"
+add chain=LAB-V4-IN rule="reject"
+add chain=LAB-V4-OUT rule="if (dst == 203.0.113.0/24) { accept }"
+add chain=LAB-V4-OUT rule="reject"
+
+# Service peer policy example.
+/routing filter rule
+add chain=LAB-SERVICE-IN rule="if (dst in 198.51.100.0/24) { set bgp-local-pref 150; accept }"
+add chain=LAB-SERVICE-IN rule="reject"
+
+/routing bgp connection
+add name=LAB-TRANSIT instance=LAB-BGP local.role=ebgp \
+    remote.address=198.51.100.1 remote.as=64521 \
+    input.filter=LAB-V4-IN output.filter-chain=LAB-V4-OUT \
+    output.network=LAB-BGP-V4-ORIGIN
+add name=LAB-SERVICE instance=LAB-BGP local.role=ebgp \
+    remote.address=198.51.100.5 remote.as=64522 \
+    input.filter=LAB-SERVICE-IN output.filter-chain=LAB-V4-OUT \
+    output.network=LAB-BGP-V4-ORIGIN
+
+# IPv6 peer uses the same BGP instance with IPv6 address-family enabled.
+/routing filter rule
+add chain=LAB-V6-IN rule="if (dst in 2001:db8:200::/48) { accept }"
+add chain=LAB-V6-IN rule="reject"
+add chain=LAB-V6-OUT rule="if (dst == 2001:db8:100::/48) { accept }"
+add chain=LAB-V6-OUT rule="reject"
+
+/routing bgp connection
+add name=LAB-TRANSIT-V6 instance=LAB-BGP local.role=ebgp \
+    remote.address=2001:db8:100:1::1 remote.as=64521 \
+    address-families=ip,ipv6 input.filter=LAB-V6-IN \
+    output.filter-chain=LAB-V6-OUT
+
+# IPv6 originated routes require a matching route in the routing table.
+/ipv6 route
+add dst-address=2001:db8:100::/48 type=blackhole comment=LAB-ORIGINATED-V6
+
+# Verification:
+# /routing bgp connection print detail
+# /routing bgp session print detail
+# /routing route print where protocol=bgp
+# /routing route print where dst-address~"2001:db8:"
+
+# RouterOS v7 replaces the v6 peer/network/filter menu model with
+# BGP connections, address lists, and script-style routing filter rules.
