@@ -60,8 +60,6 @@ add bridge=bridge1 tagged=sfp-sfpplus4,sfp-sfpplus5-trunk,sfp-sfpplus6-trunk vla
 add bridge=bridge1 comment=service-f tagged=sfp-sfpplus4,sfp-sfpplus5-trunk,sfp-sfpplus6-trunk,sfp-sfpplus7,sfp-sfpplus8-uplink vlan-ids=4056
 add bridge=bridge1 disabled=yes tagged=sfp-sfpplus5-trunk,sfp-sfpplus6-trunk vlan-ids=1520-1523
 
-/ip firewall connection tracking
-set enabled=no
 
 /ip neighbor discovery-settings
 set discover-interface-list=!dynamic
@@ -76,10 +74,8 @@ add distance=1 gateway=198.51.100.1
 /ip dns
 set servers=1.1.1.1,1.0.0.1
 
-/snmp community
-set [find default=yes] name=lab-readonly
-/snmp
-set enabled=yes trap-version=2
+# SNMP is intentionally not enabled in this public reference.
+# Configure SNMPv3 with unique credentials only in an authorized lab.
 
 /system clock
 set time-zone-name=Asia/Dhaka
@@ -90,5 +86,4 @@ set name=CRS309-SWITCH-LAB
 /system routerboard settings
 set boot-os=router-os
 
-/tool romon
-set enabled=yes
+# RoMON is intentionally omitted from this public example.
