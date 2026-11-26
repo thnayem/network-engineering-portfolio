@@ -42,10 +42,12 @@ All public examples are sanitized or independently authored for documentation. T
 - [RouterOS 6/7](./platforms/mikrotik/) - CCR routing references, RouterOS v6/v7 equivalents, BGP, OSPF, PBR, NAT, QoS, and CRS309 switching.
 - [CRS309](./platforms/mikrotik/crs309/) - RouterOS 6.48.2 VLAN-aware bridge, tagged trunks, and bridge VLAN membership.
 
+### Huawei
+- [MA5800-X7](./platforms/huawei/) - GPON profiles, DBA, GEM mapping, service VLANs, ONT operations, and management.
+
 ### Others
 - [Arista DCS-7050S-52](./platforms/arista/dcs-7050s-52/) - EOS 4.18.11M, VLANs, trunks, MSTP, LACP, and management controls.
 - [BDCOM access and POP switches](./platforms/bdcom/) - VLAN handoffs, trunk allow-lists, RSTP, aggregation, and 10G uplinks.
-- [Huawei MA5800-X7](./platforms/huawei/) - GPON profiles, DBA, GEM mapping, service VLANs, ONT operations, and management.
 
 ## Technical domains
 
