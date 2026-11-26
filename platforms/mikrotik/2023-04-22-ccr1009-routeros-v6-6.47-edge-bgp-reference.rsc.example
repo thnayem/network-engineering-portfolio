@@ -1,0 +1,319 @@
+# Reference export date: 2023-04-22 | RouterOS 6.47 | CCR1009-8G-1S-1S+
+# Curated and sanitized BGP/edge-routing reference, not a full device export.
+# IPs use anonymized RFC1918 lab values; ASNs, MACs, peer names and identifiers are placeholders.
+# NOT FOR DIRECT IMPORT. Review all addressing, peer policy, services and dependencies before lab use.
+
+/interface bridge
+add name=loopback0
+/interface ethernet
+set [ find default-name=ether1 ] auto-negotiation=no l2mtu=1592
+set [ find default-name=ether2 ] l2mtu=1592
+set [ find default-name=ether3 ] comment=EDGE-ROUTER l2mtu=1592
+set [ find default-name=ether4 ] comment=IX-TV l2mtu=1592
+set [ find default-name=sfp-sfpplus1 ] advertise="10M-half,10M-full,100M-half,\
+    100M-full,1000M-half,1000M-full,2500M-full,5000M-full,10000M-full" speed=\
+    1Gbps
+set [ find default-name=sfp1 ] auto-negotiation=no
+/interface eoip
+add mac-address=02:00:00:00:00:02 name=TUNNEL-02 remote-address=\
+    10.109.96.156 tunnel-id=101
+add local-address=10.125.29.88 mac-address=02:00:00:00:00:03 name=TUNNEL-01 \
+    remote-address=10.49.168.105 tunnel-id=427
+add disabled=yes local-address=10.125.29.88 mac-address=02:00:00:00:00:01 \
+    name=FTP-DATA remote-address=10.159.4.18 tunnel-id=2228
+/interface gre
+add local-address=10.125.29.88 name=gre-tunnel1 remote-address=10.142.185.1
+add local-address=10.125.29.88 name=gre-tunnel2 remote-address=10.130.172.1
+add local-address=10.125.29.88 name=gre-tunnel3 remote-address=10.139.18.18
+/interface vlan
+add interface=sfp-sfpplus1 name=501-MGMT vlan-id=501
+add interface=sfp1 name=PEER-03-NIX-2500 vlan-id=2500
+add interface=sfp1 name=NAT-RT vlan-id=412
+add interface=sfp1 name=PEER-07-BDIX vlan-id=409
+add interface=sfp1 name=PEER-07-SW-MGMT vlan-id=4090
+add interface=sfp1 name=PEER-08-IX vlan-id=252
+add interface=sfp1 name=PEER-08-TV vlan-id=1200
+add interface=sfp-sfpplus1 name=PEER-06-4056 vlan-id=4056
+add disabled=yes interface=sfp1 name=vlan1 vlan-id=401
+add interface=sfp1 name=vlan222-PEER-02 vlan-id=222
+add interface=ether3 name=vlan401-BDIX-PEER-01 vlan-id=401
+add interface=sfp1 name=vlan405-PEER-10 vlan-id=405
+add interface=sfp1 name=vlan406-PEER-04-SITE-01 vlan-id=406
+add interface=sfp1 name=vlan407-PEER-04-BACKUP vlan-id=407
+add interface=sfp1 name=vlan408-PEER-02-PRI vlan-id=408
+add interface=sfp1 name=vlan413-CORE-RT vlan-id=413
+add interface=sfp1 name=vlan415-PEER-05 vlan-id=415
+add interface=sfp-sfpplus1 name=vlan990-BDIX vlan-id=990
+/interface bonding
+add disabled=yes mode=802.3ad name=bonding1 slaves=ether3,ether4 \
+    transmit-hash-policy=layer-2-and-3
+/interface ethernet switch port
+set 0 default-vlan-id=0 vlan-mode=fallback
+set 1 default-vlan-id=0 vlan-mode=fallback
+set 2 default-vlan-id=0 vlan-mode=fallback
+set 3 default-vlan-id=0 vlan-mode=fallback
+set 4 default-vlan-id=0 vlan-mode=fallback
+/port
+set 0 name=serial0
+set 1 name=serial1
+/queue type
+add kind=pcq name=BDIX pcq-classifier=src-address,dst-address pcq-rate=1G
+/queue simple
+add disabled=yes dst=vlan401-BDIX-PEER-01 name=test queue=BDIX/BDIX target=\
+    ""
+/routing bgp instance
+set default as=64520 client-to-client-reflection=no redistribute-connected=\
+    yes redistribute-other-bgp=yes redistribute-static=yes router-id=\
+    10.255.255.80
+add as=64520 client-to-client-reflection=no name=BDIX \
+    redistribute-connected=yes redistribute-other-bgp=yes \
+    redistribute-static=yes router-id=10.202.145.150
+add as=64520 client-to-client-reflection=no name=BDIX-GGC-VRF \
+    redistribute-other-bgp=yes router-id=10.254.254.21
+add as=64513 name=FTP-DATA redistribute-other-bgp=yes router-id=10.80.71.46
+add as=64520 name=IX redistribute-other-bgp=yes router-id=10.30.25.74
+/routing ospf instance
+set [ find default=yes ] disabled=yes redistribute-bgp=as-type-1 \
+    redistribute-connected=as-type-1 router-id=10.255.255.40
+/snmp community
+set [ find default=yes ] name=REDACTED-COMMUNITY
+/tool user-manager customer
+set admin access=\
+    own-routers,own-users,own-profiles,own-limits,config-payment-gw
+/user group
+set full policy="local,telnet,ssh,ftp,reboot,read,write,policy,test,winbox,pas\
+    sword,web,sniff,sensitive,api,romon,dude,tikapp"
+
+/ip address
+add address=10.28.96.1/30 interface=vlan401-BDIX-PEER-01 network=\
+    10.28.96.0
+add address=10.202.145.150/30 interface=vlan990-BDIX network=10.202.145.148
+add address=10.28.96.17/30 interface=vlan405-PEER-10 network=10.28.96.16
+add address=10.28.96.41/30 interface=vlan415-PEER-05 network=10.28.96.40
+add address=10.28.96.45/30 interface=vlan222-PEER-02 network=10.28.96.44
+add address=10.19.19.1/29 interface=501-MGMT network=10.19.19.0
+add address=10.254.254.25/30 interface=vlan413-CORE-RT network=10.254.254.24
+add address=10.255.255.80 interface=loopback0 network=10.255.255.80
+add address=10.28.96.49/30 interface=vlan406-PEER-04-SITE-01 network=\
+    10.28.96.48
+add address=10.28.96.53/30 interface=vlan407-PEER-04-BACKUP network=\
+    10.28.96.52
+add address=10.28.96.57/30 interface=vlan408-PEER-02-PRI network=10.28.96.56
+add address=10.125.29.88 interface=loopback0 network=10.125.29.88
+add address=10.27.24.10/30 interface=vlan990-BDIX network=10.27.24.8
+add address=10.80.71.46/30 disabled=yes interface=FTP-DATA network=\
+    10.80.71.44
+add address=10.30.25.74/30 interface=PEER-06-4056 network=10.30.25.72
+add address=10.168.49.90/30 interface=TUNNEL-01 network=10.168.49.88
+add address=10.168.255.10/30 interface=TUNNEL-02 network=10.168.255.8
+add address=10.125.28.5 interface=loopback0 network=10.125.28.5
+add address=10.254.254.21/30 interface=NAT-RT network=10.254.254.20
+add address=10.110.215.57/24 interface=PEER-03-NIX-2500 network=10.110.215.0
+add address=10.254.254.253/30 interface=gre-tunnel1 network=10.254.254.252
+add address=10.30.96.6/30 interface=PEER-08-IX network=10.30.96.4
+add address=10.28.96.61/30 interface=PEER-07-BDIX network=10.28.96.60
+add address=10.31.250.107/24 interface=PEER-08-TV network=10.31.250.0
+add address=10.19.19.9/29 interface=PEER-07-SW-MGMT network=10.19.19.8
+add address=10.15.15.1/30 interface=ether4 network=10.15.15.0
+add address=10.254.254.249/30 interface=gre-tunnel2 network=10.254.254.248
+add address=10.254.254.245/30 interface=gre-tunnel3 network=10.254.254.244
+
+/ip cloud
+set update-time=no
+/ip dhcp-client
+add !dhcp-options disabled=no
+/ip dns
+set servers=10.125.28.82
+/ip firewall address-list
+add address=10.125.28.0/22 list=Public_IP
+add address=10.202.145.0/27 list=Public_IP
+add address=10.142.66.0/24 list=Public_IP
+/ip firewall nat
+add action=src-nat chain=srcnat comment=GRE dst-address=10.139.18.18 \
+    to-addresses=10.125.29.88
+add action=src-nat chain=srcnat comment=GRE out-interface=vlan990-BDIX \
+    src-address=10.254.254.252/30 to-addresses=10.125.28.69
+add action=masquerade chain=srcnat comment="10.17.50.0/24 nat" dst-address=\
+    10.17.50.0/24 out-interface=vlan990-BDIX
+add action=src-nat chain=srcnat out-interface=PEER-06-4056 src-address=\
+    10.168.255.8/30 to-addresses=10.125.28.1
+add action=masquerade chain=srcnat out-interface=TUNNEL-02
+add action=masquerade chain=srcnat out-interface=TUNNEL-01 to-addresses=\
+    10.125.29.88
+add action=dst-nat chain=dstnat comment=MONITORING dst-address=10.125.28.248 \
+    to-addresses=10.253.253.14
+add action=dst-nat chain=dstnat dst-address=10.125.28.69 in-interface=\
+    vlan990-BDIX to-addresses=10.253.253.66
+add action=src-nat chain=srcnat out-interface=vlan990-BDIX src-address=\
+    10.253.253.66 to-addresses=10.125.28.69
+add action=masquerade chain=srcnat comment=PEER-08-TV out-interface=PEER-08-TV
+
+/ip route
+add distance=1 gateway=10.254.254.26
+add check-gateway=ping distance=1 dst-address=10.16.96.0/21 gateway=\
+    10.168.255.9
+add disabled=yes distance=1 dst-address=10.16.100.0/24 gateway=10.30.25.73
+add comment="TUNNEL-01 live" distance=1 dst-address=10.90.90.0/24 gateway=\
+    10.168.49.89
+add comment="PEER-06 static" disabled=yes distance=1 dst-address=10.12.12.0/24 \
+    gateway=10.30.25.73
+add check-gateway=ping distance=1 dst-address=10.1.0.0/21 gateway=\
+    10.168.255.9
+add comment=circle disabled=yes distance=1 dst-address=10.1.0.0/21 gateway=\
+    10.202.145.149
+add check-gateway=ping distance=1 dst-address=10.2.2.0/24 gateway=\
+    10.168.255.9
+add comment=circle disabled=yes distance=1 dst-address=10.2.2.0/24 gateway=\
+    10.202.145.149
+add check-gateway=ping distance=1 dst-address=10.30.30.0/24 gateway=\
+    10.30.96.5
+add comment="TUNNEL-01 live" distance=1 dst-address=10.230.123.16/29 gateway=\
+    10.168.49.89
+add check-gateway=ping distance=21 dst-address=10.49.168.0/24 gateway=\
+    10.168.255.9
+add comment="TUNNEL-01 live" distance=1 dst-address=10.49.168.169/32 gateway=\
+    10.168.49.89
+add comment="TUNNEL-01 live" distance=1 dst-address=10.49.168.173/32 gateway=\
+    10.168.49.89
+add distance=1 dst-address=10.125.28.0/26 gateway=10.28.96.2 scope=10 \
+    target-scope=30
+add check-gateway=ping disabled=yes distance=3 dst-address=10.125.28.72/29 \
+    gateway=10.28.96.46 scope=40 target-scope=30
+add check-gateway=ping disabled=yes distance=4 dst-address=10.125.28.72/29 \
+    gateway=10.28.96.58 scope=40 target-scope=30
+add distance=1 dst-address=10.125.28.128/26 gateway=10.28.96.2 scope=10 \
+    target-scope=30
+add comment=EOIP-TUNNEL distance=1 dst-address=10.125.31.200/32 gateway=\
+    10.254.254.22
+add comment=PEER-08-BDIX distance=1 dst-address=10.125.31.201/32 gateway=\
+    10.254.254.26
+add check-gateway=ping comment=SERVICE-NET distance=1 dst-address=\
+    10.16.172.0/24 gateway=10.27.24.9
+add check-gateway=ping comment=SERVICE-NET distance=1 dst-address=\
+    10.17.50.0/24 gateway=10.27.24.9
+
+/ip service
+set telnet disabled=yes port=60003
+set ftp disabled=yes port=60001
+set www disabled=yes port=8283
+set ssh disabled=yes
+set api disabled=yes
+set winbox port=1881
+set api-ssl disabled=yes
+/ip ssh
+set forwarding-enabled=remote
+
+/ipv6 address
+add address=2001:db8:6::6/126 advertise=no interface=vlan990-BDIX
+add address=2001:db8:1000:4000::1 interface=vlan401-BDIX-PEER-01
+/ipv6 nd
+set [ find default=yes ] advertise-dns=no
+/ipv6 route
+add distance=1 dst-address=2001:db8::/48 gateway=2001:db8:1000:4000::2
+add distance=1 dst-address=2001:db8:2::/47 gateway=2001:db8:1000:4000::2
+
+/lcd
+set color-scheme=dark
+/routing bgp network
+add network=10.202.145.0/27 synchronize=no
+add network=10.202.146.48/28 synchronize=no
+add network=10.19.19.0/29 synchronize=no
+add network=10.18.18.0/24 synchronize=no
+add network=2001:db8::/32 synchronize=no
+add network=10.28.96.0/24 synchronize=no
+add network=10.125.28.88/30 synchronize=no
+add network=10.255.255.80/32 synchronize=no
+add network=10.254.254.20/30 synchronize=no
+/routing bgp peer
+add in-filter=BDIX-IN name=BDIX out-filter=BDIX-OUT remote-address=\
+    10.27.24.9 remote-as=64517 remove-private-as=yes ttl=default
+add in-filter=PEER-01-BDIX-IN name=BDIX-PEER-01 nexthop-choice=force-self \
+    out-filter=EDGE-ROUTER-OUT remote-address=10.28.96.2 remote-as=64520 \
+    route-reflect=yes ttl=default
+add in-filter=CISCO-BDIX-VRF-IN instance=BDIX name=CISCO-RT-BDIX-VRF \
+    nexthop-choice=force-self out-filter=CISCO-BDIX-VRF-OUT remote-address=\
+    10.254.254.26 remote-as=64520 route-reflect=yes ttl=default
+add name=BDIX-2-SITE-01 nexthop-choice=force-self out-filter=CLIENT-BDIX-OUT \
+    remote-address=10.28.96.50 remote-as=64520 ttl=default
+add name=BDIX-2-BACKUP nexthop-choice=force-self out-filter=CLIENT-BDIX-OUT \
+    remote-address=10.28.96.54 remote-as=64520 ttl=default
+add instance=FTP-DATA name=FTP-DATA out-filter=No-Prefix remote-address=\
+    10.80.71.45 remote-as=64513 ttl=default
+add address-families=ipv6 in-filter=PEER-09-IPV6-BDIX-IN name=PEER-09BD-BDIX-IPV6 \
+    out-filter=PEER-09-IPV6-BDIX-OUT remote-address=2001:db8:6::5 remote-as=\
+    64517 ttl=default
+add instance=IX name=PEER-06 out-filter=PEER-06-out remote-address=10.30.25.73 \
+    remote-as=64519 ttl=default
+add name=NAT-RT nexthop-choice=force-self remote-address=10.254.254.22 \
+    remote-as=64520 ttl=default
+add in-filter=NIX-IN instance=BDIX name=PEER-03-NIX out-filter=NIX-OUT \
+    remote-address=10.110.215.1 remote-as=64515 ttl=default
+add in-filter=GRE-IN name=GRE out-filter=GRE-OUT remote-address=\
+    10.254.254.254 remote-as=64522 ttl=default
+add in-filter=No-Prefix name=PEER-08-IX out-filter=No-Prefix remote-address=\
+    10.30.96.5 remote-as=64523 ttl=default
+add name=backup-3-BDIX nexthop-choice=force-self out-filter=CLIENT-BDIX-OUT \
+    remote-address=10.28.96.62 remote-as=64520 ttl=default
+add in-filter=GRE-2-IN name=GRE-2 remote-address=10.254.254.250 remote-as=\
+    64524 ttl=default
+add in-filter=GRE-3-IN name=GRE-3 remote-address=10.254.254.246 remote-as=\
+    64525 ttl=default
+add address-families=ipv6 in-filter=No-Prefix name=BDIX-EDGE-IPV6 \
+    nexthop-choice=force-self remote-address=2001:db8:1000:4000::2 \
+    remote-as=64520
+add name=PEER-05 nexthop-choice=force-self out-filter=CLIENT-BDIX-OUT \
+    remote-address=10.28.96.42 remote-as=64520 ttl=default
+
+/routing filter
+add action=discard chain=BDIX-IN prefix=10.202.147.0/24 prefix-length=24-32
+add action=discard chain=BDIX-IN prefix=10.0.0.0/8 prefix-length=16-32
+add action=discard chain=BDIX-IN disabled=yes prefix=10.211.213.0/24 \
+    prefix-length=24-32
+add action=accept chain=BDIX-OUT prefix=10.125.28.0/24 set-bgp-prepend=3
+add action=accept chain=BDIX-OUT prefix=10.125.29.0/24 set-bgp-prepend=3
+add action=accept chain=BDIX-OUT prefix=10.125.30.0/24 set-bgp-prepend=3
+add action=accept chain=PEER-01-BDIX-IN prefix=10.125.28.240/29
+add action=accept chain=PEER-01-BDIX-IN prefix=10.168.80.0/29 \
+    prefix-length=29-32
+add action=accept chain=PEER-01-BDIX-IN prefix=10.253.253.28/30
+add action=discard chain=CLIENT-BDIX-OUT disabled=yes prefix=10.1.1.0/24 \
+    prefix-length=24-32
+add action=discard chain=CLIENT-BDIX-OUT disabled=yes prefix=10.202.1.0/24 \
+    prefix-length=24-32
+add action=discard chain=CLIENT-BDIX-OUT disabled=yes prefix=10.203.1.0/24 \
+    prefix-length=24-32
+add action=discard chain=EDGE-ROUTER-OUT prefix=10.17.50.0/24 prefix-length=\
+    24-32
+add action=discard chain=EDGE-ROUTER-OUT prefix=10.31.250.0/24 prefix-length=\
+    24-32
+add action=discard chain=EDGE-ROUTER-OUT prefix=10.125.30.0/24 prefix-length=\
+    24-32
+add action=accept chain=GRE-IN prefix=10.142.184.0/23 prefix-length=23-24 \
+    set-bgp-local-pref=10000
+add action=discard chain=GRE-IN
+add action=accept chain=GRE-2-IN prefix=10.130.172.0/22 prefix-length=24 \
+    set-bgp-local-pref=5000
+add action=discard chain=GRE-2-IN
+add action=accept chain=GRE-3-IN prefix=10.139.18.0/23 prefix-length=24 \
+    set-bgp-local-pref=5000
+add action=discard chain=GRE-3-IN set-bgp-local-pref=5000
+add action=accept chain=PEER-09-IPV6-BDIX-IN set-in-nexthop-ipv6=2001:db8:6::5
+add action=accept chain=PEER-09-IPV6-BDIX-OUT prefix=2001:db8::/32
+add action=discard chain=PEER-09-IPV6-BDIX-OUT
+
+/snmp
+set enabled=yes trap-version=2
+/system clock
+set time-zone-name=Asia/Dhaka
+/system identity
+set name=EDGE-ROUTER
+/system package update
+set channel=long-term
+/system resource irq rps
+set ether1 disabled=yes
+set ether2 disabled=yes
+set ether3 disabled=yes
+set ether4 disabled=yes
+
+/tool romon
+set enabled=yes
