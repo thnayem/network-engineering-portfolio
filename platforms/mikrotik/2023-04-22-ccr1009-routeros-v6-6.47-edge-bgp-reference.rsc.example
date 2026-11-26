@@ -75,8 +75,7 @@ add as=64520 name=IX redistribute-other-bgp=yes router-id=10.30.25.74
 /routing ospf instance
 set [ find default=yes ] disabled=yes redistribute-bgp=as-type-1 \
     redistribute-connected=as-type-1 router-id=10.255.255.40
-/snmp community
-set [ find default=yes ] name=REDACTED-COMMUNITY
+# SNMP community configuration intentionally omitted from this public example.
 /tool user-manager customer
 set admin access=\
     own-routers,own-users,own-profiles,own-limits,config-payment-gw
