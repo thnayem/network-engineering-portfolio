@@ -1,0 +1,44 @@
+# RouterOS 7 OSPF and route-policy example
+# Design equivalent of selected RouterOS 6 OSPF/filter concepts.
+# Documentation-only lab prefixes. Standalone routing segment.
+
+/ip address
+add address=192.0.2.9/30 interface=ether2 comment=LAB-OSPF-TRANSIT
+add address=192.0.2.1/30 interface=ether3 comment=LAB-OSPF-ACCESS
+
+/routing filter rule
+add chain=LAB-OSPF-IN rule="if (dst == 0.0.0.0/0) { reject }"
+add chain=LAB-OSPF-IN rule="if (dst in 198.51.100.0/24 && dst-len == 32) { reject }"
+add chain=LAB-OSPF-IN rule="if (dst in 192.0.2.0/24 && dst-len == 24) { accept }"
+add chain=LAB-OSPF-IN rule="reject"
+
+/routing ospf instance
+add name=LAB-OSPF version=2 router-id=192.0.2.9 \
+    in-filter-chain=LAB-OSPF-IN originate-default=never
+/routing ospf area
+add name=LAB-BACKBONE instance=LAB-OSPF area-id=0.0.0.0
+/routing ospf interface-template
+add area=LAB-BACKBONE networks=192.0.2.8/30
+add area=LAB-BACKBONE networks=192.0.2.0/30
+
+# v7 policy-routing table must be created before routes reference it.
+/routing table
+add name=LAB-PBR fib
+/ip route
+add dst-address=203.0.113.0/24 gateway=192.0.2.10 \
+    routing-table=main disabled=yes comment=LAB-STATIC-ROUTE
+add dst-address=0.0.0.0/0 gateway=192.0.2.10 \
+    routing-table=LAB-PBR disabled=yes comment=LAB-PBR-DEFAULT
+
+/routing rule
+add src-address=192.0.2.0/24 dst-address=203.0.113.0/24 \
+    action=lookup-only-in-table table=LAB-PBR disabled=yes
+
+# Check:
+# /routing ospf neighbor print detail
+# /routing ospf route print detail
+# /routing route print detail
+# /routing rule print detail
+
+# RouterOS v7 uses OSPF instances, areas, interface templates and
+# in-filter-chain rather than the v6 network and in-filter model.
