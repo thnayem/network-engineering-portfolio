@@ -1,0 +1,44 @@
+!
+! BGP global and per-VRF peering patterns
+! Replace documentation ASNs and addresses with authorized lab values.
+!
+router bgp 65000
+ bgp log-neighbor-changes
+ neighbor 192.0.2.10 remote-as 65001
+ neighbor 192.0.2.10 description TRANSIT-EXAMPLE
+ !
+ address-family ipv4
+  network 192.0.2.1 mask 255.255.255.255
+  neighbor 192.0.2.10 activate
+  neighbor 192.0.2.10 send-community both
+  neighbor 192.0.2.10 prefix-list PL-TRANSIT-IN in
+  neighbor 192.0.2.10 route-map RM-TRANSIT-OUT out
+ exit-address-family
+ !
+ address-family ipv4 vrf VRF-CONTENT-A
+  neighbor 198.51.100.6 remote-as 65002
+  neighbor 198.51.100.6 description CONTENT-A-PEER
+  neighbor 198.51.100.6 activate
+  neighbor 198.51.100.6 send-community both
+  neighbor 198.51.100.6 route-map RM-CONTENT-A-IN in
+  neighbor 198.51.100.6 route-map RM-CONTENT-A-OUT out
+ exit-address-family
+ !
+ address-family ipv4 vrf VRF-CONTENT-B
+  neighbor 198.51.100.10 remote-as 65003
+  neighbor 198.51.100.10 description CONTENT-B-PEER
+  neighbor 198.51.100.10 activate
+  neighbor 198.51.100.10 send-community both
+  neighbor 198.51.100.10 route-map RM-CONTENT-B-IN in
+  neighbor 198.51.100.10 route-map RM-CONTENT-B-OUT out
+ exit-address-family
+ !
+ address-family ipv4 vrf VRF-PEERING
+  neighbor 203.0.113.2 remote-as 65004
+  neighbor 203.0.113.2 description PEERING-EXAMPLE
+  neighbor 203.0.113.2 activate
+  neighbor 203.0.113.2 send-community both
+  neighbor 203.0.113.2 route-map RM-PEERING-IN in
+  neighbor 203.0.113.2 route-map RM-PEERING-OUT out
+ exit-address-family
+!
