@@ -15,6 +15,7 @@ I have rewritten the public examples for documentation and review. They use fict
 - [Juniper MX204](./platforms/juniper/mx204/) - logical systems, routing policy, firewall filters, and service forwarding
 - [Juniper MX240](./platforms/juniper/mx240/) - logical systems, logical tunnels, BGP policy, and chassis configuration patterns
 - [MikroTik RouterOS v6/v7](./platforms/mikrotik/) - CCR1009 routing reference, RouterOS 6/v7 routing examples, v7 VLAN/OSPF lab, and CRS309 RouterOS 6.48.2 switching reference
+- [BDCOM switching](./platforms/bdcom/) - separate access-switch and POP-switch configurations with RSTP, VLAN handoffs, trunks, and 10G uplinks
 - [Huawei MA5800-X7 GPON OLT](./platforms/huawei/) - DBA, ONT line/service profiles, GEM mapping, service VLANs, GPON discovery and OLT management
 
 ## Technical areas
@@ -51,6 +52,7 @@ I have rewritten the public examples for documentation and review. They use fict
 - [Nexus example](./switching/nexus/)
 - [Arista DCS-7050S-52](./platforms/arista/dcs-7050s-52/)
 - [MikroTik CRS309](./platforms/mikrotik/crs309/) - VLAN-aware bridge and tagged trunk switching
+- [BDCOM access and POP switches](./platforms/bdcom/) - per-port VLAN handoffs, trunk allow-lists, RSTP, static aggregation, and dual 10G uplinks
 
 ### Operations and reference material
 - [GPON/OLT operations](./gpon-olt/README.md)
