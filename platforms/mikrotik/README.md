@@ -1,53 +1,27 @@
-# MikroTik RouterOS Lab
+# MikroTik RouterOS Configuration References
 
-**Reference archive date:** 2026-03-18  
-**Platform:** MikroTik RouterOS v7
+This directory contains three separate examples:
 
-> Practical configuration demonstration using fictional names, addresses, VLAN IDs, and ASNs. This is a purpose-built example, not a raw device export.
+| File | Version | Purpose |
+|---|---|---|
+| [RouterOS 6.46.8 reference](./2023-06-17-routeros-v6-6.46.8-reference.rsc.example) | 6.46.8 | Reduced, anonymized example based on the uploaded RouterOS 6 configuration |
+| [RouterOS 7 equivalent design](./2023-06-17-routeros-v7-equivalent-reference.rsc.example) | 7.x | Rewritten example showing the corresponding design using RouterOS 7 routing syntax |
+| [RouterOS 7 VLAN/OSPF lab](./2026-03-18-routeros-v7-lab.rsc.example) | 7.x | Independent VLAN-aware bridge and OSPF lab |
 
-## VLAN-aware bridge
+## RouterOS 6 reference
 
-```routeros
-/interface bridge
-add name=br-lab vlan-filtering=no protocol-mode=rstp
-/interface bridge port
-add bridge=br-lab interface=ether2 pvid=10
-add bridge=br-lab interface=ether3 pvid=20
-add bridge=br-lab interface=ether4
-/interface bridge vlan
-add bridge=br-lab vlan-ids=10 tagged=br-lab,ether4 untagged=ether2
-add bridge=br-lab vlan-ids=20 tagged=br-lab,ether4 untagged=ether3
-add bridge=br-lab vlan-ids=99 tagged=br-lab,ether4
-/interface bridge
-set br-lab vlan-filtering=yes
-```
+The source export was dated 2023-06-17 and identified itself as RouterOS 6.46.8. The public file is deliberately reduced and anonymized. It demonstrates interface/VLAN layout, management bridging, addressing, DHCP, PCQ/simple queues, BGP, OSPF, NAT, firewall policy, and management-plane restrictions.
 
-## Routed transit VLAN and OSPF
+It is not a complete copy of the source export. Customer names, hostnames, leases, MAC addresses, public allocations, provider-specific route data, PPP credentials, VPN secrets, SMTP credentials, backup scripts, SNMP communities, and monitoring destinations were excluded.
 
-The router's bridge CPU port and the trunk carry VLAN 99 tagged. The /30 address and OSPF interface template use the same subnet.
+## RouterOS 7 equivalent design
 
-```routeros
-/interface vlan
-add name=vlan99-transit interface=br-lab vlan-id=99
-/ip address
-add address=192.0.2.1/30 interface=vlan99-transit comment=LAB-TRANSIT
-/routing ospf instance
-add name=lab-v2 version=2 router-id=10.255.0.1
-/routing ospf area
-add name=backbone instance=lab-v2 area-id=0.0.0.0
-/routing ospf interface-template
-add area=backbone networks=192.0.2.0/30
-```
+The RouterOS 7 file follows the same simplified lab topology and policy intent. It uses the RouterOS 7 BGP connection/filter-chain model and OSPF interface templates rather than the RouterOS 6 peer and network configuration model.
 
-## Verification
+This is a design-level equivalent, not a line-by-line conversion of the full RouterOS 6 export. Some RouterOS 6 features and operational services were intentionally omitted rather than carried over without a safe, verified v7 mapping.
 
-```routeros
-/interface bridge vlan print
-/interface bridge port print
-/interface vlan print
-/ip address print
-/routing ospf neighbor print
-/routing route print
-```
+## Important validation boundary
 
-Check RouterOS syntax against the exact target release and test VLAN forwarding and OSPF adjacency in CHR or an isolated lab before operational use.
+Neither file has been imported into RouterOS or validated on a MikroTik device or CHR instance. The RouterOS 7 syntax and behavior must be checked against the exact target release. Do not import either file into a live router without reviewing every command, interface mapping, routing policy, firewall rule, and rollback plan.
+
+All public examples use documentation-only address ranges and fictional identifiers. They are intended for technical review and lab practice, not direct deployment.
