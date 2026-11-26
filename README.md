@@ -14,7 +14,7 @@ I have rewritten the public examples for documentation and review. They use fict
 - [Arista DCS-7050S-52](./platforms/arista/dcs-7050s-52/) - VLANs, trunking, MSTP, LACP, BPDU controls and management
 - [Juniper MX204](./platforms/juniper/mx204/) - logical systems, routing policy, firewall filters, and service forwarding
 - [Juniper MX240](./platforms/juniper/mx240/) - logical systems, logical tunnels, BGP policy, and chassis configuration patterns
-- [MikroTik RouterOS v7](./platforms/mikrotik/) - VLAN-aware bridging, routing and OSPF examples
+- [MikroTik RouterOS v6/v7](./platforms/mikrotik/) - CCR1009 RouterOS 6.47 BGP/edge-routing reference, RouterOS 6.46.8 and v7 routing examples, and a separate v7 VLAN/OSPF lab
 - [Huawei MA5800-X7 GPON OLT](./platforms/huawei/) - DBA, ONT line/service profiles, GEM mapping, service VLANs, GPON discovery and OLT management
 
 ## Technical areas
