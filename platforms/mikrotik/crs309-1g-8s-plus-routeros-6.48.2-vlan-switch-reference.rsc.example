@@ -23,8 +23,6 @@ add interface=sfp-sfpplus4 name=vlan501-management vlan-id=501
 add interface=bridge1 name=vlan1150 vlan-id=1150
 /queue simple
 add disabled=yes dst=sfp-sfpplus5-Downstream-A max-limit=3G/3G name=queue1 target=sfp-sfpplus8-Downstream-C
-/snmp community
-set [ find default=yes ] name=example-community
 /interface bridge port
 add bridge=bridge1 frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=sfp-sfpplus4
 add bridge=bridge1 frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=sfp-sfpplus3
@@ -34,8 +32,6 @@ add bridge=bridge1 frame-types=admit-only-vlan-tagged ingress-filtering=yes inte
 add bridge=bridge1 frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=sfp-sfpplus7
 add bridge=bridge1 frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=sfp-sfpplus6-Downstream-B learn=no
 add bridge=bridge1 frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=sfp-sfpplus8-Downstream-C
-/ip firewall connection tracking
-set enabled=no
 /ip neighbor discovery-settings
 set discover-interface-list=!dynamic
 /interface bridge vlan
@@ -72,8 +68,7 @@ add address=192.0.2.2/24 interface=vlan501-management network=192.0.2.0
 set servers=1.1.1.1,1.0.0.1
 /ip route
 add distance=1 gateway=192.0.2.1
-/snmp
-set enabled=yes trap-version=2
+# SNMP intentionally omitted; use SNMPv3 with unique lab credentials.
 /system clock
 set time-zone-name=Asia/Dhaka
 /system identity
@@ -86,5 +81,4 @@ add
 add
 /tool graphing resource
 add
-/tool romon
-set enabled=yes
+# RoMON intentionally omitted from this public example.
