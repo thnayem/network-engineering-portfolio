@@ -1,0 +1,33 @@
+!
+! Bridge-domain interfaces and VRF service termination
+!
+bridge-domain 110
+!
+bridge-domain 120
+!
+bridge-domain 210
+!
+bridge-domain 220
+!
+interface BDI110
+ description SERVICE-A-L3-GATEWAY
+ ip address 192.0.2.9 255.255.255.252
+!
+interface BDI120
+ description SERVICE-B-L3-GATEWAY
+ vrf forwarding VRF-CONTENT-A
+ ip address 198.51.100.1 255.255.255.252
+!
+interface BDI210
+ description PARTNER-A-PEERING
+ vrf forwarding VRF-PEERING
+ ip address 203.0.113.1 255.255.255.252
+!
+interface BDI220
+ description PARTNER-B-PEERING
+ vrf forwarding VRF-CONTENT-B
+ ip address 203.0.113.5 255.255.255.252
+!
+! Apply VRF before IP addressing when building a BDI.
+! Confirm BDI/bridge-domain scale and feature support for the exact PID.
+!
