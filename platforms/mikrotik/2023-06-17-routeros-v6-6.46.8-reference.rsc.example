@@ -1,0 +1,123 @@
+# Source reference: RouterOS 6.46.8 export dated 2023-06-17
+# Public portfolio edition: rewritten, reduced and anonymized.
+# Not a raw export. All identifiers, addresses and ASNs are fictional.
+# Review on the exact hardware and RouterOS 6 release before use.
+
+# Physical interface labels are intentionally generic.
+/interface ethernet
+set [ find default-name=ether1 ] name=ether1-WAN-TRUNK
+set [ find default-name=ether2 ] name=ether2-DOWNLINK-TRUNK
+set [ find default-name=ether3 ] name=ether3-MGMT-ACCESS
+
+/interface bridge
+add name=br-mgmt protocol-mode=rstp fast-forward=no
+
+/interface vlan
+add interface=ether1-WAN-TRUNK name=vlan101-WAN vlan-id=101
+add interface=ether1-WAN-TRUNK name=vlan201-SERVICE-A vlan-id=201
+add interface=ether1-WAN-TRUNK name=vlan301-SERVICE-B vlan-id=301
+add interface=ether1-WAN-TRUNK name=vlan117-MGMT-UPLINK vlan-id=117
+add interface=ether2-DOWNLINK-TRUNK name=vlan100-ACCESS-TRANSIT vlan-id=100
+add interface=ether2-DOWNLINK-TRUNK name=vlan117-MGMT-DOWNLINK vlan-id=117
+add interface=ether1-WAN-TRUNK name=vlan3998-DEVICE-MGMT vlan-id=3998
+
+/interface bridge port
+add bridge=br-mgmt interface=vlan117-MGMT-UPLINK
+add bridge=br-mgmt interface=vlan117-MGMT-DOWNLINK
+
+/ip address
+add address=198.51.100.2/30 interface=vlan101-WAN comment=LAB-WAN-PEERING
+add address=192.0.2.2/30 interface=vlan201-SERVICE-A comment=LAB-SERVICE-A
+add address=192.0.2.6/30 interface=vlan301-SERVICE-B comment=LAB-SERVICE-B
+add address=192.0.2.9/30 interface=vlan100-ACCESS-TRANSIT comment=LAB-ACCESS-TRANSIT
+add address=192.0.2.1/24 interface=br-mgmt comment=LAB-MANAGEMENT
+add address=192.0.2.129/24 interface=vlan3998-DEVICE-MGMT comment=LAB-DEVICE-MGMT
+
+/ip pool
+add name=LAB-DHCP-POOL ranges=192.0.2.100-192.0.2.120
+
+/ip dhcp-server
+add address-pool=LAB-DHCP-POOL disabled=no interface=br-mgmt name=LAB-DHCP
+
+/ip dhcp-server network
+add address=192.0.2.0/24 gateway=192.0.2.1 dns-server=1.1.1.1,8.8.8.8
+
+/ip dns
+set servers=1.1.1.1,8.8.8.8
+
+# PCQ queue types and a sample subscriber/service class.
+/queue type
+add kind=pcq name=LAB-DOWNLOAD pcq-classifier=dst-address pcq-rate=10M
+add kind=pcq name=LAB-UPLOAD pcq-classifier=src-address pcq-rate=5M
+
+/queue simple
+add name=LAB-SERVICE-CLIENT target=192.0.2.100/32 max-limit=20M/10M queue=LAB-UPLOAD/LAB-DOWNLOAD
+
+# eBGP: documentation-only peer and ASN.
+/routing bgp instance
+set default as=64520 router-id=192.0.2.1
+
+/ip route
+add dst-address=203.0.113.0/24 type=blackhole comment=LAB-ORIGINATED-PREFIX
+
+/routing bgp network
+add network=203.0.113.0/24 synchronize=no
+
+/routing filter
+add chain=LAB-OUT prefix=203.0.113.0/24 prefix-length=24 action=accept
+add chain=LAB-OUT action=discard
+
+/routing bgp peer
+add name=LAB-TRANSIT remote-address=198.51.100.1 remote-as=64521 out-filter=LAB-OUT
+
+# OSPFv2 on the access transit segment.
+/routing ospf instance
+set [ find default=yes ] router-id=192.0.2.9
+
+/routing ospf network
+add area=backbone network=192.0.2.8/30
+
+# Source NAT for the example management/client segment.
+/ip firewall nat
+add chain=srcnat action=masquerade src-address=192.0.2.0/24 out-interface=vlan101-WAN
+
+# Basic router input protection. Adapt management source ranges before use.
+/ip firewall filter
+add chain=input action=accept connection-state=established,related
+add chain=input action=drop connection-state=invalid
+add chain=input action=accept protocol=icmp
+add chain=input action=accept src-address=192.0.2.0/24 comment=LAB-MANAGEMENT-ONLY
+add chain=input action=drop comment=DROP-OTHER-ROUTER-INPUT
+
+# Forwarding policy for this small lab example.
+/ip firewall filter
+add chain=forward action=accept connection-state=established,related
+add chain=forward action=drop connection-state=invalid
+add chain=forward action=accept src-address=192.0.2.0/24 out-interface=vlan101-WAN
+add chain=forward action=drop comment=DROP-OTHER-FORWARD
+
+# Disable unused management services and limit Winbox to the lab subnet.
+/ip service
+set telnet disabled=yes
+set ftp disabled=yes
+set www disabled=yes
+set api disabled=yes
+set api-ssl disabled=yes
+set ssh address=192.0.2.0/24
+set winbox address=192.0.2.0/24
+
+/ip neighbor discovery-settings
+set discover-interface-list=none
+
+/snmp
+set enabled=no
+
+/system identity
+set name=ROS6-LAB-EDGE
+
+# Deliberately excluded from this public example:
+# - all PPP usernames/passwords and VPN shared secrets;
+# - SMTP credentials, email destinations and backup scripts;
+# - customer names, hostnames, MAC addresses and DHCP leases;
+# - public allocations, provider ASNs, service-specific route lists;
+# - remote syslog destinations, SNMP communities and packet-sniffer targets.
