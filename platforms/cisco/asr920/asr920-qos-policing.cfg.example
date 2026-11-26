@@ -1,0 +1,23 @@
+!
+! QoS policing examples based on the source configuration pattern
+! CIR values below are illustrative only and expressed in bits per second.
+!
+policy-map PM-100M-POLICE
+ class class-default
+  police cir 100000000
+   conform-action transmit
+   exceed-action drop
+!
+policy-map PM-300M-POLICE
+ class class-default
+  police cir 300000000
+   conform-action transmit
+   exceed-action drop
+!
+! Example service-policy attachment (confirm direction and platform support):
+! interface TenGigabitEthernet0/0/24
+!  service-policy input PM-100M-POLICE
+!
+! Do not attach a policer until the intended CIR, burst parameters,
+! direction, service instance behavior and hardware scale are confirmed.
+!
