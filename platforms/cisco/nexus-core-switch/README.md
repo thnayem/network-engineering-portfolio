@@ -18,7 +18,7 @@ This is a sanitized, reduced reference derived from a supplied running configura
 - LACP active port-channels
 - Trunk allow-lists and per-port VLAN handoffs
 - 10-Gigabit and 1-Gigabit uplink examples
-- BPDU filtering as present on selected source uplinks
+- Source BPDU filtering was observed on selected uplinks but has been omitted from the public command template because it can undermine spanning-tree loop protection
 - SPAN source/destination monitoring session
 - NX-OS control-plane policy framework (documented, not copied wholesale)
 
@@ -36,4 +36,4 @@ The source uses `channel-group ... mode active` on selected member interfaces, s
 
 ## Validation
 
-The sanitized file is a documentation reference and has not been loaded into a physical Nexus switch or checked by a Cisco configuration parser. Validate NX-OS feature support, interface naming, VLAN membership, MST region consistency, LACP partner settings, SPAN resource limits, and management reachability against the exact hardware and release before lab use. Do not paste it into production unchanged.
+The sanitized file is a documentation reference and has not been loaded into a physical Nexus switch or checked by a Cisco configuration parser. Validate NX-OS feature support, interface naming, VLAN membership, MST region consistency, LACP partner settings, SPAN resource limits, and management reachability against the exact hardware and release before lab use. Do not reintroduce BPDU Filter on switch-to-switch links without a documented exception and compensating loop-prevention controls. Do not paste it into production unchanged.
