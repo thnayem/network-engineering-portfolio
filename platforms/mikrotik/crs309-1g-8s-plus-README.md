@@ -3,7 +3,7 @@
 - **Hardware:** MikroTik CRS309-1G-8S+
 - **RouterOS:** 6.48.2
 - **Source:** Sanitized, source-derived reference from a device export. The source export clock was unreliable, so no backup date is assigned.
-- **Scope:** VLAN-aware bridge, eight SFP+ switch ports, tagged VLAN membership, management VLAN interfaces, SNMP, neighbor-discovery restriction and RoMON.
+- **Scope:** VLAN-aware bridge, eight SFP+ switch ports, tagged VLAN membership, management VLAN interfaces and neighbor-discovery restriction.
 
 ## Technical coverage
 
@@ -19,6 +19,6 @@ Site, provider, customer and service labels were replaced with generic names. Ma
 
 ## Important notes
 
-This is not a raw backup and is not intended for direct import. The management addresses and labels are placeholders. Review the original topology, VLAN membership, bridge hardware-offload behavior, management access, and exact RouterOS release before adapting it. The source had connection tracking disabled and an enabled SNMP/RoMON configuration; these are retained as source-derived settings, not general recommendations.
+This is a legacy reference retained for provenance; use the canonical [CRS309 folder](./crs309/) for current review. It is not a raw backup and is not intended for direct import. The management addresses and labels are placeholders. Review the original topology, VLAN membership, bridge hardware-offload behavior, management access, and exact RouterOS release before adapting it. The source had connection tracking disabled and an enabled SNMP/RoMON configuration. Those settings have been omitted from the public command file: connection tracking is left at the platform default, and SNMP/RoMON must be enabled only with a reviewed management design.
 
 No RouterOS import or hardware validation has been performed on this public example.
