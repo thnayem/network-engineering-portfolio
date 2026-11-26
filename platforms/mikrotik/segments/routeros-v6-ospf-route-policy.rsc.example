@@ -1,0 +1,41 @@
+# RouterOS 6 OSPF and route-policy example
+# Documentation-only lab prefixes. Standalone routing segment.
+
+# OSPF adjacency networks are represented by documentation addresses.
+/ip address
+add address=192.0.2.9/30 interface=ether2 comment=LAB-OSPF-TRANSIT
+add address=192.0.2.1/30 interface=ether3 comment=LAB-OSPF-ACCESS
+
+/routing filter
+# Reject default and selected unwanted route ranges before accepting lab routes.
+add chain=LAB-OSPF-IN action=discard prefix=0.0.0.0/0
+add chain=LAB-OSPF-IN action=discard prefix=198.51.100.0/24 prefix-length=32
+add chain=LAB-OSPF-IN action=accept prefix=192.0.2.0/24 prefix-length=24
+add chain=LAB-OSPF-IN action=discard
+
+/routing ospf instance
+set [ find default=yes ] router-id=192.0.2.9 in-filter=LAB-OSPF-IN \
+    distribute-default=never
+
+/routing ospf network
+add area=backbone network=192.0.2.8/30
+add area=backbone network=192.0.2.0/30
+
+# Static route and policy-routing example. Disabled by default because
+# the next-hop is a documentation address and requires a matching lab peer.
+/ip route
+add dst-address=203.0.113.0/24 gateway=192.0.2.10 distance=1 \
+    disabled=yes comment=LAB-STATIC-ROUTE
+
+/ip route rule
+add src-address=192.0.2.0/24 dst-address=203.0.113.0/24 \
+    table=LAB-PBR disabled=yes comment=LAB-PBR-RULE
+
+# Check adjacency and learned routes:
+# /routing ospf neighbor print detail
+# /routing ospf route print detail
+# /ip route print detail
+
+# The source export contained explicit OSPF input filters and two OSPF
+# transit networks. This example preserves the policy pattern, not its
+# original internal addressing or routing inventory.
