@@ -1,0 +1,61 @@
+! Cisco Nexus 3000 Rapid-PVST+ / BPDU protection design template
+! Separate design alternative; NOT a verbatim source configuration.
+! Validate command support on the exact Nexus 3000 PID and NX-OS release.
+hostname N3K-RSTP-DESIGN
+feature lacp
+spanning-tree mode rapid-pvst
+
+! Root bridge placement: use only on the intended primary root.
+spanning-tree vlan 10,20,30,40,50,60,70,80 priority 4096
+
+! Edge host ports only: PortFast + BPDU Guard.
+interface Ethernet1/40
+  description HOST-EDGE-PORT
+  switchport
+  switchport mode access
+  switchport access vlan 20
+  spanning-tree port type edge
+  spanning-tree bpduguard enable
+
+! Downstream switch port: Root Guard prevents this device accepting a
+! superior BPDU and losing the intended root role on this branch.
+interface Ethernet1/41
+  description DOWNSTREAM-ACCESS-SWITCH
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 10,20,30
+  spanning-tree guard root
+
+! Redundant switch-facing links: leave BPDUs enabled.
+! Use Loop Guard only where the port role/topology makes it appropriate.
+interface Ethernet1/42
+  description REDUNDANT-SWITCH-UPLINK
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 10,20,30
+  spanning-tree guard loop
+
+! LACP port-channel: configure the logical bundle and keep member policy
+! consistent. Do not apply BPDU Filter to hide loops on the bundle.
+interface port-channel10
+  description SWITCH-TO-SWITCH-LACP
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 10,20,30
+
+interface Ethernet1/43
+  description SWITCH-LACP-MEMBER-A
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 10,20,30
+  channel-group 10 mode active
+
+interface Ethernet1/44
+  description SWITCH-LACP-MEMBER-B
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 10,20,30
+  channel-group 10 mode active
+
+! Never enable BPDU Filter globally or on redundant switch-to-switch links.
+! BPDU Guard is for edge ports; Root Guard and Loop Guard have different roles.
