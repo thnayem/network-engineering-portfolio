@@ -120,7 +120,7 @@ interface Ethernet11
    description ACCESS-SWITCH-UPLINK
    switchport trunk allowed vlan 109,209,309,409,1700-1708,4090
    switchport mode trunk
-   spanning-tree bpdufilter enable
+   ! Source BPDU Filter setting intentionally omitted; do not use on switch-facing links.
 !
 interface Ethernet12
    description SERVICE-HANDOFF-C
@@ -155,7 +155,7 @@ interface Ethernet17
    switchport trunk allowed vlan 388
    switchport mode trunk
    channel-group 3 mode active
-   spanning-tree bpdufilter enable
+   ! Source BPDU Filter setting intentionally omitted; do not use on switch-facing links.
 !
 interface Ethernet18
    description LACP-MEMBER-1G-B
@@ -163,7 +163,7 @@ interface Ethernet18
    switchport trunk allowed vlan 388
    switchport mode trunk
    channel-group 3 mode active
-   spanning-tree bpdufilter enable
+   ! Source BPDU Filter setting intentionally omitted; do not use on switch-facing links.
 !
 interface Ethernet19
    description LACP-MEMBER-10G-A
@@ -171,7 +171,7 @@ interface Ethernet19
    switchport mode trunk
    channel-group 2 mode active
    no lldp transmit
-   spanning-tree bpdufilter enable
+   ! Source BPDU Filter setting intentionally omitted; do not use on switch-facing links.
 !
 interface Ethernet20
    description LACP-MEMBER-10G-B
@@ -179,37 +179,37 @@ interface Ethernet20
    switchport mode trunk
    channel-group 2 mode active
    no lldp transmit
-   spanning-tree bpdufilter enable
+   ! Source BPDU Filter setting intentionally omitted; do not use on switch-facing links.
 !
 interface Ethernet21
    description NTTN-UPLINK-A
    switchport trunk allowed vlan 3161
    switchport mode trunk
-   spanning-tree bpdufilter enable
+   ! Source BPDU Filter setting intentionally omitted; do not use on switch-facing links.
 !
 interface Ethernet22
    description NIX-UPLINK-A
    switchport trunk allowed vlan 2500
    switchport mode trunk
-   spanning-tree bpdufilter enable
+   ! Source BPDU Filter setting intentionally omitted; do not use on switch-facing links.
 !
 interface Ethernet23
    description NIX-UPLINK-B
    switchport trunk allowed vlan 2500
    switchport mode trunk
-   spanning-tree bpdufilter enable
+   ! Source BPDU Filter setting intentionally omitted; do not use on switch-facing links.
 !
 interface Ethernet24
    description CDN-UPLINK
    switchport trunk allowed vlan 1375,2375
    switchport mode trunk
-   spanning-tree bpdufilter enable
+   ! Source BPDU Filter setting intentionally omitted; do not use on switch-facing links.
 !
 interface Ethernet25
    description NTTN-UPLINK-B
    switchport trunk allowed vlan 2031
    switchport mode trunk
-   spanning-tree bpdufilter enable
+   ! Source BPDU Filter setting intentionally omitted; do not use on switch-facing links.
 !
 interface Ethernet26
    description TRUNK-PORT-26
