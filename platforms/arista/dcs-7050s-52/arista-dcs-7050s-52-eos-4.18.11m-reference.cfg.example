@@ -1,0 +1,329 @@
+!
+! Arista DCS-7050S-52 | EOS 4.18.11M
+! Sanitized source-derived reference configuration.
+! Original hostname, organization/provider labels, usernames, password hashes,
+! SNMP community and management addressing have been removed.
+!
+! Documentation-only management addressing:
+!   Vlan99: 192.0.2.6/30
+!   Default gateway: 192.0.2.5
+!
+! This is not a deployable backup. Review every VLAN and interface mapping.
+!
+! boot system flash:/EOS-4.18.11M.swi
+!
+transceiver qsfp default-mode 4x10G
+!
+hostname ARISTA-7050S-CORE
+ip domain-name example.invalid
+!
+! SNMP community intentionally omitted.
+! Prefer SNMPv3 authPriv and management ACLs.
+!
+spanning-tree mode mstp
+! Source disabled STP for VLANs 1375 and 2375. Preserved as a commented
+! reference because disabling STP can create Layer-2 loop risk.
+! no spanning-tree vlan 1375,2375
+!
+spanning-tree mst configuration
+   name CORE-MST
+   revision 1
+!
+no aaa root
+!
+! Local usernames and SHA-512 password hashes intentionally removed.
+! Configure unique local accounts and SSH access through approved AAA policy.
+!
+vlan 99-102,104-106,108-113,115-118,121,188,198-201,205-206,208-209,211,215,223-226,252,301,303,305-306,308-309,311,315,388,400-403,405-413,415-416,431,499,501,882,900,1200,1550,1700-1708,2031,2799,2820,3161,3998,4086
+!
+vlan 414
+   name PEERING-TRANSIT
+!
+vlan 880
+   name CACHE-SERVICE
+!
+vlan 1375
+   name CDN-SERVICE-A
+!
+vlan 2375
+   name CDN-SERVICE-B
+!
+vlan 2500
+   name NIX-PEERING
+!
+vlan 4090
+   name SWITCH-MANAGEMENT
+!
+interface Port-Channel2
+   description EXAMPLE-LACP-BUNDLE-10G
+   switchport trunk allowed vlan 2820
+   switchport mode trunk
+!
+interface Port-Channel3
+   description EXAMPLE-LACP-BUNDLE-1G
+   switchport trunk allowed vlan 388
+   switchport mode trunk
+!
+interface Ethernet1
+   description TRANSIT-HANDOFF-A
+   switchport trunk allowed vlan 103,106,108,110-113
+   switchport mode trunk
+!
+interface Ethernet2
+   description CONTENT-HANDOFF-A
+   switchport trunk allowed vlan 121,203,206,208,211,402,900,4089
+   switchport mode trunk
+!
+interface Ethernet3
+   description CONTENT-HANDOFF-B
+   switchport trunk allowed vlan 116,120,303,306,308,311,4087
+   switchport mode trunk
+!
+interface Ethernet4
+   description PEERING-HANDOFF-A
+   speed forced 1000full
+   switchport trunk allowed vlan 100,252,400-403,405-416,420,431,499,1200,2500,4086,4090
+   switchport mode trunk
+!
+interface Ethernet5
+   description TRANSIT-HANDOFF-B
+   speed forced 1000full
+   switchport trunk allowed vlan 109,115,209,215,309,315,406-407,409,415,3161
+   switchport mode trunk
+!
+interface Ethernet6
+   description CORE-INTERCONNECT-A
+   switchport trunk allowed vlan 99-102,104-105,108-109,111-113,115-118,121,188,199,201,203,205,208-209,211,215,223-226,252,301,303,305-306,308-309,311,315,388,400,405-414,416,431,499,501,880,882,892,900,1200,1375,1700-1708,2031,2375,3161,3998,4087,4089-4090
+   switchport mode trunk
+!
+interface Ethernet7
+   description CORE-INTERCONNECT-B
+   switchport trunk allowed vlan 99-102,104-105,108-109,111-113,115-118,121,188,199,201,203,205,208-209,211,215,223-226,252,301,303,305-306,308-309,311,315,388,400,405,407-408,410-413,416,431,499,501,880,882,892,900,1200,1375,1700-1708,2031,2375,3998,4087,4089
+   switchport mode trunk
+!
+interface Ethernet8
+   description GENERAL-TRUNK-REVIEW-ALLOWED-VLANS
+   switchport trunk allowed vlan 1-100,102-104,106-108,110-200,202-204,206-208,210-300,302-304,306-308,310-4094
+   switchport mode trunk
+!
+interface Ethernet9
+   description MANAGEMENT-SERVICE-HANDOFF
+   speed auto
+   switchport trunk allowed vlan 4086-4087,4089
+   switchport mode trunk
+!
+interface Ethernet10
+   description TRUNK-UNRESTRICTED-SOURCE-PATTERN
+   switchport mode trunk
+!
+interface Ethernet11
+   description ACCESS-SWITCH-UPLINK
+   switchport trunk allowed vlan 109,209,309,409,1700-1708,4090
+   switchport mode trunk
+   spanning-tree bpdufilter enable
+!
+interface Ethernet12
+   description SERVICE-HANDOFF-C
+   speed forced 1000full
+   switchport trunk allowed vlan 105,198,205,305,405
+   switchport mode trunk
+!
+interface Ethernet13
+   description ROUTER-SERVICE-HANDOFF
+   switchport trunk allowed vlan 100-102,104,115,117-118,120,188,198-201,301,388,401,501,880,882,1550,3998
+   switchport mode trunk
+!
+interface Ethernet14
+   description TRUNK-PORT-14
+   switchport mode trunk
+!
+interface Ethernet15
+   description TRUNK-PORT-15
+   switchport mode trunk
+!
+interface Ethernet16
+   description FIBER-HANDOFF
+   switchport trunk allowed vlan none
+   switchport mode trunk
+   switchport port-security maximum 4
+   switchport port-security
+   spanning-tree bpduguard enable
+!
+interface Ethernet17
+   description LACP-MEMBER-1G-A
+   speed forced 1000full
+   switchport trunk allowed vlan 388
+   switchport mode trunk
+   channel-group 3 mode active
+   spanning-tree bpdufilter enable
+!
+interface Ethernet18
+   description LACP-MEMBER-1G-B
+   speed forced 1000full
+   switchport trunk allowed vlan 388
+   switchport mode trunk
+   channel-group 3 mode active
+   spanning-tree bpdufilter enable
+!
+interface Ethernet19
+   description LACP-MEMBER-10G-A
+   switchport trunk allowed vlan 2799
+   switchport mode trunk
+   channel-group 2 mode active
+   no lldp transmit
+   spanning-tree bpdufilter enable
+!
+interface Ethernet20
+   description LACP-MEMBER-10G-B
+   switchport trunk allowed vlan 2799
+   switchport mode trunk
+   channel-group 2 mode active
+   no lldp transmit
+   spanning-tree bpdufilter enable
+!
+interface Ethernet21
+   description NTTN-UPLINK-A
+   switchport trunk allowed vlan 3161
+   switchport mode trunk
+   spanning-tree bpdufilter enable
+!
+interface Ethernet22
+   description NIX-UPLINK-A
+   switchport trunk allowed vlan 2500
+   switchport mode trunk
+   spanning-tree bpdufilter enable
+!
+interface Ethernet23
+   description NIX-UPLINK-B
+   switchport trunk allowed vlan 2500
+   switchport mode trunk
+   spanning-tree bpdufilter enable
+!
+interface Ethernet24
+   description CDN-UPLINK
+   switchport trunk allowed vlan 1375,2375
+   switchport mode trunk
+   spanning-tree bpdufilter enable
+!
+interface Ethernet25
+   description NTTN-UPLINK-B
+   switchport trunk allowed vlan 2031
+   switchport mode trunk
+   spanning-tree bpdufilter enable
+!
+interface Ethernet26
+   description TRUNK-PORT-26
+   switchport mode trunk
+!
+interface Ethernet27
+   description TRUNK-PORT-27
+   switchport mode trunk
+!
+interface Ethernet28
+   description TRUNK-PORT-28
+   switchport mode trunk
+!
+interface Ethernet29
+   description TRUNK-PORT-29
+   switchport mode trunk
+!
+interface Ethernet30
+   description TRUNK-PORT-30
+   switchport mode trunk
+!
+interface Ethernet31
+   description TRUNK-PORT-31
+   switchport mode trunk
+!
+interface Ethernet32
+   description TRUNK-PORT-32
+   switchport mode trunk
+!
+interface Ethernet33
+   description TRUNK-PORT-33
+   switchport mode trunk
+!
+interface Ethernet34
+   description TRUNK-PORT-34
+   switchport mode trunk
+!
+interface Ethernet35
+   description TRUNK-PORT-35
+   switchport mode trunk
+!
+interface Ethernet36
+   description TRUNK-PORT-36
+   switchport mode trunk
+!
+interface Ethernet37
+   description TRUNK-PORT-37
+   switchport mode trunk
+!
+interface Ethernet38
+   description TRUNK-PORT-38
+   switchport mode trunk
+!
+interface Ethernet39
+   description TRUNK-PORT-39
+   switchport mode trunk
+!
+interface Ethernet40
+   description TRUNK-PORT-40
+   switchport mode trunk
+!
+interface Ethernet41
+   description TRUNK-PORT-41
+   switchport mode trunk
+!
+interface Ethernet42
+   description TRUNK-PORT-42
+   switchport mode trunk
+!
+interface Ethernet43
+   description TRUNK-PORT-43
+   switchport mode trunk
+!
+interface Ethernet44
+   description TRUNK-PORT-44
+   switchport mode trunk
+!
+interface Ethernet45
+   description TRUNK-PORT-45
+   switchport mode trunk
+!
+interface Ethernet46
+   description TRUNK-PORT-46
+   switchport mode trunk
+!
+interface Ethernet47
+   description TRUNK-PORT-47
+   switchport mode trunk
+!
+interface Ethernet48
+   description ACCESS-PORT-VLAN-112
+   switchport access vlan 112
+!
+interface Ethernet49
+!
+interface Ethernet50
+!
+interface Ethernet51
+!
+interface Ethernet52
+!
+interface Management1
+!
+interface Vlan99
+   description OUT-OF-BAND-MGMT-EXAMPLE
+   ip address 192.0.2.6/30
+!
+ip route 0.0.0.0/0 192.0.2.5
+!
+ip routing
+!
+ip ssh client source-interface Vlan99
+!
+management ssh
+   idle-timeout 180
+!
+end
