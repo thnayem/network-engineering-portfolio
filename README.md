@@ -28,17 +28,22 @@ All public examples are sanitized or independently authored for documentation. T
 
 ## Featured platform references
 
+### Juniper
+- [MX204](./platforms/juniper/mx204/) - logical systems, firewall filters, routing policy, and service forwarding.
+- [MX240](./platforms/juniper/mx240/) - logical systems, logical tunnels, BGP policy, and chassis patterns.
+
 ### Cisco
 - [ASR 920](./platforms/cisco/asr920/) - EVC service instances, bridge domains, BDI, VRF-aware BGP, route policy, and QoS.
 - [7606-S](./platforms/cisco/7606s/) - VRFs, VLAN handoffs, static EtherChannel, BGP, PBR, QoS, and Layer 2 controls.
 - [Nexus core switch, NX-OS 7.0(3)I4(3)](./platforms/cisco/nexus-core-switch/) - source-derived MST, VLAN, LACP, trunk, and SPAN reference.
 - [Nexus 3000 core, NX-OS 7.0(3)I4(6)](./platforms/cisco/nexus-3k-cybernet-core/) - separate source-derived MST reference and STP/RSTP design alternative.
 
-### Other platforms
+### MikroTik
+- [RouterOS 6/7](./platforms/mikrotik/) - CCR routing references, RouterOS v6/v7 equivalents, BGP, OSPF, PBR, NAT, QoS, and CRS309 switching.
+- [CRS309](./platforms/mikrotik/crs309/) - RouterOS 6.48.2 VLAN-aware bridge, tagged trunks, and bridge VLAN membership.
+
+### Others
 - [Arista DCS-7050S-52](./platforms/arista/dcs-7050s-52/) - EOS 4.18.11M, VLANs, trunks, MSTP, LACP, and management controls.
-- [Juniper MX204](./platforms/juniper/mx204/) - logical systems, firewall filters, routing policy, and service forwarding.
-- [Juniper MX240](./platforms/juniper/mx240/) - logical systems, logical tunnels, BGP policy, and chassis patterns.
-- [MikroTik RouterOS 6/7](./platforms/mikrotik/) - CCR routing references, RouterOS v6/v7 equivalents, BGP, OSPF, PBR, NAT, QoS, and CRS309 switching.
 - [BDCOM access and POP switches](./platforms/bdcom/) - VLAN handoffs, trunk allow-lists, RSTP, aggregation, and 10G uplinks.
 - [Huawei MA5800-X7](./platforms/huawei/) - GPON profiles, DBA, GEM mapping, service VLANs, ONT operations, and management.
 
