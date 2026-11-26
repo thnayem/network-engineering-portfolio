@@ -1,0 +1,67 @@
+!
+! Cisco ASR 920-24SZ-M | IOS XE 15.6 reference
+! Source family: ASR-920-24SZ-M, IOS 15.6 / 03.18.02.SP2
+! Sanitized, reduced design example. Not a device backup.
+!
+! All names, ASNs, VLAN IDs, addresses and peer identities below are examples.
+! Documentation prefixes only: 192.0.2.0/24, 198.51.100.0/24, 203.0.113.0/24.
+!
+version 15.6
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no ip domain lookup
+!
+hostname ASR920-EDGE
+!
+vrf definition VRF-CONTENT-A
+ rd 65000:101
+ address-family ipv4
+ exit-address-family
+!
+vrf definition VRF-CONTENT-B
+ rd 65000:102
+ address-family ipv4
+ exit-address-family
+!
+vrf definition VRF-PEERING
+ rd 65000:103
+ address-family ipv4
+ exit-address-family
+!
+vrf definition Mgmt-intf
+ address-family ipv4
+ exit-address-family
+!
+! Enable the appropriate license level only after confirming entitlement.
+! Exact license and boot image depend on the ASR920 PID and IOS XE release.
+!
+interface Loopback0
+ ip address 192.0.2.1 255.255.255.255
+!
+interface GigabitEthernet0/0/0
+ description EXAMPLE-L3-TRANSIT
+ no ip address
+ negotiation auto
+!
+interface GigabitEthernet0/0/23
+ description EXAMPLE-ROUTED-PORT
+ ip address 192.0.2.5 255.255.255.252
+ negotiation auto
+!
+interface GigabitEthernet0
+ description OUT-OF-BAND-MANAGEMENT
+ vrf forwarding Mgmt-intf
+ ip address 198.51.100.2 255.255.255.252
+ negotiation auto
+!
+ip route 0.0.0.0 0.0.0.0 192.0.2.6
+!
+no ip http server
+no ip http secure-server
+ip ssh version 2
+!
+line vty 0 4
+ login local
+ transport input ssh
+!
+end
