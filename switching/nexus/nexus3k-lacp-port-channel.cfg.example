@@ -1,0 +1,32 @@
+! Cisco Nexus 3000 Series - LACP port-channel reference
+! Confirm LACP feature and interface capabilities on target hardware.
+
+feature lacp
+
+interface port-channel10
+  description LAB-LACP-UPLINK
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 10,20,30,99
+  spanning-tree port type network
+
+interface Ethernet1/49
+  description LAB-PORT-CHANNEL-MEMBER-1
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 10,20,30,99
+  channel-group 10 mode active
+
+interface Ethernet1/50
+  description LAB-PORT-CHANNEL-MEMBER-2
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 10,20,30,99
+  channel-group 10 mode active
+
+! Both ends must agree on L2/L3 mode, VLAN list, MTU and speed/duplex.
+! Verification:
+! show port-channel summary
+! show lacp neighbor
+! show interface port-channel 10
+! show interface counters errors
