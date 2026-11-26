@@ -17,7 +17,7 @@ This reference is derived from a supplied running configuration. It retains the 
 - 802.1Q trunk interfaces and allowed VLAN lists
 - LACP port-channels (Port-Channel2 and Port-Channel3)
 - Link aggregation member interfaces
-- BPDU Filter and BPDU Guard interface settings
+- BPDU Guard edge-port example; source BPDU Filter settings are documented but commented out in the public configuration because they can suppress loop-detection BPDUs
 - Port security on a fiber-facing trunk
 - 1G forced-speed and auto-speed interface patterns
 - Management SVI, default route and SSH management source interface
@@ -41,7 +41,7 @@ The published example uses generic interface descriptions, a reserved documentat
 The following behaviors were present in the source and are preserved or explicitly documented rather than silently changed:
 
 1. **STP disabled for VLAN 1375 and 2375.** This can remove loop protection for those VLANs. Confirm the Layer-2 topology and loop-prevention design before enabling or disabling STP.
-2. **BPDU Filter on multiple uplinks.** BPDU filtering can hide spanning-tree information and increase loop risk. Validate whether these links are intended to be edge-facing.
+2. **BPDU Filter on multiple uplinks.** The source used BPDU filtering on multiple uplinks; those commands are commented out in the public example. BPDU filtering can hide spanning-tree information and increase loop risk. Do not enable it on switch-to-switch links without a documented exception and compensating controls.
 3. **BPDU Guard on a trunk interface.** Confirm the connected device is an edge device and that receiving a BPDU should err-disable/protect the port.
 4. **Broad trunk VLAN ranges.** Ethernet8 permits a very wide VLAN range; Ethernet10 and several other ports have no explicit allowed-VLAN list. Restrict trunks to only the VLANs required by each link.
 5. **Port security on a trunk.** Confirm the feature's behavior and suitability on the exact EOS release and interface role.
