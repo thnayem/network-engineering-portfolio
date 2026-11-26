@@ -41,11 +41,15 @@ add name=LAB-SERVICE instance=LAB-BGP local.role=ebgp \
     output.network=LAB-BGP-V4-ORIGIN
 
 # IPv6 peer uses the same BGP instance with IPv6 address-family enabled.
+# A matching IPv6 route must exist before the output filter can advertise it.
 /routing filter rule
 add chain=LAB-V6-IN rule="if (dst in 2001:db8:200::/48) { accept }"
 add chain=LAB-V6-IN rule="reject"
 add chain=LAB-V6-OUT rule="if (dst == 2001:db8:100::/48) { accept }"
 add chain=LAB-V6-OUT rule="reject"
+
+/ipv6 route
+add dst-address=2001:db8:100::/48 type=blackhole comment=LAB-ORIGINATED-V6
 
 /routing bgp connection
 add name=LAB-TRANSIT-V6 instance=LAB-BGP local.role=ebgp \
