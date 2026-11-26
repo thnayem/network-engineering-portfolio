@@ -2,6 +2,10 @@
 
 This directory contains independently authored Nexus 3K-style lab examples. They use fictional labels and documentation-only addressing. They are not raw device backups and do not identify an employer or network.
 
+## Source-derived core switch reference
+
+A separate source-derived NX-OS 7.0(3)I4(3) configuration is documented under [Cisco Nexus core switch](../../platforms/cisco/nexus-core-switch/). That reference is based on a supplied running configuration and is distinct from the generic lab examples below.
+
 ## Configuration examples
 
 | Topic | File |
