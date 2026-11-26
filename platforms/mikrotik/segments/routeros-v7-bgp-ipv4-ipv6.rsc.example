@@ -50,7 +50,7 @@ add chain=LAB-V6-OUT rule="reject"
 /routing bgp connection
 add name=LAB-TRANSIT-V6 instance=LAB-BGP local.role=ebgp \
     remote.address=2001:db8:100:1::1 remote.as=64521 \
-    address-families=ip,ipv6 input.filter=LAB-V6-IN \
+    afi=ip,ipv6 input.filter=LAB-V6-IN \
     output.filter-chain=LAB-V6-OUT
 
 # IPv6 originated routes require a matching route in the routing table.
