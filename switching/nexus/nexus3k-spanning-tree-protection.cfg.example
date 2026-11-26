@@ -1,0 +1,27 @@
+! Cisco Nexus 3000 Series - Spanning Tree reference
+! Validate feature availability and supported STP mode on target NX-OS.
+
+spanning-tree mode rapid-pvst
+spanning-tree vlan 10,20,30,99 priority 4096
+
+! Edge access port: PortFast-equivalent behavior on supported NX-OS.
+interface Ethernet1/1
+  description LAB-ENDPOINT-EDGE
+  spanning-tree port type edge
+  spanning-tree bpduguard enable
+
+! Use network port type on switch-to-switch links, not endpoint ports.
+interface Ethernet1/47
+  description LAB-SWITCH-UPLINK
+  spanning-tree port type network
+
+! Root guard example for a downstream-facing designated port.
+interface Ethernet1/10
+  description LAB-DOWNSTREAM-SWITCH
+  spanning-tree guard root
+
+! Verification:
+! show spanning-tree summary
+! show spanning-tree vlan 10
+! show spanning-tree interface Ethernet1/1 detail
+! show spanning-tree inconsistentports
