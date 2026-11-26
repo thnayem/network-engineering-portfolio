@@ -1,0 +1,13 @@
+! Policy-Based Routing lab
+ip access-list extended CACHE-CLIENTS
+ permit ip 10.30.30.0 0.0.0.255 any
+!
+route-map CACHE-PBR permit 10
+ match ip address CACHE-CLIENTS
+ set vrf CACHE
+!
+interface Vlan30
+ ip policy route-map CACHE-PBR
+!
+! Verify IOS command support, VRF route resolution and return path.
+! PBR can create asymmetric forwarding; do not enable without traffic testing.

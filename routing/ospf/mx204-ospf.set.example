@@ -1,0 +1,12 @@
+# MX204 OSPF Area 0 lab; fictional documentation addresses.
+# MX204 lo0 192.0.2.1/32; P2P link 10.0.12.1/30.
+set interfaces lo0 unit 0 family inet address 192.0.2.1/32
+set interfaces et-0/0/5 description "LAB-OSPF-CORE-LINK"
+set interfaces et-0/0/5 unit 0 family inet address 10.0.12.1/30
+set routing-options router-id 192.0.2.1
+set protocols ospf area 0.0.0.0 interface lo0.0 passive
+set protocols ospf area 0.0.0.0 interface et-0/0/5.0 interface-type p2p
+set protocols ospf area 0.0.0.0 interface et-0/0/5.0 hello-interval 10
+set protocols ospf area 0.0.0.0 interface et-0/0/5.0 dead-interval 40
+# Neighbor LAB-CORE: 10.0.12.2/30, router-id 192.0.2.2, area 0.
+# Configure matching timers and authentication on the neighbor.

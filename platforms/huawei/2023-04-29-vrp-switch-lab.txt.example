@@ -1,0 +1,17 @@
+# Reference archive date: 2023-04-29
+# Independently authored fictional Huawei VRP lab. Not an original export.
+
+system-view
+vlan batch 10 20 99
+
+interface GigabitEthernet0/0/1
+ port link-type access
+ port default vlan 10
+ quit
+
+interface GigabitEthernet0/0/48
+ port link-type trunk
+ port trunk allow-pass vlan 10 20 99
+ quit
+
+# Validate syntax and feature support against the exact VRP platform/release.

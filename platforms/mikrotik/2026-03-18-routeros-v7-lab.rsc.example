@@ -1,0 +1,52 @@
+# Reference archive date: 2026-03-18
+# Independently authored lab example. Not copied from an archived device export.
+# Fictional interfaces, VLANs and documentation-only addressing.
+# Review on the target RouterOS v7 release before importing.
+
+/interface bridge
+add name=br-lab protocol-mode=rstp vlan-filtering=no
+
+/interface bridge port
+add bridge=br-lab interface=ether2 pvid=10
+add bridge=br-lab interface=ether3 pvid=20
+add bridge=br-lab interface=ether4
+
+/interface bridge vlan
+add bridge=br-lab vlan-ids=10 tagged=br-lab,ether4 untagged=ether2
+add bridge=br-lab vlan-ids=20 tagged=br-lab,ether4 untagged=ether3
+add bridge=br-lab vlan-ids=99 tagged=br-lab,ether4
+
+/interface bridge
+set br-lab vlan-filtering=yes
+
+# Tagged transit VLAN on the bridge CPU port and trunk.
+/interface vlan
+add name=vlan99-transit interface=br-lab vlan-id=99
+
+/ip address
+add address=192.0.2.1/30 interface=vlan99-transit comment="LAB-TRANSIT"
+
+/routing ospf instance
+add name=lab-v2 version=2 router-id=10.255.0.1
+
+/routing ospf area
+add name=backbone instance=lab-v2 area-id=0.0.0.0
+
+/routing ospf interface-template
+add area=backbone networks=192.0.2.0/30
+
+# Separate routing table example. Configure and verify a reachable next hop
+# before enabling policy routing that uses this table.
+/routing table
+add fib name=via-lab-wan
+
+/ip route
+add dst-address=0.0.0.0/0 gateway=198.51.100.1 routing-table=via-lab-wan
+
+# Verification:
+/interface bridge vlan print
+/interface bridge port print
+/interface vlan print
+/ip address print
+/routing ospf neighbor print
+/routing route print

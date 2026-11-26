@@ -1,0 +1,69 @@
+# Juniper MX240 / Junos 18.2R3-S5.3
+# Hands-on network engineering demonstration using fictional values.
+# Representative excerpt only; not a complete backup or deployable configuration.
+# All identifiers, addresses, ASNs, service labels and peer values are fictional.
+
+# Chassis configuration patterns
+set chassis aggregated-devices ethernet device-count 128
+set chassis fpc 0 pic 0 tunnel-services bandwidth 20g
+set chassis fpc 0 pic 0 port 0 speed 40g
+set chassis fpc 0 pic 0 port 1 speed 40g
+set chassis fpc 0 pic 0 port 2 speed 40g
+set chassis fpc 0 pic 0 port 3 speed 100g
+set chassis fpc 0 pic 1 port 0 speed 10g
+set chassis fpc 0 pic 1 port 1 speed 10g
+set chassis fpc 0 pic 1 port 2 speed 10g
+set chassis fpc 0 pic 1 port 3 speed 10g
+
+# Explicit ASNs for both logical systems. They share AS 64520 for iBGP.
+set logical-systems SERVICE-A routing-options router-id 192.0.2.10
+set logical-systems SERVICE-A routing-options autonomous-system 64520
+set logical-systems SERVICE-B routing-options router-id 192.0.2.20
+set logical-systems SERVICE-B routing-options autonomous-system 64520
+
+# Logical-system service separation with neutral labels
+set logical-systems SERVICE-A interfaces lt-0/0/0 unit 3 encapsulation ethernet
+set logical-systems SERVICE-A interfaces lt-0/0/0 unit 3 peer-unit 2
+set logical-systems SERVICE-A interfaces lt-0/0/0 unit 3 family inet address 10.255.10.2/30
+
+# Aggregated Ethernet VLAN handoff
+set logical-systems SERVICE-A interfaces ae2 unit 218 description LAB-SERVICE-HANDOFF
+set logical-systems SERVICE-A interfaces ae2 unit 218 vlan-id 218
+set logical-systems SERVICE-A interfaces ae2 unit 218 family inet address 192.0.2.1/30
+
+# Logical tunnel peer in a separate routing context
+set logical-systems SERVICE-B interfaces lt-0/0/0 unit 2 encapsulation ethernet
+set logical-systems SERVICE-B interfaces lt-0/0/0 unit 2 peer-unit 3
+set logical-systems SERVICE-B interfaces lt-0/0/0 unit 2 family inet address 10.255.10.1/30
+
+# Internal BGP between service contexts
+set logical-systems SERVICE-B protocols bgp group INTERNAL-SERVICE type internal
+set logical-systems SERVICE-B protocols bgp group INTERNAL-SERVICE peer-as 64520
+set logical-systems SERVICE-B protocols bgp group INTERNAL-SERVICE neighbor 10.255.10.2
+
+# External BGP example with private documentation ASN and address
+set logical-systems SERVICE-A protocols bgp group EXTERNAL-SERVICE type external
+set logical-systems SERVICE-A protocols bgp group EXTERNAL-SERVICE peer-as 64530
+set logical-systems SERVICE-A protocols bgp group EXTERNAL-SERVICE neighbor 192.0.2.2
+set logical-systems SERVICE-A protocols bgp group EXTERNAL-SERVICE import SERVICE-IN
+set logical-systems SERVICE-A protocols bgp group EXTERNAL-SERVICE export SERVICE-OUT
+
+# Explicit import policy: accept only the default route from the lab peer.
+set logical-systems SERVICE-A policy-options policy-statement SERVICE-IN term DEFAULT from route-filter 0.0.0.0/0 exact
+set logical-systems SERVICE-A policy-options policy-statement SERVICE-IN term DEFAULT then accept
+set logical-systems SERVICE-A policy-options policy-statement SERVICE-IN term REJECT-REST then reject
+
+# Explicit export policy: advertise only the directly connected lab handoff.
+set logical-systems SERVICE-A policy-options policy-statement SERVICE-OUT term LAB-HANDOFF from protocol direct
+set logical-systems SERVICE-A policy-options policy-statement SERVICE-OUT term LAB-HANDOFF from route-filter 192.0.2.0/30 exact
+set logical-systems SERVICE-A policy-options policy-statement SERVICE-OUT term LAB-HANDOFF then accept
+set logical-systems SERVICE-A policy-options policy-statement SERVICE-OUT term REJECT-REST then reject
+
+# Example service policer; rate is illustrative, not a production allocation
+set logical-systems SERVICE-B firewall policer LAB-SERVICE-POLICER if-exceeding bandwidth-limit 100m
+set logical-systems SERVICE-B firewall policer LAB-SERVICE-POLICER if-exceeding burst-size-limit 256k
+set logical-systems SERVICE-B firewall policer LAB-SERVICE-POLICER then discard
+
+# This remains a reduced representative excerpt. Validate logical-system
+# routing, interface ownership, policy behavior, chassis support and syntax
+# with the target MX240 hardware and Junos release before lab use.

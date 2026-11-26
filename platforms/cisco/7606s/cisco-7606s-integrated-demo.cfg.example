@@ -1,0 +1,230 @@
+! Cisco Catalyst 7606-S / IOS 15.5-style sanitized reference
+! Real-world network engineering demonstration with fictional values.
+! Representative configuration, not a raw backup or deployment template.
+
+version 15.5
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no ip domain-lookup
+ip domain-name lab.example
+hostname LAB-7606S-CORE
+!
+ip cef
+ipv6 unicast-routing
+!
+! VRF-Lite service separation
+ip vrf INTERNET
+ rd 65010:100
+ route-target export 65010:100
+ route-target import 65010:100
+!
+ip vrf CDN
+ rd 65010:200
+ route-target export 65010:200
+ route-target import 65010:200
+!
+ip vrf CACHE
+ rd 65010:300
+ route-target export 65010:300
+ route-target import 65010:300
+!
+ip vrf MGMT
+ rd 65010:900
+ route-target export 65010:900
+ route-target import 65010:900
+!
+interface Loopback0
+ description LAB-ROUTER-ID
+ ip address 192.0.2.1 255.255.255.255
+!
+! The VRF-local static route makes the BGP network statement resolvable
+! inside INTERNET. It is a lab origination example, not a service route.
+ip route vrf INTERNET 192.0.2.1 255.255.255.255 Null0
+!
+! Static EtherChannel to lab distribution switch.
+! This demonstrates mode on; it is not LACP.
+interface Port-channel5
+ description LAB-DIST-SW-STATIC-ETHERCHANNEL
+ no ip address
+ no shutdown
+!
+interface TenGigabitEthernet1/3
+ description LAB-DIST-SW-MEMBER-1
+ no ip address
+ channel-group 5 mode on
+ no shutdown
+!
+interface TenGigabitEthernet1/6
+ description LAB-DIST-SW-MEMBER-2
+ no ip address
+ channel-group 5 mode on
+ no shutdown
+!
+! 802.1Q routed service handoffs
+interface Port-channel5.100
+ description INTERNET-TRANSIT-LAB
+ encapsulation dot1Q 100
+ ip vrf forwarding INTERNET
+ ip address 198.51.100.1 255.255.255.252
+ no ip redirects
+ no ip proxy-arp
+ no shutdown
+!
+interface Port-channel5.200
+ description CDN-PEERING-LAB
+ encapsulation dot1Q 200
+ ip vrf forwarding CDN
+ ip address 203.0.113.1 255.255.255.252
+ no ip redirects
+ no ip proxy-arp
+ no shutdown
+!
+interface Port-channel5.300
+ description CACHE-SERVICE-LAB
+ encapsulation dot1Q 300
+ ip vrf forwarding CACHE
+ ip address 10.30.0.1 255.255.255.252
+ no ip redirects
+ no ip proxy-arp
+ no shutdown
+!
+interface Port-channel5.900
+ description MANAGEMENT-LAB
+ encapsulation dot1Q 900
+ ip vrf forwarding MGMT
+ ip address 10.90.0.1 255.255.255.252
+ no ip redirects
+ no ip proxy-arp
+ no shutdown
+!
+vlan 30
+ name CACHE-SERVERS
+!
+interface GigabitEthernet5/1
+ description LAB-CACHE-SERVER-01
+ switchport
+ switchport mode access
+ switchport access vlan 30
+ spanning-tree portfast
+ no shutdown
+!
+interface Vlan30
+ description CACHE-SERVER-GATEWAY
+ ip vrf forwarding CACHE
+ ip address 10.30.30.1 255.255.255.0
+ no ip redirects
+ no ip proxy-arp
+ no shutdown
+!
+router ospf 100 vrf INTERNET
+ router-id 192.0.2.1
+ passive-interface default
+ no passive-interface Port-channel5.100
+ network 198.51.100.0 0.0.0.3 area 0
+!
+router bgp 65010
+ bgp router-id 192.0.2.1
+ bgp log-neighbor-changes
+ address-family ipv4 vrf INTERNET
+  neighbor 198.51.100.2 remote-as 65020
+  neighbor 198.51.100.2 description LAB-UPSTREAM
+  neighbor 198.51.100.2 activate
+  neighbor 198.51.100.2 route-map UPSTREAM-IN in
+  neighbor 198.51.100.2 route-map UPSTREAM-OUT out
+  network 192.0.2.1 mask 255.255.255.255
+ exit-address-family
+ !
+ address-family ipv4 vrf CDN
+  neighbor 203.0.113.2 remote-as 65030
+  neighbor 203.0.113.2 description LAB-CDN-PEER
+  neighbor 203.0.113.2 activate
+  neighbor 203.0.113.2 route-map CDN-IN in
+  neighbor 203.0.113.2 route-map CDN-OUT out
+  network 203.0.113.0 mask 255.255.255.252
+ exit-address-family
+ !
+ address-family ipv6 vrf CDN
+  neighbor 2001:db8:200::2 remote-as 65030
+  neighbor 2001:db8:200::2 description LAB-CDN-PEER-V6
+  neighbor 2001:db8:200::2 activate
+  neighbor 2001:db8:200::2 prefix-list LAB-V6-OUT out
+  network 2001:db8:200::/64
+ exit-address-family
+!
+ip prefix-list LAB-INTERNET-OWNED seq 10 permit 192.0.2.1/32
+ip prefix-list LAB-INTERNET-OWNED seq 100 deny 0.0.0.0/0 le 32
+ip prefix-list LAB-CDN-OWNED seq 10 permit 203.0.113.0/30
+ip prefix-list LAB-CDN-OWNED seq 100 deny 0.0.0.0/0 le 32
+!
+route-map UPSTREAM-IN permit 10
+ match ip address prefix-list LAB-DEFAULT
+ set local-preference 200
+route-map UPSTREAM-IN deny 100
+!
+route-map UPSTREAM-OUT permit 10
+ match ip address prefix-list LAB-INTERNET-OWNED
+route-map UPSTREAM-OUT deny 100
+!
+route-map CDN-IN permit 10
+ match ip address prefix-list LAB-DEFAULT
+ set local-preference 150
+route-map CDN-IN deny 100
+!
+route-map CDN-OUT permit 10
+ match ip address prefix-list LAB-CDN-OWNED
+ set community 65010:200
+route-map CDN-OUT deny 100
+!
+ip prefix-list LAB-DEFAULT seq 10 permit 0.0.0.0/0
+ip prefix-list LAB-DEFAULT seq 100 deny 0.0.0.0/0 le 32
+!
+ip access-list extended CACHE-CLIENTS
+ permit ip 10.30.30.0 0.0.0.255 any
+!
+route-map CACHE-PBR permit 10
+ match ip address CACHE-CLIENTS
+ set vrf CACHE
+!
+interface Vlan30
+ ip policy route-map CACHE-PBR
+!
+policy-map CACHE-100M
+ class class-default
+  police 100000000 500000 conform-action transmit exceed-action drop
+!
+interface Port-channel5.300
+ service-policy input CACHE-100M
+!
+interface Port-channel5.200
+ ipv6 address 2001:db8:200::1/64
+ ipv6 enable
+!
+! IPv6 outbound prefix policy for the CDN peer.
+ipv6 prefix-list LAB-V6-OUT seq 10 permit 2001:db8:200::/48 le 64
+ipv6 prefix-list LAB-V6-OUT seq 100 deny ::/0 le 128
+!
+! PVST was used in the demonstrated switching design.
+spanning-tree mode pvst
+!
+no ip http server
+no ip http secure-server
+login block-for 120 attempts 3 within 60
+login delay 3
+login on-failure log
+login on-success log
+!
+ip access-list standard LAB-MGMT-SOURCES
+ permit 10.90.0.0 0.0.0.255
+ deny any log
+!
+line con 0
+ exec-timeout 10 0
+ logging synchronous
+!
+line vty 0 4
+ transport input ssh
+ access-class LAB-MGMT-SOURCES in
+ exec-timeout 10 0
+!
+! No credentials, keys, SNMP communities or operational identifiers included.
+end

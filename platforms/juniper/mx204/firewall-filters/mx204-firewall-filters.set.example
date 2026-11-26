@@ -1,0 +1,45 @@
+# MX204 stateless firewall filters; fictional source prefixes.
+# Review all required control-plane services before attaching to lo0.
+
+# Routing-engine protection: allow only explicit lab sources/services.
+set firewall family inet filter PROTECT-RE term ALLOW-MGMT-SSH from source-address 192.0.2.128/25
+set firewall family inet filter PROTECT-RE term ALLOW-MGMT-SSH from protocol tcp
+set firewall family inet filter PROTECT-RE term ALLOW-MGMT-SSH from destination-port ssh
+set firewall family inet filter PROTECT-RE term ALLOW-MGMT-SSH then count RE-SSH-ALLOWED
+set firewall family inet filter PROTECT-RE term ALLOW-MGMT-SSH then accept
+
+set firewall family inet filter PROTECT-RE term ALLOW-BGP-PEER from source-address 198.51.100.2/32
+set firewall family inet filter PROTECT-RE term ALLOW-BGP-PEER from protocol tcp
+set firewall family inet filter PROTECT-RE term ALLOW-BGP-PEER from destination-port bgp
+set firewall family inet filter PROTECT-RE term ALLOW-BGP-PEER then count RE-BGP-ALLOWED
+set firewall family inet filter PROTECT-RE term ALLOW-BGP-PEER then accept
+
+set firewall family inet filter PROTECT-RE term ALLOW-OSPF from source-address 10.0.12.0/30
+set firewall family inet filter PROTECT-RE term ALLOW-OSPF from protocol ospf
+set firewall family inet filter PROTECT-RE term ALLOW-OSPF then count RE-OSPF-ALLOWED
+set firewall family inet filter PROTECT-RE term ALLOW-OSPF then accept
+
+set firewall family inet filter PROTECT-RE term ALLOW-ICMP from protocol icmp
+set firewall family inet filter PROTECT-RE term ALLOW-ICMP then count RE-ICMP-ALLOWED
+set firewall family inet filter PROTECT-RE term ALLOW-ICMP then accept
+set firewall family inet filter PROTECT-RE term DENY-REST then count RE-DROPPED
+set firewall family inet filter PROTECT-RE term DENY-REST then log
+set firewall family inet filter PROTECT-RE term DENY-REST then discard
+
+# Attach only after checking NETCONF, SNMP, NTP, DNS, AAA, BFD and all other services.
+# set interfaces lo0 unit 0 family inet filter input PROTECT-RE
+
+# Service-side sample: allow DNS/UDP and HTTPS/TCP only.
+set firewall family inet filter CUSTOMER-EDGE-IN term ALLOW-DNS-UDP from protocol udp
+set firewall family inet filter CUSTOMER-EDGE-IN term ALLOW-DNS-UDP from destination-port domain
+set firewall family inet filter CUSTOMER-EDGE-IN term ALLOW-DNS-UDP then count CUSTOMER-DNS
+set firewall family inet filter CUSTOMER-EDGE-IN term ALLOW-DNS-UDP then accept
+set firewall family inet filter CUSTOMER-EDGE-IN term ALLOW-HTTPS from protocol tcp
+set firewall family inet filter CUSTOMER-EDGE-IN term ALLOW-HTTPS from destination-port https
+set firewall family inet filter CUSTOMER-EDGE-IN term ALLOW-HTTPS then count CUSTOMER-HTTPS
+set firewall family inet filter CUSTOMER-EDGE-IN term ALLOW-HTTPS then accept
+set firewall family inet filter CUSTOMER-EDGE-IN term DENY-REST then count CUSTOMER-DROPPED
+set firewall family inet filter CUSTOMER-EDGE-IN term DENY-REST then discard
+
+# Example attachment only; verify correct logical-system/interface context first.
+# set logical-systems CDN-LS interfaces ae0 unit 100 family inet filter input CUSTOMER-EDGE-IN

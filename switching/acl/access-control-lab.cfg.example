@@ -1,0 +1,15 @@
+! Cisco IOS extended ACL demonstration
+! Documentation-only TEST-NET source and destination prefixes.
+! Example policy: allow HTTPS and DNS from the lab user segment to lab services.
+
+ip access-list extended LAB-USERS-TO-SERVICES
+ permit tcp 192.0.2.0 0.0.0.255 203.0.113.0 0.0.0.255 eq 443
+ permit udp 192.0.2.0 0.0.0.255 203.0.113.0 0.0.0.255 eq 53
+ permit tcp 192.0.2.0 0.0.0.255 203.0.113.0 0.0.0.255 eq 53
+ deny ip any any log
+!
+! Apply only after confirming the intended interface and direction:
+! interface Vlan10
+!  ip access-group LAB-USERS-TO-SERVICES in
+!
+! Check counters and test both allowed and denied flows.

@@ -1,0 +1,34 @@
+# MX204 logical-system lab; fictional addresses and ASNs.
+# MASTER CONTEXT
+set interfaces lo0 unit 0 family inet address 192.0.2.1/32
+set interfaces lt-0/0/0 unit 500 description "MASTER-TO-CDN-LS"
+set interfaces lt-0/0/0 unit 500 encapsulation ethernet
+set interfaces lt-0/0/0 unit 500 peer-unit 501
+set interfaces lt-0/0/0 unit 500 family inet address 10.255.0.1/30
+set routing-options router-id 192.0.2.1
+set routing-options autonomous-system 65010
+set routing-options static route 192.0.2.20/32 next-hop 10.255.0.2
+set protocols bgp group CDN-LS-IBGP type internal
+set protocols bgp group CDN-LS-IBGP local-address 192.0.2.1
+set protocols bgp group CDN-LS-IBGP neighbor 192.0.2.20
+
+# LOGICAL SYSTEM CDN-LS
+set logical-systems CDN-LS interfaces lt-0/0/0 unit 501 description "CDN-LS-TO-MASTER"
+set logical-systems CDN-LS interfaces lt-0/0/0 unit 501 encapsulation ethernet
+set logical-systems CDN-LS interfaces lt-0/0/0 unit 501 peer-unit 500
+set logical-systems CDN-LS interfaces lt-0/0/0 unit 501 family inet address 10.255.0.2/30
+set logical-systems CDN-LS interfaces lo0 unit 20 family inet address 192.0.2.20/32
+set logical-systems CDN-LS routing-options router-id 192.0.2.20
+set logical-systems CDN-LS routing-options autonomous-system 65010
+set logical-systems CDN-LS routing-options static route 192.0.2.1/32 next-hop 10.255.0.1
+set logical-systems CDN-LS protocols bgp group MASTER-IBGP type internal
+set logical-systems CDN-LS protocols bgp group MASTER-IBGP local-address 192.0.2.20
+set logical-systems CDN-LS protocols bgp group MASTER-IBGP neighbor 192.0.2.1
+
+# VLAN handoffs inside CDN-LS; confirm ae0 assignment and support.
+set logical-systems CDN-LS interfaces ae0 unit 100 description "LS-CUSTOMER-VLAN"
+set logical-systems CDN-LS interfaces ae0 unit 100 vlan-id 100
+set logical-systems CDN-LS interfaces ae0 unit 100 family inet address 192.0.2.5/30
+set logical-systems CDN-LS interfaces ae0 unit 200 description "LS-CACHE-VLAN"
+set logical-systems CDN-LS interfaces ae0 unit 200 vlan-id 200
+set logical-systems CDN-LS interfaces ae0 unit 200 family inet address 192.0.2.9/30

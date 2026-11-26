@@ -1,0 +1,42 @@
+# Secrets and credentials
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+id_rsa*
+id_ed25519*
+
+# Device backups and raw exports
+*.backup
+*.bak
+*.rsc
+*.cfg
+*.conf
+*.config
+*.dat
+*.bin
+
+# Archive and device inventory exports
+*.wbx
+*.xml
+*.zip
+*.7z
+*.rar
+
+# Logs and captures
+*.log
+*.pcap
+*.pcapng
+*.dump
+
+# Private operational documents
+*contact*
+*all-ip*
+*client-list*
+*customer*
+*inventory*
+*address-list*

@@ -1,0 +1,40 @@
+! BGP per-VRF policy example
+router bgp 65010
+ bgp router-id 192.0.2.1
+ bgp log-neighbor-changes
+ address-family ipv4 vrf INTERNET
+  neighbor 198.51.100.2 remote-as 65020
+  neighbor 198.51.100.2 activate
+  neighbor 198.51.100.2 route-map UPSTREAM-IN in
+  neighbor 198.51.100.2 route-map UPSTREAM-OUT out
+ exit-address-family
+ address-family ipv4 vrf CDN
+  neighbor 203.0.113.2 remote-as 65030
+  neighbor 203.0.113.2 activate
+  neighbor 203.0.113.2 route-map CDN-IN in
+  neighbor 203.0.113.2 route-map CDN-OUT out
+ exit-address-family
+!
+ip prefix-list LAB-DEFAULT seq 10 permit 0.0.0.0/0
+ip prefix-list LAB-DEFAULT seq 100 deny 0.0.0.0/0 le 32
+ip prefix-list LAB-OWNED seq 10 permit 10.30.30.0/24
+ip prefix-list LAB-OWNED seq 100 deny 0.0.0.0/0 le 32
+!
+route-map UPSTREAM-IN permit 10
+ match ip address prefix-list LAB-DEFAULT
+ set local-preference 200
+route-map UPSTREAM-IN deny 100
+!
+route-map UPSTREAM-OUT permit 10
+ match ip address prefix-list LAB-OWNED
+route-map UPSTREAM-OUT deny 100
+!
+route-map CDN-IN permit 10
+ match ip address prefix-list LAB-DEFAULT
+ set local-preference 150
+route-map CDN-IN deny 100
+!
+route-map CDN-OUT permit 10
+ match ip address prefix-list LAB-OWNED
+ set community 65010:200
+route-map CDN-OUT deny 100

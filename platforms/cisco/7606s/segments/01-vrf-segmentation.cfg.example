@@ -1,0 +1,22 @@
+! VRF segmentation example - private lab values only
+ip vrf INTERNET
+ rd 65010:100
+ route-target export 65010:100
+ route-target import 65010:100
+!
+ip vrf CDN
+ rd 65010:200
+ route-target export 65010:200
+ route-target import 65010:200
+!
+ip vrf CACHE
+ rd 65010:300
+ route-target export 65010:300
+ route-target import 65010:300
+!
+ip vrf MGMT
+ rd 65010:900
+ route-target export 65010:900
+ route-target import 65010:900
+!
+! VRF-Lite: route-targets alone do not leak routes between VRFs.

@@ -1,0 +1,21 @@
+! Layer-2 control examples
+vtp mode transparent
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan 30
+ name CACHE-SERVERS
+!
+interface GigabitEthernet5/1
+ description LAB-CACHE-SERVER-01
+ switchport
+ switchport mode access
+ switchport access vlan 30
+ spanning-tree portfast
+!
+! Optional Rapid-PVST+ lab variant; use only if supported by exact platform.
+! spanning-tree mode rapid-pvst
+!
+! Enable BPDU Guard only after confirming edge-port role and platform support:
+! interface GigabitEthernet5/1
+!  spanning-tree bpduguard enable

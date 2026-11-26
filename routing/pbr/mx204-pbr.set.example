@@ -1,0 +1,28 @@
+# MX204 filter-based forwarding demonstration. Fictional addresses only.
+# Bypass RFC1918 and TEST-NET destinations before selecting the alternate table.
+set interfaces et-0/0/3 description "LAB-LAN-INGRESS-PBR"
+set interfaces et-0/0/3 unit 0 family inet address 10.10.10.1/24
+set interfaces et-0/0/4 description "LAB-PBR-UPLINK"
+set interfaces et-0/0/4 unit 0 family inet address 198.51.100.9/30
+
+set routing-instances PBR-ISP2 instance-type forwarding
+set routing-instances PBR-ISP2 routing-options static route 0.0.0.0/0 next-hop 198.51.100.10
+set routing-instances PBR-ISP2 interface et-0/0/4.0
+
+set firewall family inet filter LAN-PBR term BYPASS-RFC1918-10 from destination-address 10.0.0.0/8
+set firewall family inet filter LAN-PBR term BYPASS-RFC1918-10 then accept
+set firewall family inet filter LAN-PBR term BYPASS-RFC1918-172 from destination-address 172.16.0.0/12
+set firewall family inet filter LAN-PBR term BYPASS-RFC1918-172 then accept
+set firewall family inet filter LAN-PBR term BYPASS-RFC1918-192 from destination-address 192.168.0.0/16
+set firewall family inet filter LAN-PBR term BYPASS-RFC1918-192 then accept
+set firewall family inet filter LAN-PBR term BYPASS-TEST-NET-1 from destination-address 192.0.2.0/24
+set firewall family inet filter LAN-PBR term BYPASS-TEST-NET-1 then accept
+set firewall family inet filter LAN-PBR term BYPASS-TEST-NET-2 from destination-address 198.51.100.0/24
+set firewall family inet filter LAN-PBR term BYPASS-TEST-NET-2 then accept
+set firewall family inet filter LAN-PBR term BYPASS-TEST-NET-3 from destination-address 203.0.113.0/24
+set firewall family inet filter LAN-PBR term BYPASS-TEST-NET-3 then accept
+set firewall family inet filter LAN-PBR term SELECT-ISP2 from source-address 10.10.10.0/24
+set firewall family inet filter LAN-PBR term SELECT-ISP2 then count PBR-ISP2-TRAFFIC
+set firewall family inet filter LAN-PBR term SELECT-ISP2 then routing-instance PBR-ISP2
+set firewall family inet filter LAN-PBR term NORMAL-ROUTING then accept
+set interfaces et-0/0/3 unit 0 family inet filter input LAN-PBR

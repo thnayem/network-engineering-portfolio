@@ -1,0 +1,37 @@
+! 802.1Q routed subinterfaces and static EtherChannel
+! Source implementation: channel-group 5 mode on (static, non-negotiated).
+! Both ends must be configured consistently; do not configure LACP on the peer.
+
+interface Port-channel5
+ description LAB-DIST-SW-STATIC-ETHERCHANNEL
+ no ip address
+!
+interface TenGigabitEthernet1/3
+ channel-group 5 mode on
+ no shutdown
+!
+interface TenGigabitEthernet1/6
+ channel-group 5 mode on
+ no shutdown
+!
+interface Port-channel5.100
+ encapsulation dot1Q 100
+ ip vrf forwarding INTERNET
+ ip address 198.51.100.1 255.255.255.252
+!
+interface Port-channel5.200
+ encapsulation dot1Q 200
+ ip vrf forwarding CDN
+ ip address 203.0.113.1 255.255.255.252
+!
+interface Port-channel5.300
+ encapsulation dot1Q 300
+ ip vrf forwarding CACHE
+ ip address 10.30.0.1 255.255.255.252
+!
+interface Port-channel5.900
+ encapsulation dot1Q 900
+ ip vrf forwarding MGMT
+ ip address 10.90.0.1 255.255.255.252
+!
+! Documentation values are illustrative replacements, not production addresses.

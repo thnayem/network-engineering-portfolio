@@ -1,0 +1,9 @@
+! QoS policing lab; illustrative rate only
+policy-map CACHE-100M
+ class class-default
+  police 100000000 500000 conform-action transmit exceed-action drop
+!
+interface Port-channel5.300
+ service-policy input CACHE-100M
+!
+! Hardware policing granularity and attachment support vary by line card.

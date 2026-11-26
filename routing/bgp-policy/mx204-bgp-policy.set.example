@@ -1,0 +1,32 @@
+# MX204 BGP policy lab; documentation prefixes only.
+set routing-options router-id 192.0.2.1
+set routing-options autonomous-system 65010
+set policy-options prefix-list LAB-OWN-PREFIXES 203.0.113.0/24
+set policy-options prefix-list LAB-ACCEPTED-INBOUND 198.51.100.0/24
+set policy-options community LAB-EXPORT-COMMUNITY members 65010:100
+
+# Inbound: accept only explicitly permitted route and set local preference.
+set policy-options policy-statement TRANSIT-IN term ACCEPT-APPROVED from prefix-list LAB-ACCEPTED-INBOUND
+set policy-options policy-statement TRANSIT-IN term ACCEPT-APPROVED then local-preference 180
+set policy-options policy-statement TRANSIT-IN term ACCEPT-APPROVED then accept
+set policy-options policy-statement TRANSIT-IN term REJECT-OTHER then reject
+
+# Outbound: advertise only the owned prefix and tag it with a community.
+set policy-options policy-statement TRANSIT-OUT term OWN-PREFIX from prefix-list LAB-OWN-PREFIXES
+set policy-options policy-statement TRANSIT-OUT term OWN-PREFIX then community add LAB-EXPORT-COMMUNITY
+set policy-options policy-statement TRANSIT-OUT term OWN-PREFIX then accept
+set policy-options policy-statement TRANSIT-OUT term REJECT-OTHER then reject
+
+# Optional alternate-path policy; defined but not attached by default.
+set policy-options policy-statement TRANSIT-OUT-PREPEND term OWN-PREFIX from prefix-list LAB-OWN-PREFIXES
+set policy-options policy-statement TRANSIT-OUT-PREPEND term OWN-PREFIX then as-path-prepend "65010 65010"
+set policy-options policy-statement TRANSIT-OUT-PREPEND term OWN-PREFIX then community add LAB-EXPORT-COMMUNITY
+set policy-options policy-statement TRANSIT-OUT-PREPEND term OWN-PREFIX then accept
+set policy-options policy-statement TRANSIT-OUT-PREPEND term REJECT-OTHER then reject
+
+set protocols bgp group TRANSIT-LAB type external
+set protocols bgp group TRANSIT-LAB peer-as 65030
+set protocols bgp group TRANSIT-LAB neighbor 198.51.100.2 import TRANSIT-IN
+set protocols bgp group TRANSIT-LAB neighbor 198.51.100.2 export TRANSIT-OUT
+set protocols bgp group TRANSIT-LAB hold-time 30
+# For prepend test, change export policy to TRANSIT-OUT-PREPEND in a lab.

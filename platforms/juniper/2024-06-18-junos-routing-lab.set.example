@@ -1,0 +1,13 @@
+# Reference archive date: 2024-06-18
+# Independently authored fictional Junos lab. Not copied from archived logs/configs.
+
+set routing-options router-id 10.255.0.2
+set interfaces ge-0/0/1 unit 0 family inet address 192.0.2.2/30
+set protocols ospf area 0.0.0.0 interface ge-0/0/1.0
+
+set routing-options autonomous-system 64520
+set protocols bgp group LAB-EBGP type external
+set protocols bgp group LAB-EBGP peer-as 64521
+set protocols bgp group LAB-EBGP neighbor 192.0.2.6
+
+# Add explicit import/export policy and prefix limits before enabling a real peer.

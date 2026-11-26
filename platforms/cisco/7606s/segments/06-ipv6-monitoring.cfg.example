@@ -1,0 +1,10 @@
+! IPv6 documentation-prefix example
+interface Port-channel5.200
+ ipv6 address 2001:db8:200::1/64
+ ipv6 enable
+!
+ipv6 prefix-list LAB-V6-OUT seq 10 permit 2001:db8:200::/48 le 64
+ipv6 prefix-list LAB-V6-OUT seq 100 deny ::/0 le 128
+!
+! Monitoring concepts only. Configure NetFlow, SNMPv3 and SPAN/RSPAN
+! after checking line-card support, destination resources and access controls.
