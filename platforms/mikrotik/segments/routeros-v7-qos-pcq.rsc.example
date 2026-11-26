@@ -1,0 +1,35 @@
+# RouterOS 7 PCQ and simple-queue examples
+# Design equivalent of the queue hierarchy in the 2023-06-17 source export.
+# Rates and targets are illustrative only.
+
+/queue type
+add name=LAB-PCQ-DOWNLOAD kind=pcq pcq-classifier=dst-address pcq-rate=10M
+add name=LAB-PCQ-UPLOAD kind=pcq pcq-classifier=src-address pcq-rate=10M
+
+/queue simple
+add name=LAB-CLIENT-PRIORITY target=192.0.2.10/32 \
+    max-limit=20M/20M queue=LAB-PCQ-UPLOAD/LAB-PCQ-DOWNLOAD
+add name=LAB-CLIENT-STANDARD target=192.0.2.0/24 \
+    max-limit=100M/100M queue=LAB-PCQ-UPLOAD/LAB-PCQ-DOWNLOAD
+
+/queue type
+add name=LAB-TIER-1-DL kind=pcq pcq-classifier=dst-address pcq-rate=5M
+add name=LAB-TIER-1-UL kind=pcq pcq-classifier=src-address pcq-rate=5M
+add name=LAB-TIER-2-DL kind=pcq pcq-classifier=dst-address pcq-rate=10M
+add name=LAB-TIER-2-UL kind=pcq pcq-classifier=src-address pcq-rate=10M
+add name=LAB-TIER-3-DL kind=pcq pcq-classifier=dst-address pcq-rate=20M
+add name=LAB-TIER-3-UL kind=pcq pcq-classifier=src-address pcq-rate=20M
+
+/queue simple
+add name=LAB-TIER-1 target=192.0.2.32/27 max-limit=50M/50M \
+    queue=LAB-TIER-1-UL/LAB-TIER-1-DL
+add name=LAB-TIER-2 target=192.0.2.64/27 max-limit=100M/100M \
+    queue=LAB-TIER-2-UL/LAB-TIER-2-DL
+add name=LAB-TIER-3 target=192.0.2.96/27 max-limit=200M/200M \
+    queue=LAB-TIER-3-UL/LAB-TIER-3-DL
+
+# Simple queues are evaluated top-to-bottom. Put specific clients before
+# wider subnet queues. FastTracked traffic bypasses simple queues unless
+# FastTrack is adjusted. Confirm behavior and CPU load in a lab.
+# Check: /queue simple print stats
+#        /queue type print detail
