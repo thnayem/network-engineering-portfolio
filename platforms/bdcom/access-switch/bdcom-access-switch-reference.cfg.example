@@ -1,0 +1,198 @@
+! Sanitized BDCOM access/distribution switch reference
+! Source software: 2.1.1B build 28530
+! Source device: 28-port Gigabit Ethernet BDCOM switch (exact model not identified)
+! Curated example; not a complete production backup.
+! Hostname, port descriptions, credentials, management IPs and SNMP community removed/replaced.
+
+service timestamps log date
+service timestamps debug date
+hostname BDCOM-ACCESS-SW
+
+spanning-tree mode rstp
+spanning-tree rstp priority 4096
+
+aaa authentication login default local
+aaa authentication enable default none
+aaa authorization exec default local
+! Local user credential intentionally omitted.
+
+interface Port-aggregator1
+ switchport mode trunk
+
+interface Null0
+
+interface GigaEthernet0/1
+ switchport trunk vlan-allowed 1225
+ switchport trunk vlan-untagged 1225
+ switchport pvid 1225
+ speed 100
+
+interface GigaEthernet0/2
+ switchport trunk vlan-allowed 1226
+ switchport trunk vlan-untagged 1226
+ switchport pvid 1226
+ speed 100
+
+interface GigaEthernet0/3
+ switchport trunk vlan-allowed 1227
+ switchport trunk vlan-untagged 1227
+ switchport pvid 1227
+ speed 100
+
+interface GigaEthernet0/4
+ switchport trunk vlan-allowed 1228
+ switchport trunk vlan-untagged 1228
+ switchport pvid 1228
+ speed 100
+
+interface GigaEthernet0/5
+ switchport trunk vlan-allowed 1229
+ switchport trunk vlan-untagged 1229
+ switchport pvid 1229
+ speed 100
+
+interface GigaEthernet0/6
+ switchport trunk vlan-allowed 1230
+ switchport trunk vlan-untagged 1230
+ switchport pvid 1230
+ speed 100
+
+interface GigaEthernet0/7
+ switchport trunk vlan-allowed 1231
+ switchport trunk vlan-untagged 1231
+ switchport mode trunk
+ switchport pvid 1231
+ speed 100
+
+interface GigaEthernet0/8
+ switchport trunk vlan-allowed 1232
+ switchport trunk vlan-untagged 1232
+ switchport pvid 1232
+ speed 100
+
+interface GigaEthernet0/9
+ switchport trunk vlan-allowed 1233
+ switchport trunk vlan-untagged 1233
+ switchport pvid 1233
+ speed 100
+
+interface GigaEthernet0/10
+ switchport trunk vlan-allowed 1234
+ switchport trunk vlan-untagged 1234
+ switchport pvid 1234
+ speed 100
+
+interface GigaEthernet0/11
+ switchport trunk vlan-allowed 1235
+ switchport trunk vlan-untagged 1235
+ switchport pvid 1235
+ speed 100
+
+interface GigaEthernet0/12
+ switchport trunk vlan-allowed 1236
+ switchport trunk vlan-untagged 1236
+ switchport pvid 1236
+ speed 100
+
+interface GigaEthernet0/13
+ switchport trunk vlan-allowed 1237
+ switchport trunk vlan-untagged 1237
+ switchport pvid 1237
+ speed 100
+
+interface GigaEthernet0/14
+ switchport trunk vlan-allowed 1238
+ switchport trunk vlan-untagged 1238
+ switchport pvid 1238
+ speed 100
+
+interface GigaEthernet0/15
+ switchport trunk vlan-allowed 1239
+ switchport trunk vlan-untagged 1239
+ switchport pvid 1239
+ speed 100
+
+interface GigaEthernet0/16
+ switchport trunk vlan-allowed 1240
+ switchport trunk vlan-untagged 1240
+ switchport pvid 1240
+ speed 100
+
+interface GigaEthernet0/17
+ switchport trunk vlan-allowed 1241
+ switchport trunk vlan-untagged 1241
+ switchport pvid 1241
+ speed 100
+
+interface GigaEthernet0/18
+ description CUSTOMER-TRUNK-A
+ switchport trunk vlan-allowed 109,209,309,409
+ switchport mode trunk
+ speed 1000
+
+interface GigaEthernet0/19
+ switchport trunk vlan-allowed 1243
+ switchport trunk vlan-untagged 1243
+ switchport pvid 1243
+ speed 100
+
+interface GigaEthernet0/20
+ switchport trunk vlan-allowed 1244
+ switchport trunk vlan-untagged 1244
+ switchport pvid 1244
+ speed 100
+
+interface GigaEthernet0/21
+ speed 100
+
+interface GigaEthernet0/22
+ description CUSTOMER-TRUNK-B
+ spanning-tree guard root
+ switchport mode trunk
+ speed 100
+
+interface GigaEthernet0/23
+ description CUSTOMER-TRUNK-C
+ spanning-tree guard root
+ switchport mode trunk
+ speed 1000
+
+interface GigaEthernet0/24
+ description CUSTOMER-TRUNK-D
+ switchport trunk vlan-allowed 1400-1424
+ switchport mode trunk
+ speed 1000
+
+interface GigaEthernet0/25
+!
+interface GigaEthernet0/26
+!
+interface GigaEthernet0/27
+ aggregator-group 1 mode static
+ switchport mode trunk
+
+interface GigaEthernet0/28
+ aggregator-group 1 mode static
+ switchport mode trunk
+
+interface VLAN1
+ ip address 192.0.2.1 255.255.255.0
+ no ip directed-broadcast
+
+interface VLAN1255
+ ip address 198.51.100.2 255.255.255.252
+ no ip directed-broadcast
+
+vlan 1,101-109,801-804,1101-1124,1201-1255,1301-1326,1400-1424,1501-1524,1601-1624,1631
+vlan 1632-1643,2101-2128,3799,3998,4002,4005
+
+no ip igmp-proxy enable
+
+ip route default 198.51.100.1
+ip exf
+ipv6 exf
+
+ip http language english
+! HTTP server omitted from public example.
+! SNMP community omitted; configure a unique secure community in a lab.
+ip sshd enable
