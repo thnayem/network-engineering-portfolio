@@ -1,0 +1,90 @@
+# PUBLIC PORTFOLIO REFERENCE ONLY - NOT A RAW BACKUP
+# Model: MikroTik CRS309-1G-8S+ | RouterOS 6.48.2
+# Source-derived VLAN-aware Layer 2 switch configuration.
+# Site, peer, service and port labels anonymized; management IPs replaced.
+# Email backup automation, custom service ports and device identifiers omitted.
+# VLAN IDs and tagged-port relationships are retained as a representative layout.
+# Review hardware offload, VLAN membership and RouterOS syntax before lab use.
+
+/interface bridge
+add frame-types=admit-only-vlan-tagged ingress-filtering=yes name=bridge1 vlan-filtering=yes
+/interface ethernet
+set [ find default-name=sfp-sfpplus1 ] comment=UPLINK-D disabled=yes
+set [ find default-name=sfp-sfpplus2 ] comment=UPLINK-B
+set [ find default-name=sfp-sfpplus3 ] comment=UPLINK-C disabled=yes speed=10Gbps
+set [ find default-name=sfp-sfpplus4 ] comment=UPLINK-A
+set [ find default-name=sfp-sfpplus5 ] auto-negotiation=no comment=DOWNSTREAM-A name=sfp-sfpplus5-Downstream-A speed=10Gbps
+set [ find default-name=sfp-sfpplus6 ] auto-negotiation=no comment=DOWNSTREAM-B disabled=yes name=sfp-sfpplus6-Downstream-B speed=10Gbps
+set [ find default-name=sfp-sfpplus7 ] speed=10Gbps
+set [ find default-name=sfp-sfpplus8 ] advertise=2500M-full comment=DOWNSTREAM-C name=sfp-sfpplus8-Downstream-C speed=10Gbps
+/interface vlan
+add interface=sfp-sfpplus6-Downstream-B name=vlan501-legacy-handoff vlan-id=501
+add interface=sfp-sfpplus4 name=vlan501-management vlan-id=501
+add interface=bridge1 name=vlan1150 vlan-id=1150
+/queue simple
+add disabled=yes dst=sfp-sfpplus5-Downstream-A max-limit=3G/3G name=queue1 target=sfp-sfpplus8-Downstream-C
+/snmp community
+set [ find default=yes ] name=example-community
+/interface bridge port
+add bridge=bridge1 frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=sfp-sfpplus4
+add bridge=bridge1 frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=sfp-sfpplus3
+add bridge=bridge1 frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=sfp-sfpplus2
+add bridge=bridge1 frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=sfp-sfpplus1
+add bridge=bridge1 frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=sfp-sfpplus5-Downstream-A learn=yes
+add bridge=bridge1 frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=sfp-sfpplus7
+add bridge=bridge1 frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=sfp-sfpplus6-Downstream-B learn=no
+add bridge=bridge1 frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=sfp-sfpplus8-Downstream-C
+/ip firewall connection tracking
+set enabled=no
+/ip neighbor discovery-settings
+set discover-interface-list=!dynamic
+/interface bridge vlan
+add bridge=bridge1 tagged=sfp-sfpplus6-Downstream-B,sfp-sfpplus5-Downstream-A,sfp-sfpplus7,sfp-sfpplus8-Downstream-C vlan-ids=1150
+add bridge=bridge1 tagged=sfp-sfpplus3,sfp-sfpplus6-Downstream-B,sfp-sfpplus5-Downstream-A,sfp-sfpplus7,sfp-sfpplus8-Downstream-C vlan-ids=100
+add bridge=bridge1 tagged=sfp-sfpplus2,sfp-sfpplus5-Downstream-A,sfp-sfpplus6-Downstream-B,sfp-sfpplus7,sfp-sfpplus8-Downstream-C vlan-ids=987
+add bridge=bridge1 tagged=sfp-sfpplus1,sfp-sfpplus2,sfp-sfpplus3,sfp-sfpplus4,sfp-sfpplus5-Downstream-A,sfp-sfpplus6-Downstream-B,sfp-sfpplus7,sfp-sfpplus8-Downstream-C vlan-ids=1
+add bridge=bridge1 comment=service-group-a tagged=sfp-sfpplus5-Downstream-A,sfp-sfpplus6-Downstream-B,sfp-sfpplus8-Downstream-C,bridge1 vlan-ids=954-956
+add bridge=bridge1 comment=service-group-a tagged=sfp-sfpplus5-Downstream-A,sfp-sfpplus6-Downstream-B,sfp-sfpplus7,sfp-sfpplus8-Downstream-C,bridge1 vlan-ids=1106-1108
+add bridge=bridge1 comment=service-group-a tagged=sfp-sfpplus5-Downstream-A,sfp-sfpplus6-Downstream-B,sfp-sfpplus7,sfp-sfpplus8-Downstream-C,bridge1 vlan-ids=960-961
+add bridge=bridge1 comment=service-group-b tagged=sfp-sfpplus5-Downstream-A,sfp-sfpplus6-Downstream-B,sfp-sfpplus7,sfp-sfpplus8-Downstream-C,bridge1 vlan-ids=215-218
+add bridge=bridge1 tagged=sfp-sfpplus5-Downstream-A,sfp-sfpplus6-Downstream-B,sfp-sfpplus7,sfp-sfpplus8-Downstream-C,bridge1 vlan-ids=207-210
+add bridge=bridge1 tagged=sfp-sfpplus1,sfp-sfpplus2,sfp-sfpplus3,sfp-sfpplus4,sfp-sfpplus6-Downstream-B,sfp-sfpplus5-Downstream-A untagged=bridge1 vlan-ids=501
+add bridge=bridge1 comment=service-group-c tagged=sfp-sfpplus5-Downstream-A,sfp-sfpplus6-Downstream-B,sfp-sfpplus7,sfp-sfpplus8-Downstream-C,bridge1 vlan-ids=1101-1103
+add bridge=bridge1 comment=service-group-c tagged=sfp-sfpplus5-Downstream-A,sfp-sfpplus6-Downstream-B,sfp-sfpplus7,sfp-sfpplus8-Downstream-C,bridge1 vlan-ids=941-944
+add bridge=bridge1 comment=service-group-c tagged=sfp-sfpplus5-Downstream-A,sfp-sfpplus6-Downstream-B,sfp-sfpplus7,sfp-sfpplus8-Downstream-C,bridge1 vlan-ids=957
+add bridge=bridge1 comment=service-group-d tagged=sfp-sfpplus5-Downstream-A,sfp-sfpplus6-Downstream-B,sfp-sfpplus4,bridge1 vlan-ids=219-222
+add bridge=bridge1 comment=service-group-c tagged=sfp-sfpplus5-Downstream-A,sfp-sfpplus6-Downstream-B,sfp-sfpplus7,sfp-sfpplus8-Downstream-C,bridge1 vlan-ids=1174-1177
+add bridge=bridge1 tagged=sfp-sfpplus4,sfp-sfpplus6-Downstream-B,sfp-sfpplus5-Downstream-A,sfp-sfpplus7,sfp-sfpplus8-Downstream-C vlan-ids=990
+add bridge=bridge1 tagged=sfp-sfpplus1,sfp-sfpplus6-Downstream-B,sfp-sfpplus5-Downstream-A,sfp-sfpplus7,sfp-sfpplus8-Downstream-C vlan-ids=988
+add bridge=bridge1 tagged=sfp-sfpplus4,sfp-sfpplus6-Downstream-B,sfp-sfpplus5-Downstream-A,sfp-sfpplus7,sfp-sfpplus8-Downstream-C,sfp-sfpplus3 vlan-ids=989
+add bridge=bridge1 comment=secondary-uplink tagged=sfp-sfpplus1,sfp-sfpplus5-Downstream-A,sfp-sfpplus6-Downstream-B,sfp-sfpplus7,sfp-sfpplus8-Downstream-C vlan-ids=102
+add bridge=bridge1 tagged=sfp-sfpplus4,sfp-sfpplus5-Downstream-A,sfp-sfpplus6-Downstream-B vlan-ids=228-232
+add bridge=bridge1 tagged=sfp-sfpplus1,sfp-sfpplus6-Downstream-B,sfp-sfpplus5-Downstream-A,sfp-sfpplus7,sfp-sfpplus8-Downstream-C vlan-ids=981
+add bridge=bridge1 tagged=sfp-sfpplus3,sfp-sfpplus6-Downstream-B,sfp-sfpplus5-Downstream-A,sfp-sfpplus7,sfp-sfpplus8-Downstream-C vlan-ids=1121
+add bridge=bridge1 comment=service-group-e tagged=sfp-sfpplus6-Downstream-B,sfp-sfpplus5-Downstream-A,bridge1 vlan-ids=1221
+add bridge=bridge1 tagged=sfp-sfpplus4,sfp-sfpplus5-Downstream-A,sfp-sfpplus6-Downstream-B vlan-ids=223-227
+add bridge=bridge1 comment=service-group-f tagged=sfp-sfpplus4,sfp-sfpplus5-Downstream-A,sfp-sfpplus6-Downstream-B,sfp-sfpplus7,sfp-sfpplus8-Downstream-C vlan-ids=4056
+add bridge=bridge1 disabled=yes tagged=sfp-sfpplus5-Downstream-A,sfp-sfpplus6-Downstream-B vlan-ids=1520-1523
+/ip address
+add address=198.51.100.2/24 interface=vlan1150 network=198.51.100.0
+add address=192.0.2.2/24 interface=vlan501-management network=192.0.2.0
+/ip dns
+set servers=1.1.1.1,1.0.0.1
+/ip route
+add distance=1 gateway=192.0.2.1
+/snmp
+set enabled=yes trap-version=2
+/system clock
+set time-zone-name=Asia/Dhaka
+/system identity
+set name=CRS309-SWITCH-REFERENCE
+/system routerboard settings
+set boot-os=router-os
+/tool graphing interface
+add
+/tool graphing queue
+add
+/tool graphing resource
+add
+/tool romon
+set enabled=yes
