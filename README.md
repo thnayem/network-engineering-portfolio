@@ -26,7 +26,7 @@ All public examples are sanitized or independently authored for documentation. T
 | [Troubleshooting](./troubleshooting/) | Operational fault-isolation references |
 | [Reference dates](./reference-dates/) | Archive provenance and documentation dates |
 
-## Featured platform references
+## Selected Technical Portfolio
 
 ### Juniper
 - [MX204](./platforms/juniper/mx204/) - logical systems, firewall filters, routing policy, and service forwarding.
