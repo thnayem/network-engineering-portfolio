@@ -1,0 +1,172 @@
+#
+# Huawei MA5800-X7 GPON OLT
+# Sanitized reference fragments based on a MA5800 V100R018 configuration
+# Source software label: MA5800V100R018:5600
+#
+# IMPORTANT:
+# - This is a documentation example, not a complete device backup.
+# - All customer ONT serial numbers, descriptions, credentials, SNMP communities,
+#   management addresses, service-port inventories and site identifiers were removed.
+# - Documentation-only IP addresses are used below.
+# - Validate board inventory, license, card/port numbering, profile limits and CLI
+#   syntax against the exact MA5800 release before adapting any command.
+#
+
+# ----------------------------------------------------------------------
+# 1. Board inventory pattern observed in the source
+# ----------------------------------------------------------------------
+# Example source chassis roles:
+#   0/0  - control/MPU-related board
+#   0/7  - GPON service board
+#   0/10 - power/interface board
+#   0/11 - power/interface board
+# Board types and slot assignments are chassis-specific. Do not copy blindly.
+
+# ----------------------------------------------------------------------
+# 2. DBA profiles
+# ----------------------------------------------------------------------
+dba-profile add profile-id 10 profile-name "DBA-UPTO-1G" type4 max 1000000
+dba-profile add profile-id 30 profile-name "DBA-ASSURED-1G" type3 assure 1024 max 1000000
+dba-profile add profile-id 50 profile-name "DBA-ASSURED-1G-B" type3 assure 1024 max 1000000
+
+# ----------------------------------------------------------------------
+# 3. ONT service profiles: Ethernet transparent mode
+# ----------------------------------------------------------------------
+ont-srvprofile gpon profile-id 100 profile-name "ONT-ETH-TRANSPARENT"
+ ont-port pots adaptive 32 eth adaptive 8
+ port vlan eth 1 transparent
+ port vlan eth 2 transparent
+ port vlan eth 3 transparent
+ port vlan eth 4 transparent
+ commit
+quit
+
+# ----------------------------------------------------------------------
+# 4. ONT line profile: one GEM mapped to one service VLAN
+# ----------------------------------------------------------------------
+ont-lineprofile gpon profile-id 100 profile-name "GPON-LINE-VLAN-110"
+ tcont 1 dba-profile-id 10
+ gem add 0 eth tcont 1
+ gem mapping 0 0 vlan 110
+ commit
+quit
+
+# Additional source-derived pattern: multiple GEM services on one T-CONT
+ont-lineprofile gpon profile-id 120 profile-name "GPON-LINE-MULTI-SERVICE"
+ tcont 4 dba-profile-id 30
+ gem add 1 eth tcont 4
+ gem add 2 eth tcont 4
+ gem mapping 1 1 vlan 197
+ gem mapping 2 1 vlan 198
+ commit
+quit
+
+# ----------------------------------------------------------------------
+# 5. Service VLANs and uplink membership pattern
+# ----------------------------------------------------------------------
+vlan 110 smart
+vlan 120 smart
+vlan 130 smart
+vlan 197 to 198 smart
+vlan 999 smart
+
+# Example uplink membership on a 10GE MPU port.
+# Confirm the actual uplink card, port and VLAN mode on the target chassis.
+port vlan 110 0/8 0
+port vlan 120 0/8 0
+port vlan 130 0/8 0
+port vlan 197 to 198 0/8 0
+port vlan 999 0/8 0
+
+# ----------------------------------------------------------------------
+# 6. 10GE uplink port settings (source pattern)
+# ----------------------------------------------------------------------
+interface mpu 0/8
+ auto-neg 0 disable
+ speed 0 10000
+quit
+
+# ----------------------------------------------------------------------
+# 7. GPON discovery and ONT registration pattern
+# ----------------------------------------------------------------------
+interface gpon 0/7
+ port 0 ont-auto-find enable
+ port 1 ont-auto-find enable
+ port 2 ont-auto-find enable
+ port 3 ont-auto-find enable
+ port 4 ont-auto-find enable
+ port 5 ont-auto-find enable
+ port 6 ont-auto-find enable
+ port 7 ont-auto-find enable
+ port 8 ont-auto-find enable
+ port 9 ont-auto-find enable
+ port 10 ont-auto-find enable
+ port 11 ont-auto-find enable
+ port 12 ont-auto-find enable
+ port 13 ont-auto-find enable
+ port 14 ont-auto-find enable
+ port 15 ont-auto-find enable
+
+# Example only. Replace the serial placeholder with an authorized ONT serial.
+# Select line/service profiles that match the ONT model and subscriber service.
+ ont add 0 0 sn-auth "ONT-SERIAL-PLACEHOLDER" omci ont-lineprofile-id 100 ont-srvprofile-id 100 desc "ONT-001"
+quit
+
+# ----------------------------------------------------------------------
+# 8. ONT service-port binding pattern
+# ----------------------------------------------------------------------
+# Example only: VLAN 110 to GEM 0 on GPON 0/7, ONT 0.
+# Service-port IDs must be unique on the target OLT.
+service-port 100 vlan 110 gpon 0/7/0 ont 0 gemport 0 multi-service user-vlan 110 tag-transform transparent
+
+# ----------------------------------------------------------------------
+# 9. ONT Ethernet native VLAN pattern
+# ----------------------------------------------------------------------
+# Source used native-VLAN assignment on ONT Ethernet UNI ports.
+# Apply only where the ONT service design requires an untagged UNI handoff.
+interface gpon 0/7
+ ont port native-vlan 0 0 eth 1 vlan 110 priority 0
+quit
+
+# ----------------------------------------------------------------------
+# 10. Management and default route examples
+# ----------------------------------------------------------------------
+interface Vlanif999
+ ip address 198.51.100.2 255.255.255.252
+quit
+
+interface MEth0
+ ip address 192.0.2.10 255.255.255.0
+quit
+
+ip route-static 0.0.0.0 0.0.0.0 198.51.100.1
+
+# ----------------------------------------------------------------------
+# 11. Management security
+# ----------------------------------------------------------------------
+# The source export contained local user password hashes and SNMP community
+# strings. They are intentionally not reproduced.
+# Use individually assigned admin accounts, SSH-only management where supported,
+# ACL-restricted management access and SNMPv3 authPriv where supported.
+# Do not publish credentials, encrypted hashes, SNMP communities or user names.
+
+# ----------------------------------------------------------------------
+# 12. Useful verification commands
+# ----------------------------------------------------------------------
+display version
+display board 0
+display board 0/7
+display vlan all
+display port vlan
+display ont info 0 all
+display ont autofind all
+display service-port all
+display dba-profile all
+display ont-lineprofile gpon all
+display ont-srvprofile gpon all
+display interface mpu 0/8
+display interface gpon 0/7
+display ip routing-table
+display current-configuration
+#
+return
