@@ -1,0 +1,37 @@
+! Cisco Nexus 3000 Series - eBGP routing reference
+! Model/image dependent. Verify BGP feature and syntax on target NX-OS.
+! Documentation-only prefixes and ASNs.
+
+feature bgp
+ip routing
+
+interface Ethernet1/51
+  description LAB-EBGP-TRANSIT
+  no switchport
+  ip address 198.51.100.2/30
+  no shutdown
+
+ip prefix-list LAB-OUT seq 10 permit 203.0.113.0/24
+
+route-map LAB-OUT permit 10
+  match ip address prefix-list LAB-OUT
+
+route-map LAB-OUT deny 100
+
+router bgp 64520
+  router-id 192.0.2.254
+  address-family ipv4 unicast
+    network 203.0.113.0/24
+  neighbor 198.51.100.1
+    remote-as 64521
+    description LAB-EBGP-PEER
+    address-family ipv4 unicast
+      route-map LAB-OUT out
+
+! The advertised network must exist in the local routing table.
+! Add a deliberate lab route only after reviewing the test topology.
+! Verification:
+! show bgp ipv4 unicast summary
+! show bgp ipv4 unicast neighbors 198.51.100.1
+! show ip route bgp
+! show route-map LAB-OUT
