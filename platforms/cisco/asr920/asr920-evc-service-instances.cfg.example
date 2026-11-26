@@ -1,0 +1,54 @@
+!
+! ASR920 Ethernet Virtual Circuit (EVC) / service-instance patterns
+! IOS XE syntax varies by ASR920 hardware and software release.
+!
+interface Port-channel20
+ description EXAMPLE-UPLINK-LAG
+ no ip address
+ service instance 110 ethernet
+  description SERVICE-A
+  encapsulation dot1q 110
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 110
+ !
+ service instance 120 ethernet
+  description SERVICE-B
+  encapsulation dot1q 120
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 120
+ !
+!
+interface TenGigabitEthernet0/0/24
+ description EXAMPLE-AGGREGATION-HANDOFF
+ no ip address
+ service instance 210 ethernet
+  description PARTNER-A
+  encapsulation dot1q 210
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 210
+ !
+ service instance 220 ethernet
+  description PARTNER-B
+  encapsulation dot1q 220
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 220
+ !
+!
+interface TenGigabitEthernet0/0/25
+ description EXAMPLE-ACCESS-TRUNK
+ no ip address
+ service instance 110 ethernet
+  encapsulation dot1q 110
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 110
+ !
+ service instance 120 ethernet
+  encapsulation dot1q 120
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 120
+ !
+!
+! For LACP, configure channel-group on member interfaces and verify
+! platform-specific support/limits before attaching service instances.
+! Do not assume a static port-channel is equivalent to LACP.
+!
