@@ -10,6 +10,7 @@ This directory contains RouterOS 6 and RouterOS 7 references based on selected c
 | [RouterOS 6.46.8 reference](./2023-06-17-routeros-v6-6.46.8-reference.rsc.example) | 6.46.8 | Reduced main configuration example |
 | [RouterOS 7 equivalent design](./2023-06-17-routeros-v7-equivalent-reference.rsc.example) | 7.x | Rewritten design equivalent using RouterOS 7 routing syntax |
 | [RouterOS 7 VLAN/OSPF lab](./2026-03-18-routeros-v7-lab.rsc.example) | 7.x | Separate VLAN-aware bridge and OSPF lab |
+| [CRS309 switching reference](./crs309/) | 6.48.2 | CRS309-1G-8S+ VLAN-aware bridge, tagged trunks, and bridge VLAN membership |
 
 ## Routing and policy segments
 
