@@ -18,7 +18,7 @@ The supplied configuration identifies the Nexus 3000 family and port profile, bu
 
 ## STP/RSTP design decisions
 
-The source ran MST (`spanning-tree mode mst`) and set MST instance 0 priority to 0. That source behaviour is retained in the MST reference. The source also applied `spanning-tree bpdufilter enable` on several provider/transport-facing trunks and port-channels. BPDU Filter suppresses BPDU transmission/reception on the configured interface and is not interchangeable with BPDU Guard. It should not be copied blindly to redundant switch links.
+The source ran MST (`spanning-tree mode mst`) and set MST instance 0 priority to 0. That source behaviour is retained in the MST reference. The source also applied `spanning-tree bpdufilter enable` on several provider/transport-facing trunks and port-channels. Those commands are documented as source observations but intentionally omitted from the public configuration template. BPDU Filter suppresses BPDU transmission/reception on the configured interface and is not interchangeable with BPDU Guard. It should not be copied blindly to redundant switch links.
 
 The separate RSTP template uses Rapid-PVST+ for per-VLAN rapid spanning tree. Apply it only where the design requires Rapid-PVST+ and the neighbouring switches support a compatible spanning-tree mode. For a multi-vendor MST domain, retain MST and configure identical region name, revision and VLAN-to-instance mapping on all intended region members.
 
