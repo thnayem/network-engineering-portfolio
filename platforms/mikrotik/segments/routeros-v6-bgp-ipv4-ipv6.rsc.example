@@ -1,0 +1,62 @@
+# RouterOS 6 BGP policy example
+# Source reference: anonymized concepts from RouterOS 6.46.8 export dated 2023-06-17.
+# Standalone lab segment. Documentation-only addresses and ASNs.
+# Not a complete router configuration.
+
+# Ensure the lab interfaces below exist and have the corresponding addresses.
+/ip address
+add address=198.51.100.2/30 interface=ether1 comment=LAB-IPV4-TRANSIT
+add address=2001:db8:100:1::2/64 interface=ether1 comment=LAB-IPV6-TRANSIT
+
+/routing bgp instance
+set default as=64520 router-id=192.0.2.1
+
+# Originated IPv4 routes must exist in the routing table.
+/ip route
+add dst-address=203.0.113.0/24 type=blackhole comment=LAB-ORIGINATED-V4
+/routing bgp network
+add network=203.0.113.0/24 synchronize=no
+
+# IPv4 peers use separate import/export policy chains.
+/routing filter
+add chain=LAB-V4-IN action=accept prefix=0.0.0.0/0
+add chain=LAB-V4-IN action=discard
+
+add chain=LAB-V4-OUT action=accept prefix=203.0.113.0/24
+add chain=LAB-V4-OUT action=discard
+
+# Optional service peer example: accept only the lab prefix and set local preference.
+/routing filter
+add chain=LAB-SERVICE-IN action=accept prefix=198.51.100.0/24 set-bgp-local-pref=150
+add chain=LAB-SERVICE-IN action=discard
+
+/routing bgp peer
+add name=LAB-TRANSIT remote-address=198.51.100.1 remote-as=64521 \
+    in-filter=LAB-V4-IN out-filter=LAB-V4-OUT
+add name=LAB-SERVICE remote-address=198.51.100.5 remote-as=64522 \
+    in-filter=LAB-SERVICE-IN out-filter=LAB-V4-OUT
+
+# IPv6 peering and inbound next-hop handling, matching the source export's
+# use of separate IPv6 peers and per-peer input filters.
+/ipv6 address
+add address=2001:db8:100:1::2/64 interface=ether1 advertise=no
+
+/routing filter
+add chain=LAB-V6-IN action=accept prefix=2001:db8:200::/48 \
+    set-in-nexthop-ipv6=2001:db8:100:1::1
+add chain=LAB-V6-IN action=discard
+add chain=LAB-V6-OUT action=accept prefix=2001:db8:100::/48 prefix-length=48-64
+add chain=LAB-V6-OUT action=discard
+
+/routing bgp peer
+add name=LAB-TRANSIT-V6 remote-address=2001:db8:100:1::1 remote-as=64521 \
+    address-families=ipv6 in-filter=LAB-V6-IN out-filter=LAB-V6-OUT
+
+# Verification (run after adapting interface and peer details):
+# /routing bgp peer print status
+# /routing bgp advertisements print
+# /ip route print where protocol=bgp
+# /ipv6 route print where protocol=bgp
+
+# No production ASN, peer address, public prefix, route community,
+# provider label, or upstream-specific policy from the source is retained.
