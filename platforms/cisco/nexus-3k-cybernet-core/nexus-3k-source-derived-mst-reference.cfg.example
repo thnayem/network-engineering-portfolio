@@ -7,7 +7,7 @@ hostname N3K-CORE-MST-REF
 feature interface-vlan
 feature lacp
 feature lldp
-no password strength-check
+! Source security setting 'no password strength-check' intentionally omitted from public example.
 no ip domain-lookup
 spanning-tree mode mst
 spanning-tree mst 0 priority 0
