@@ -1,0 +1,42 @@
+!
+! Prefix filtering, communities and route-map policy examples
+!
+ip bgp-community new-format
+!
+ip prefix-list PL-TRANSIT-IN seq 10 permit 0.0.0.0/0
+ip prefix-list PL-TRANSIT-IN seq 100 deny 0.0.0.0/0 le 32
+!
+ip prefix-list PL-LOCAL-PUBLIC seq 10 permit 192.0.2.0/24
+ip prefix-list PL-LOCAL-PUBLIC seq 100 deny 0.0.0.0/0 le 32
+!
+ip prefix-list PL-CUSTOMER-OUT seq 10 permit 203.0.113.0/24
+ip prefix-list PL-CUSTOMER-OUT seq 100 deny 0.0.0.0/0 le 32
+!
+ip community-list standard COMM-CONTENT-A permit 65000:101
+ip community-list standard COMM-CONTENT-B permit 65000:102
+ip community-list standard COMM-PEERING permit 65000:103
+!
+route-map RM-TRANSIT-OUT permit 10
+ match ip address prefix-list PL-LOCAL-PUBLIC
+!
+route-map RM-CONTENT-A-IN permit 10
+ set community 65000:101 additive
+!
+route-map RM-CONTENT-A-OUT permit 10
+ match ip address prefix-list PL-CUSTOMER-OUT
+!
+route-map RM-CONTENT-B-IN permit 10
+ set community 65000:102 additive
+!
+route-map RM-CONTENT-B-OUT permit 10
+ match ip address prefix-list PL-CUSTOMER-OUT
+!
+route-map RM-PEERING-IN permit 10
+ set community 65000:103 additive
+!
+route-map RM-PEERING-OUT permit 10
+ match ip address prefix-list PL-LOCAL-PUBLIC
+!
+! These are policy building blocks. Validate intended import/export behavior,
+! route availability, prefix lengths and implicit deny effects before use.
+!
