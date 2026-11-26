@@ -1,0 +1,41 @@
+# RouterOS 7 firewall, address-list, NAT and PBR examples
+# Design equivalent of selected RouterOS 6.46.8 concepts.
+# Documentation/private lab addresses only. Review before importing.
+
+/ip firewall address-list
+add list=LAB-PUBLIC address=198.51.100.0/24
+add list=LAB-OWN address=192.0.2.0/24
+add list=LAB-NAT-BYPASS address=10.253.253.0/24
+add list=LAB-APP-A address=203.0.113.0/24
+add list=LAB-APP-B address=198.51.100.128/25
+
+# NAT bypass must be evaluated before source translation.
+/ip firewall nat
+add chain=srcnat action=accept src-address-list=LAB-NAT-BYPASS \
+    comment=LAB-NAT-BYPASS-SOURCE
+add chain=srcnat action=accept dst-address-list=LAB-NAT-BYPASS \
+    comment=LAB-NAT-BYPASS-DESTINATION
+add chain=srcnat action=netmap src-address=10.253.253.0/27 \
+    out-interface=ether1 to-addresses=198.51.100.128/27 \
+    comment=LAB-ONE-TO-ONE-POOL
+add chain=srcnat action=masquerade src-address=192.0.2.0/24 \
+    out-interface=ether1 comment=LAB-MANAGEMENT-NAT
+add chain=dstnat action=dst-nat dst-address=198.51.100.10 \
+    protocol=tcp dst-port=8443 to-addresses=192.0.2.10 to-ports=443 \
+    comment=LAB-HTTPS-PORT-FORWARD
+
+# RouterOS v7 policy routing uses a named FIB table.
+/routing table
+add name=LAB-PBR fib
+/ip route
+add dst-address=0.0.0.0/0 gateway=198.51.100.1 \
+    routing-table=LAB-PBR disabled=yes comment=LAB-PBR-DEFAULT
+
+/ip firewall mangle
+add chain=prerouting action=mark-routing dst-address-list=LAB-APP-A \
+    src-address=192.0.2.0/24 new-routing-mark=LAB-PBR passthrough=no \
+    disabled=yes comment=LAB-PBR-APP-A
+
+# Keep policy routing disabled until the table has a reachable next-hop
+# and both forward and return paths have been verified.
+# Logging-only rules and source-specific NAT translations are not included.
