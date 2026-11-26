@@ -1,0 +1,42 @@
+# RouterOS 6 firewall, address-list, NAT and PBR examples
+# Rewritten from selected concepts in the 2023-06-17 RouterOS 6.46.8 export.
+# All addresses are documentation or private lab ranges.
+# Review rule order and dependencies before importing.
+
+/ip firewall address-list
+add list=LAB-PUBLIC address=198.51.100.0/24
+add list=LAB-OWN address=192.0.2.0/24
+add list=LAB-NAT-BYPASS address=10.253.253.0/24
+add list=LAB-APP-A address=203.0.113.0/24
+add list=LAB-APP-B address=198.51.100.128/25
+
+# NAT bypass rules must precede translation rules.
+/ip firewall nat
+add chain=srcnat action=accept src-address-list=LAB-NAT-BYPASS \
+    comment=LAB-NAT-BYPASS-SOURCE
+add chain=srcnat action=accept dst-address-list=LAB-NAT-BYPASS \
+    comment=LAB-NAT-BYPASS-DESTINATION
+add chain=srcnat action=netmap src-address=10.253.253.0/27 \
+    out-interface=ether1 to-addresses=198.51.100.128/27 \
+    comment=LAB-ONE-TO-ONE-POOL
+add chain=srcnat action=masquerade src-address=192.0.2.0/24 \
+    out-interface=ether1 comment=LAB-MANAGEMENT-NAT
+add chain=dstnat action=dst-nat dst-address=198.51.100.10 \
+    protocol=tcp dst-port=8443 to-addresses=192.0.2.10 to-ports=443 \
+    comment=LAB-HTTPS-PORT-FORWARD
+
+# Address-list-based policy routing. Disabled until a dedicated next-hop
+# and routing table have been configured and tested.
+/ip firewall mangle
+add chain=prerouting action=mark-routing dst-address-list=LAB-APP-A \
+    src-address=192.0.2.0/24 new-routing-mark=LAB-PBR passthrough=no \
+    disabled=yes comment=LAB-PBR-APP-A
+
+/ip route
+add dst-address=0.0.0.0/0 gateway=198.51.100.1 routing-mark=LAB-PBR \
+    disabled=yes comment=LAB-PBR-DEFAULT
+
+# Logging-only rules from the source are intentionally not copied:
+# packet logging can expose internal addressing and generate high log volume.
+# Do not add NAT rules for real public pools without confirming ownership,
+# routing, ARP behavior, and return-path symmetry.
