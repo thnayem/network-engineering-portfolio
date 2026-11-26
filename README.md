@@ -9,6 +9,7 @@ I have rewritten the public examples for documentation and review. They use fict
 
 ## Main platform examples
 
+- [Cisco ASR 920](./platforms/cisco/asr920/) - EVC service instances, bridge domains, BDI, multi-VRF BGP, route policy and QoS
 - [Cisco 7606-S](./platforms/cisco/7606s/) - VRFs, BGP, VLAN handoffs, EtherChannel, PBR, QoS, and Layer 2 controls
 - [Juniper MX204](./platforms/juniper/mx204/) - logical systems, routing policy, firewall filters, and service forwarding
 - [Juniper MX240](./platforms/juniper/mx240/) - logical systems, logical tunnels, BGP policy, and chassis configuration patterns
@@ -21,7 +22,7 @@ I have rewritten the public examples for documentation and review. They use fict
 |---|---|
 | Routing | BGP, OSPF, static routing, PBR, routing policy |
 | Switching | VLANs, trunks, PVST/RSTP, ACLs |
-| Platforms | Cisco IOS/NX-OS, Juniper Junos, MikroTik RouterOS, Huawei VRP/MA5800, Arista EOS |
+| Platforms | Cisco IOS/IOS XE/NX-OS, Juniper Junos, MikroTik RouterOS, Huawei VRP/MA5800, Arista EOS |
 | Traffic engineering | Prefix filters, route-maps, policing, QoS |
 | Network security | Firewall filters, ACLs, management-plane controls |
 | Access networks | GPON, OLT/ONU operations, fiber troubleshooting |
