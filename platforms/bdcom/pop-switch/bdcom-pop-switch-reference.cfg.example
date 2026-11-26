@@ -1,0 +1,196 @@
+! Sanitized BDCOM POP switch reference
+! Source software: 2.2.0D build 78722
+! Source device: 24x Gigabit Ethernet + 4x 10-Gigabit Ethernet interface naming
+! Exact hardware model not identified in supplied running-config.
+! Curated example; not a complete production backup.
+! Hostname, port descriptions, credentials, management IPs and SNMP community removed/replaced.
+
+service timestamps log date
+service timestamps debug date
+hostname BDCOM-POP-SW
+
+lldp run
+
+spanning-tree mode rstp
+spanning-tree rstp priority 4096
+
+aaa authentication login default local
+aaa authentication enable default none
+aaa authorization exec default local
+! Local user credentials intentionally omitted.
+
+interface Null0
+
+interface GigaEthernet0/1
+ switchport trunk vlan-allowed 1201
+ switchport trunk vlan-untagged 1201
+ switchport pvid 1201
+
+interface GigaEthernet0/2
+ switchport trunk vlan-allowed 1202
+ switchport trunk vlan-untagged 1202
+ switchport pvid 1202
+
+interface GigaEthernet0/3
+ switchport trunk vlan-allowed 1203
+ switchport trunk vlan-untagged 1203
+ switchport pvid 1203
+
+interface GigaEthernet0/4
+ switchport trunk vlan-allowed 1204
+ switchport trunk vlan-untagged 1204
+ switchport pvid 1204
+
+interface GigaEthernet0/5
+ switchport trunk vlan-allowed 1205
+ switchport trunk vlan-untagged 1205
+ switchport pvid 1205
+
+interface GigaEthernet0/6
+ switchport trunk vlan-allowed 1206
+ switchport trunk vlan-untagged 1206
+ switchport pvid 1206
+
+interface GigaEthernet0/7
+ switchport trunk vlan-allowed 1207
+ switchport trunk vlan-untagged 1207
+ switchport pvid 1207
+
+interface GigaEthernet0/8
+ switchport trunk vlan-allowed 1208
+ switchport trunk vlan-untagged 1208
+ switchport pvid 1208
+
+interface GigaEthernet0/9
+ switchport trunk vlan-allowed 1209
+ switchport trunk vlan-untagged 1209
+ switchport pvid 1209
+
+interface GigaEthernet0/10
+ switchport trunk vlan-allowed 1210
+ switchport trunk vlan-untagged 1210
+ switchport pvid 1210
+
+interface GigaEthernet0/11
+ switchport trunk vlan-allowed 1211
+ switchport trunk vlan-untagged 1211
+ switchport pvid 1211
+
+interface GigaEthernet0/12
+ switchport trunk vlan-allowed 1212
+ switchport trunk vlan-untagged 1212
+ switchport pvid 1212
+
+interface GigaEthernet0/13
+ switchport trunk vlan-allowed 1213
+ switchport trunk vlan-untagged 1213
+ switchport pvid 1213
+
+interface GigaEthernet0/14
+ switchport trunk vlan-allowed 1214
+ switchport trunk vlan-untagged 1214
+ switchport pvid 1214
+
+interface GigaEthernet0/15
+ switchport trunk vlan-allowed 1215
+ switchport trunk vlan-untagged 1215
+ switchport pvid 1215
+!
+interface GigaEthernet0/16
+ switchport trunk vlan-allowed 1216
+ switchport trunk vlan-untagged 1216
+ switchport pvid 1216
+
+interface GigaEthernet0/17
+ switchport trunk vlan-allowed 1217
+ switchport trunk vlan-untagged 1217
+ switchport pvid 1217
+
+interface GigaEthernet0/18
+ switchport trunk vlan-allowed 1218
+ switchport trunk vlan-untagged 1218
+ switchport pvid 1218
+
+interface GigaEthernet0/19
+ switchport trunk vlan-allowed 1219
+ switchport trunk vlan-untagged 1219
+ switchport pvid 1219
+
+interface GigaEthernet0/20
+ switchport trunk vlan-allowed 1220
+ switchport trunk vlan-untagged 1220
+ switchport pvid 1220
+
+interface GigaEthernet0/21
+ description CUSTOMER-TRUNK-A
+ spanning-tree guard root
+ switchport mode trunk
+ no fiber-auto-config
+
+interface GigaEthernet0/22
+ shutdown
+ no fiber-auto-config
+
+interface GigaEthernet0/23
+ shutdown
+ no fiber-auto-config
+
+interface GigaEthernet0/24
+ description UPLINK-EDGE
+ switchport mode trunk
+ no fiber-auto-config
+
+interface TGigaEthernet0/1
+ description UPLINK-PRIMARY
+ switchport trunk vlan-allowed 1,105,109,140,205,209,305,309,405,409,801
+ switchport trunk vlan-allowed add 802-804,1101-1124,1201-1244,1255,1301-1324,1402
+ switchport trunk vlan-allowed add 1403-1424,1501-1524,1601-1643,1700-1708,2101
+ switchport trunk vlan-allowed add 2102-2128,3799,3998,4002,4005,4071-4074,4090
+ switchport mode trunk
+
+interface TGigaEthernet0/2
+ description UPLINK-SECONDARY
+ switchport trunk vlan-allowed 1,105,109,140,205,209,305,309,405,409,801
+ switchport trunk vlan-allowed add 802-804,1101-1124,1201-1244,1255,1301-1324,1402
+ switchport trunk vlan-allowed add 1403-1424,1501-1524,1601-1643,1700-1708,2101
+ switchport trunk vlan-allowed add 2102-2128,3799,3998,4002,4005,4071-4074,4090
+ switchport mode trunk
+
+interface TGigaEthernet0/3
+ description CUSTOMER-TRUNK-B
+ spanning-tree bpdufilter enable
+ switchport trunk vlan-allowed 1,109,209,309,409,1700-1708,4090
+ switchport mode trunk
+ no fiber-auto-config
+
+interface TGigaEthernet0/4
+ switchport trunk vlan-allowed none
+ switchport mode trunk
+
+interface VLAN1
+ ip address 192.0.2.1 255.255.0.0
+ no ip directed-broadcast
+
+interface VLAN3998
+ ip address 198.51.100.2 255.255.255.252
+ no ip directed-broadcast
+
+vlan 4002
+ name MGMT
+
+vlan 1,102,105,109,150,202,205,209,302,305,309,402,405,409,801-804,1101-1124,1201
+vlan 1202-1244,1255,1301-1324,1401-1424,1502-1524,1601-1643,1700-1708,2101-2128,3799
+vlan 3998,4002,4005,4071-4074,4090
+
+ip route default 198.51.100.1
+ip exf
+ipv6 exf
+
+ip telnet max-user 0
+ip http language english
+! HTTP server omitted from public example.
+! SNMP community omitted; configure a unique secure community in a lab.
+ip sshd enable
+time-zone tz 6 0
+
+! No pending configuration for absent linecards is included.
