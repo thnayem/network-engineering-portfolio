@@ -1,0 +1,45 @@
+! Cisco Nexus 3000 Series - VLAN, access and trunk reference
+! NX-OS lab example. Verify platform/release support before use.
+
+feature interface-vlan
+
+vlan 10
+  name USERS
+vlan 20
+  name VOICE
+vlan 30
+  name SERVERS
+vlan 99
+  name MANAGEMENT
+
+interface Ethernet1/1
+  description LAB-USER-ACCESS
+  switchport
+  switchport mode access
+  switchport access vlan 10
+  spanning-tree port type edge
+
+interface Ethernet1/2
+  description LAB-VOICE-ACCESS
+  switchport
+  switchport mode access
+  switchport access vlan 20
+  spanning-tree port type edge
+
+interface Ethernet1/47
+  description LAB-TRUNK-TO-DISTRIBUTION
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 10,20,30,99
+
+interface Ethernet1/48
+  description LAB-TRUNK-TO-PEER
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 10,20,30,99
+
+! Verification:
+! show vlan brief
+! show interface trunk
+! show interface status
+! show running-config interface Ethernet1/47
