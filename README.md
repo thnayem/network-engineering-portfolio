@@ -3,63 +3,73 @@
 **Md. Tanvir Hossain**  
 Network Administrator | Enterprise Networking | IT Infrastructure Operations
 
-This repository is a collection of network engineering examples drawn from my hands-on work and technical practice. It covers routing, switching, service separation, traffic policy, and day-to-day network operations.
+A practical portfolio of network engineering references covering enterprise routing, switching, service-provider edge concepts, GPON access, traffic engineering, and infrastructure operations.
 
-I have rewritten the public examples for documentation and review. They use fictional identifiers and documentation-only addresses. They are not raw device backups, and they should not be pasted into a live network without checking the platform, software release, dependencies, and intended design.
+The repository is organized in two complementary ways:
 
-## Main platform examples
+- **By platform/vendor** for complete device-family references and source-derived configuration studies.
+- **By technical domain** for reusable concepts such as BGP, OSPF, VLANs, RSTP, PBR, ACLs, and routing policy.
 
-- [Cisco ASR 920](./platforms/cisco/asr920/) - EVC service instances, bridge domains, BDI, multi-VRF BGP, route policy and QoS
-- [Cisco 7606-S](./platforms/cisco/7606s/) - VRFs, BGP, VLAN handoffs, EtherChannel, PBR, QoS, and Layer 2 controls
-- [Cisco Nexus core switch](./platforms/cisco/nexus-core-switch/) - source-derived NX-OS 7.0(3)I4(3) MST, VLANs, LACP, trunks, and SPAN reference
-- [Arista DCS-7050S-52](./platforms/arista/dcs-7050s-52/) - VLANs, trunking, MSTP, LACP, BPDU controls and management
-- [Juniper MX204](./platforms/juniper/mx204/) - logical systems, routing policy, firewall filters, and service forwarding
-- [Juniper MX240](./platforms/juniper/mx240/) - logical systems, logical tunnels, BGP policy, and chassis configuration patterns
-- [MikroTik RouterOS v6/v7](./platforms/mikrotik/) - CCR1009 routing reference, RouterOS 6/v7 routing examples, v7 VLAN/OSPF lab, and CRS309 RouterOS 6.48.2 switching reference
-- [BDCOM switching](./platforms/bdcom/) - separate access-switch and POP-switch configurations with RSTP, VLAN handoffs, trunks, and 10G uplinks
-- [Huawei MA5800-X7 GPON OLT](./platforms/huawei/) - DBA, ONT line/service profiles, GEM mapping, service VLANs, GPON discovery and OLT management
+All public examples are sanitized or independently authored for documentation. They use fictional identifiers and documentation-only addressing. Source-derived references are reduced excerpts, not raw backups. Lab examples are not evidence of production deployment. No file should be pasted into a live network without checking dependencies, platform support, software release, and change/rollback requirements.
 
-## Technical areas
+---
 
-| Area | Topics |
+## Start here
+
+| Section | What you will find |
 |---|---|
-| Routing | BGP, OSPF, static routing, PBR, routing policy |
-| Switching | VLANs, trunks, PVST/RSTP/MSTP, ACLs, LACP |
-| Platforms | Cisco IOS/IOS XE/NX-OS, Juniper Junos, MikroTik RouterOS, Huawei VRP/MA5800, Arista EOS |
-| Traffic engineering | Prefix filters, route-maps, policing, QoS |
-| Network security | Firewall filters, ACLs, management-plane controls |
-| Access networks | GPON, OLT/ONU operations, fiber troubleshooting |
-| Operations | Fault isolation, verification, change safety, rollback |
+| [Platform index](./platforms/) | Vendor and device-family references |
+| [Routing](./routing/) | BGP, OSPF, PBR, routing policy, static routing |
+| [Switching](./switching/) | VLANs, trunks, RSTP, ACLs, Nexus labs |
+| [Network architecture](./network-architecture/) | Logical topology and segmentation examples |
+| [GPON/OLT operations](./gpon-olt/) | Vendor-neutral access-network troubleshooting |
+| [Troubleshooting](./troubleshooting/) | Operational fault-isolation references |
+| [Reference dates](./reference-dates/) | Archive provenance and documentation dates |
 
-## Repository guide
+## Featured platform references
 
-### Network architecture
-- [Network architecture notes](./network-architecture/)
+### Cisco
+- [ASR 920](./platforms/cisco/asr920/) - EVC service instances, bridge domains, BDI, VRF-aware BGP, route policy, and QoS.
+- [7606-S](./platforms/cisco/7606s/) - VRFs, VLAN handoffs, static EtherChannel, BGP, PBR, QoS, and Layer 2 controls.
+- [Nexus core switch, NX-OS 7.0(3)I4(3)](./platforms/cisco/nexus-core-switch/) - source-derived MST, VLAN, LACP, trunk, and SPAN reference.
+- [Nexus 3000 core, NX-OS 7.0(3)I4(6)](./platforms/cisco/nexus-3k-cybernet-core/) - separate source-derived MST reference and STP/RSTP design alternative.
 
-### Routing
-- [Routing overview](./routing/)
-- [BGP](./routing/bgp/)
-- [BGP policy](./routing/bgp-policy/)
-- [OSPF](./routing/ospf/)
-- [Policy-Based Routing](./routing/pbr/)
-- [Routing policy](./routing/policy/)
-- [Static routing](./routing/static-routing/)
+### Other platforms
+- [Arista DCS-7050S-52](./platforms/arista/dcs-7050s-52/) - EOS 4.18.11M, VLANs, trunks, MSTP, LACP, and management controls.
+- [Juniper MX204](./platforms/juniper/mx204/) - logical systems, firewall filters, routing policy, and service forwarding.
+- [Juniper MX240](./platforms/juniper/mx240/) - logical systems, logical tunnels, BGP policy, and chassis patterns.
+- [MikroTik RouterOS 6/7](./platforms/mikrotik/) - CCR routing references, RouterOS v6/v7 equivalents, BGP, OSPF, PBR, NAT, QoS, and CRS309 switching.
+- [BDCOM access and POP switches](./platforms/bdcom/) - VLAN handoffs, trunk allow-lists, RSTP, aggregation, and 10G uplinks.
+- [Huawei MA5800-X7](./platforms/huawei/) - GPON profiles, DBA, GEM mapping, service VLANs, ONT operations, and management.
 
-### Switching
-- [Switching overview](./switching/)
-- [VLAN and trunk example](./switching/vlan/)
-- [RSTP](./switching/rstp/)
-- [ACL example](./switching/acl/)
-- [Nexus example](./switching/nexus/)
-- [Nexus core switch source-derived configuration](./platforms/cisco/nexus-core-switch/)
-- [Arista DCS-7050S-52](./platforms/arista/dcs-7050s-52/)
-- [MikroTik CRS309](./platforms/mikrotik/crs309/) - VLAN-aware bridge and tagged trunk switching
-- [BDCOM access and POP switches](./platforms/bdcom/) - per-port VLAN handoffs, trunk allow-lists, RSTP, static aggregation, and dual 10G uplinks
+## Technical domains
 
-### Operations and reference material
-- [GPON/OLT operations](./gpon-olt/README.md)
-- [Huawei MA5800-X7](./platforms/huawei/)
-- [Troubleshooting runbook](./troubleshooting/README.md)
-- [Reference dates and archive notes](./reference-dates/)
+| Domain | Coverage |
+|---|---|
+| Routing | BGP, OSPF, static routing, PBR, route filtering and policy |
+| Switching | VLANs, access/trunk ports, STP/RSTP/MSTP, LACP, ACLs |
+| Traffic engineering | Prefix-lists, route-maps, communities, policing, QoS/PCQ |
+| Network security | ACLs, firewall filters, management-plane controls, safe publication |
+| Access networks | GPON, OLT/ONU lifecycle, optical fault isolation |
+| Operations | Verification, fault isolation, change safety, rollback |
+
+For vendor-specific examples, start from the [platform index](./platforms/). For protocol-focused study, start from [Routing](./routing/) or [Switching](./switching/).
+
+## How to read the examples
+
+Each directory README describes its source, scope, software release, sanitization, and validation boundary where known.
+
+- **Source-derived reference:** a reduced and sanitized study of a supplied configuration. It is not a complete export or deployment-ready configuration.
+- **Lab example:** an independently authored example used to explain a feature or design pattern.
+- **Design note:** explains topology, packet flow, trade-offs, or control placement.
+- **Verification/rollback note:** lists checks and operational safeguards that should be adapted to the target environment.
+
+No vendor parser or physical-device validation is claimed unless a directory explicitly says otherwise. Validate syntax and feature support on the exact hardware and software release before use.
+
+## Repository standards
+
+- [Portfolio structure and navigation guide](./PORTFOLIO-STRUCTURE.md)
 - [Security policy](./SECURITY.md)
-- [Production demonstration scope](./PRODUCTION-IMPLEMENTATIONS.md)
+- [Production implementation scope](./PRODUCTION-IMPLEMENTATIONS.md)
+
+**Security note:** this is a public repository. Never add raw backups, credentials, customer or provider details, real management addressing, subscriber records, private topology, or employer documents without explicit authorization. Review the complete diff and repository history before publishing.
