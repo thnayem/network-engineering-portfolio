@@ -1,0 +1,94 @@
+# Sanitized CRS309 switching reference
+# Platform: MikroTik CRS309-1G-8S+
+# Source RouterOS: 6.48.2
+# This is a curated example, not a complete device backup.
+# Site, provider, customer, port-label, IP, and management identifiers were anonymized.
+
+/interface bridge
+add frame-types=admit-only-vlan-tagged ingress-filtering=yes name=bridge1 vlan-filtering=yes
+
+/interface ethernet
+set [find default-name=sfp-sfpplus1] comment=uplink-1 disabled=yes
+set [find default-name=sfp-sfpplus2] comment=uplink-2
+set [find default-name=sfp-sfpplus3] comment=uplink-3 disabled=yes speed=10Gbps
+set [find default-name=sfp-sfpplus4] advertise="10M-half,10M-full,100M-half,100M-full,1000M-half,1000M-full,2500M-full,5000M-full,10000M-full" comment=trunk-1
+set [find default-name=sfp-sfpplus5] advertise="10M-half,10M-full,100M-half,100M-full,1000M-half,1000M-full,2500M-full,5000M-full,10000M-full" auto-negotiation=no comment=trunk-2 name=sfp-sfpplus5-trunk speed=10Gbps
+set [find default-name=sfp-sfpplus6] advertise="10M-half,10M-full,100M-half,100M-full,1000M-half,1000M-full,2500M-full,5000M-full,10000M-full" auto-negotiation=no comment=trunk-3 disabled=yes name=sfp-sfpplus6-trunk speed=10Gbps
+set [find default-name=sfp-sfpplus7] speed=10Gbps
+set [find default-name=sfp-sfpplus8] advertise=2500M-full comment=access-uplink name=sfp-sfpplus8-uplink speed=10Gbps
+
+/interface vlan
+add interface=sfp-sfpplus6-trunk name=vlan501-uplink vlan-id=501
+add interface=sfp-sfpplus4 name=vlan501-management vlan-id=501
+add interface=bridge1 name=vlan1150 vlan-id=1150
+
+/interface bridge port
+add bridge=bridge1 frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=sfp-sfpplus4
+add bridge=bridge1 frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=sfp-sfpplus3
+add bridge=bridge1 frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=sfp-sfpplus2
+add bridge=bridge1 frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=sfp-sfpplus1
+add bridge=bridge1 frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=sfp-sfpplus5-trunk learn=yes
+add bridge=bridge1 frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=sfp-sfpplus7
+add bridge=bridge1 frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=sfp-sfpplus6-trunk learn=no
+add bridge=bridge1 frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=sfp-sfpplus8-uplink
+
+/interface bridge vlan
+add bridge=bridge1 tagged=sfp-sfpplus6-trunk,sfp-sfpplus5-trunk,sfp-sfpplus7,sfp-sfpplus8-uplink vlan-ids=1150
+add bridge=bridge1 tagged=sfp-sfpplus3,sfp-sfpplus6-trunk,sfp-sfpplus5-trunk,sfp-sfpplus7,sfp-sfpplus8-uplink vlan-ids=100
+add bridge=bridge1 tagged=sfp-sfpplus2,sfp-sfpplus5-trunk,sfp-sfpplus6-trunk,sfp-sfpplus7,sfp-sfpplus8-uplink vlan-ids=987
+add bridge=bridge1 tagged=sfp-sfpplus1,sfp-sfpplus2,sfp-sfpplus3,sfp-sfpplus4,sfp-sfpplus5-trunk,sfp-sfpplus6-trunk,sfp-sfpplus7,sfp-sfpplus8-uplink vlan-ids=1
+add bridge=bridge1 comment=service-a tagged=sfp-sfpplus5-trunk,sfp-sfpplus6-trunk,sfp-sfpplus8-uplink,bridge1 vlan-ids=954-956
+add bridge=bridge1 comment=service-a tagged=sfp-sfpplus5-trunk,sfp-sfpplus6-trunk,sfp-sfpplus7,sfp-sfpplus8-uplink,bridge1 vlan-ids=1106-1108
+add bridge=bridge1 comment=service-a tagged=sfp-sfpplus5-trunk,sfp-sfpplus6-trunk,sfp-sfpplus7,sfp-sfpplus8-uplink,bridge1 vlan-ids=960-961
+add bridge=bridge1 comment=service-b tagged=sfp-sfpplus5-trunk,sfp-sfpplus6-trunk,sfp-sfpplus7,sfp-sfpplus8-uplink,bridge1 vlan-ids=215-218
+add bridge=bridge1 tagged=sfp-sfpplus5-trunk,sfp-sfpplus6-trunk,sfp-sfpplus7,sfp-sfpplus8-uplink,bridge1 vlan-ids=207-210
+add bridge=bridge1 tagged=sfp-sfpplus1,sfp-sfpplus2,sfp-sfpplus3,sfp-sfpplus4,sfp-sfpplus5-trunk,sfp-sfpplus6-trunk untagged=bridge1 vlan-ids=501
+add bridge=bridge1 comment=service-c tagged=sfp-sfpplus5-trunk,sfp-sfpplus6-trunk,sfp-sfpplus7,sfp-sfpplus8-uplink,bridge1 vlan-ids=1101-1103
+add bridge=bridge1 comment=service-c tagged=sfp-sfpplus5-trunk,sfp-sfpplus6-trunk,sfp-sfpplus7,sfp-sfpplus8-uplink,bridge1 vlan-ids=941-944
+add bridge=bridge1 comment=service-c tagged=sfp-sfpplus5-trunk,sfp-sfpplus6-trunk,sfp-sfpplus7,sfp-sfpplus8-uplink,bridge1 vlan-ids=957
+add bridge=bridge1 comment=service-d tagged=sfp-sfpplus5-trunk,sfp-sfpplus6-trunk,sfp-sfpplus4,bridge1 vlan-ids=219-222
+add bridge=bridge1 comment=service-c tagged=sfp-sfpplus5-trunk,sfp-sfpplus6-trunk,sfp-sfpplus7,sfp-sfpplus8-uplink,bridge1 vlan-ids=1174-1177
+add bridge=bridge1 tagged=sfp-sfpplus4,sfp-sfpplus6-trunk,sfp-sfpplus5-trunk,sfp-sfpplus7,sfp-sfpplus8-uplink vlan-ids=990
+add bridge=bridge1 tagged=sfp-sfpplus1,sfp-sfpplus6-trunk,sfp-sfpplus5-trunk,sfp-sfpplus7,sfp-sfpplus8-uplink vlan-ids=988
+add bridge=bridge1 tagged=sfp-sfpplus4,sfp-sfpplus6-trunk,sfp-sfpplus5-trunk,sfp-sfpplus7,sfp-sfpplus8-uplink,sfp-sfpplus3 vlan-ids=989
+add bridge=bridge1 comment=secondary-uplink tagged=sfp-sfpplus1,sfp-sfpplus5-trunk,sfp-sfpplus6-trunk,sfp-sfpplus7,sfp-sfpplus8-uplink vlan-ids=102
+add bridge=bridge1 tagged=sfp-sfpplus4,sfp-sfpplus5-trunk,sfp-sfpplus6-trunk vlan-ids=228-232
+add bridge=bridge1 tagged=sfp-sfpplus1,sfp-sfpplus6-trunk,sfp-sfpplus5-trunk,sfp-sfpplus7,sfp-sfpplus8-uplink vlan-ids=981
+add bridge=bridge1 tagged=sfp-sfpplus3,sfp-sfpplus6-trunk,sfp-sfpplus5-trunk,sfp-sfpplus7,sfp-sfpplus8-uplink vlan-ids=1121
+add bridge=bridge1 comment=service-e tagged=sfp-sfpplus6-trunk,sfp-sfpplus5-trunk,bridge1 vlan-ids=1221
+add bridge=bridge1 tagged=sfp-sfpplus4,sfp-sfpplus5-trunk,sfp-sfpplus6-trunk vlan-ids=223-227
+add bridge=bridge1 comment=service-f tagged=sfp-sfpplus4,sfp-sfpplus5-trunk,sfp-sfpplus6-trunk,sfp-sfpplus7,sfp-sfpplus8-uplink vlan-ids=4056
+add bridge=bridge1 disabled=yes tagged=sfp-sfpplus5-trunk,sfp-sfpplus6-trunk vlan-ids=1520-1523
+
+/ip firewall connection tracking
+set enabled=no
+
+/ip neighbor discovery-settings
+set discover-interface-list=!dynamic
+
+/ip address
+add address=192.0.2.2/29 interface=vlan1150 network=192.0.2.0
+add address=198.51.100.2/29 interface=vlan501-management network=198.51.100.0
+
+/ip route
+add distance=1 gateway=198.51.100.1
+
+/ip dns
+set servers=1.1.1.1,1.0.0.1
+
+/snmp community
+set [find default=yes] name=lab-readonly
+/snmp
+set enabled=yes trap-version=2
+
+/system clock
+set time-zone-name=Asia/Dhaka
+
+/system identity
+set name=CRS309-SWITCH-LAB
+
+/system routerboard settings
+set boot-os=router-os
+
+/tool romon
+set enabled=yes
