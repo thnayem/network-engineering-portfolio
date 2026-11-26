@@ -11,6 +11,7 @@ I have rewritten the public examples for documentation and review. They use fict
 
 - [Cisco ASR 920](./platforms/cisco/asr920/) - EVC service instances, bridge domains, BDI, multi-VRF BGP, route policy and QoS
 - [Cisco 7606-S](./platforms/cisco/7606s/) - VRFs, BGP, VLAN handoffs, EtherChannel, PBR, QoS, and Layer 2 controls
+- [Cisco Nexus core switch](./platforms/cisco/nexus-core-switch/) - source-derived NX-OS 7.0(3)I4(3) MST, VLANs, LACP, trunks, and SPAN reference
 - [Arista DCS-7050S-52](./platforms/arista/dcs-7050s-52/) - VLANs, trunking, MSTP, LACP, BPDU controls and management
 - [Juniper MX204](./platforms/juniper/mx204/) - logical systems, routing policy, firewall filters, and service forwarding
 - [Juniper MX240](./platforms/juniper/mx240/) - logical systems, logical tunnels, BGP policy, and chassis configuration patterns
@@ -50,6 +51,7 @@ I have rewritten the public examples for documentation and review. They use fict
 - [RSTP](./switching/rstp/)
 - [ACL example](./switching/acl/)
 - [Nexus example](./switching/nexus/)
+- [Nexus core switch source-derived configuration](./platforms/cisco/nexus-core-switch/)
 - [Arista DCS-7050S-52](./platforms/arista/dcs-7050s-52/)
 - [MikroTik CRS309](./platforms/mikrotik/crs309/) - VLAN-aware bridge and tagged trunk switching
 - [BDCOM access and POP switches](./platforms/bdcom/) - per-port VLAN handoffs, trunk allow-lists, RSTP, static aggregation, and dual 10G uplinks
