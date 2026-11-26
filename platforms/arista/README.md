@@ -1,34 +1,9 @@
-# Arista EOS Lab
+# Arista EOS Switching Examples
 
-**Reference archive date:** 2023-04-29  
-**Platform:** Arista EOS-style switching (illustrative)
+- [DCS-7050S-52 Core Switch (EOS 4.18.11M)](./dcs-7050s-52/)
 
-> Independently authored fictional lab notes. No original switch configuration is included.
+This section contains Arista EOS switching examples derived from hands-on configuration work. Public examples use generic device/service labels and documentation-only addressing.
 
-## VLAN and trunk example
-```text
-vlan 10
-   name USERS
-vlan 20
-   name VOICE
-!
-interface Ethernet1
-   description LAB-USER-PORT
-   switchport mode access
-   switchport access vlan 10
-!
-interface Ethernet48
-   description LAB-UPLINK
-   switchport mode trunk
-   switchport trunk allowed vlan 10,20,99
-```
+The DCS-7050S-52 reference covers VLANs, 802.1Q trunks, MSTP, LACP port-channels, BPDU protection/filtering, port security, and management-plane configuration.
 
-## Verification
-```text
-show vlan
-show interfaces trunk
-show spanning-tree
-show interfaces status
-```
-
-Confirm syntax against the exact EOS release and hardware platform before use.
+These are sanitized references, not original backups or deployment-ready configurations. Validate syntax, feature support and Layer-2 design against the exact EOS release and hardware.
