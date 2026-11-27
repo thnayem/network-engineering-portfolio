@@ -2,6 +2,8 @@
 
 Vendor-specific references are grouped here. Keep device families and source releases separate when they represent distinct configurations.
 
+**Production operations experience:** Extensive hands-on remote work with live production servers, routers, and switches, including configuration, planned upgrades, routine maintenance, fault isolation, troubleshooting, service restoration, and post-change verification. The examples in this repository are sanitized references, not complete live-device backups.
+
 | Vendor | Device/reference | Scope |
 |---|---|---|
 | [Cisco](./cisco/) | [ASR 920](./cisco/asr920/), [7606-S](./cisco/7606s/), [Nexus core switch](./cisco/nexus-core-switch/), [Nexus 3000 core](./cisco/nexus-3k-cybernet-core/) | IOS/IOS XE, NX-OS, EVC, VRF, BGP, switching |
@@ -10,6 +12,13 @@ Vendor-specific references are grouped here. Keep device families and source rel
 | [MikroTik](./mikrotik/) | [CCR references](./mikrotik/), [CRS309](./mikrotik/crs309/) | RouterOS 6/7, BGP, OSPF, PBR, NAT, QoS, VLAN bridge |
 | [BDCOM](./bdcom/) | [Access switch](./bdcom/access-switch/), [POP switch](./bdcom/pop-switch/) | VLAN handoffs, trunks, RSTP, aggregation |
 | [Huawei](./huawei/) | [MA5800-X7](./huawei/) | GPON, DBA, ONT profiles, GEM mapping, service VLANs |
+
+## Operational lifecycle
+
+- **Configuration:** baseline review, interface/service configuration, routing and switching policy, and controlled changes.
+- **Upgrade and maintenance:** release/compatibility review, maintenance planning, backup, rollback preparation, and post-upgrade checks.
+- **Remote troubleshooting:** remote access, layered fault isolation, log/counter review, route and neighbor checks, and service restoration.
+- **Verification:** interface health, CPU/memory where applicable, routing adjacencies, VLAN forwarding, monitoring, and end-to-end reachability.
 
 ## Choosing a reference
 
