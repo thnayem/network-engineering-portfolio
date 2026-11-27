@@ -1,5 +1,7 @@
 # Routing Labs
 
+**Production operations:** Hands-on remote configuration, maintenance, upgrades, and troubleshooting of live production routing infrastructure, including BGP, OSPF, static routing, route policy, failover, and tunnel-based connectivity.
+
 - [OSPF](./ospf/)
 - [BGP](./bgp/)
 - [BGP policy, communities and prefix filtering](./bgp-policy/)
@@ -7,4 +9,11 @@
 - [Routing policy and prefix filtering](./policy/)
 - [Static routing](./static-routing/)
 
-All addresses and ASNs are documentation-only examples. Vendor syntax is illustrative and must be validated on the target release.
+## Operational verification
+
+- Confirm physical/underlay reachability before investigating routing adjacencies.
+- Review BGP/OSPF neighbor state, timers, authentication, route exchange, filters, next-hop reachability, and routing-table installation.
+- Check convergence, preferred/backup paths, asymmetric routing, and service impact.
+- For remote changes, preserve management reachability, capture the pre-change state, and prepare rollback before applying policy or protocol changes.
+
+All addresses and ASNs are documentation-only examples. Vendor syntax is illustrative and must be validated on the target release. Production experience is distinct from the validation status of these published labs.
