@@ -30,3 +30,7 @@
 - Prefix filters and routing policy at boundaries.
 
 All labels and design elements are fictional. This is a learning reference, not a real company topology.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
