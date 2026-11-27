@@ -51,3 +51,7 @@ To add stronger proof, publish only approved and redacted material such as:
 ## Skills demonstrated
 
 Data Centre and DR connectivity coordination, routing operations, VPN/tunnel troubleshooting, vendor coordination, maintenance planning, risk awareness, service validation and stakeholder communication.
+
+---
+
+**Authorship and AI assistance:** The technical work, decisions, troubleshooting, lab activity and production experience described in this document are my own. I use AI as a practical writing and productivity aid for editing wording, organizing structure and preparing formal templates or disclaimers. AI does not replace or generate my technical skills, hands-on work or professional judgement. I review and take responsibility for what I publish.
