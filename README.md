@@ -5,7 +5,7 @@ Network Administrator | Enterprise Networking | IT Infrastructure Operations
 
 A practical portfolio of network engineering references covering enterprise routing, switching, service-provider edge concepts, GPON access, traffic engineering, and infrastructure operations.
 
-<**Hands-on Production Operations**>
+## Hands-on Production Operations
 
 I bring extensive hands-on experience working with live production infrastructure, including remote configuration, upgrades, maintenance, and troubleshooting of servers, routers, and switches. My operational work spans enterprise and ISP environments, with a focus on service continuity, fault isolation, controlled changes, and post-change verification.
 
