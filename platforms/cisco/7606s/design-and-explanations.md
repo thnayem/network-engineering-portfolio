@@ -31,3 +31,7 @@ The reference documents PVST. Rapid-PVST+ is a different mode and should be show
 ## Platform checks
 
 Cisco 7606-S behavior depends on the supervisor, line cards, IOS image, licenses, and forwarding hardware. Check command support and hardware restrictions on the exact platform. The examples have not been validated on a live 7606-S; test them in an isolated environment first.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
