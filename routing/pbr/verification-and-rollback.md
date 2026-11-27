@@ -32,3 +32,7 @@ Generate traffic from 10.10.10.0/24. Confirm PBR-ISP2-TRAFFIC increments and the
     commit confirmed 5
 
 A wrong ingress filter or missing return route can interrupt connectivity. Keep console/OOB access available.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
