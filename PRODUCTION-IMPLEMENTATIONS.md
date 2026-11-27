@@ -75,3 +75,7 @@ The public material uses neutral labels and documentation-only addressing. It mu
 ## Validation boundary
 
 The examples have not all been checked by a vendor parser or committed on the named hardware. Review syntax, feature support, interface dependencies, routing behavior, and rollback steps in an isolated lab before using any part of them. A successful secret scan does not establish technical correctness or legal permission to publish source-derived material.
+
+---
+
+**Authorship and AI assistance:** The technical work, decisions, troubleshooting, lab activity and production experience described in this document are my own. I use AI as a practical writing and productivity aid for editing wording, organizing structure and preparing formal templates or disclaimers. AI does not replace or generate my technical skills, hands-on work or professional judgement. I review and take responsibility for what I publish.
