@@ -3,11 +3,11 @@
 **Md. Tanvir Hossain**  
 Network & Infrastructure Administrator | Enterprise and ISP Networks
 
-I keep my network notes here. Some come from problems I have dealt with at work; others come from things I wanted to understand better, lab setups I tested, or mistakes that sent me back to the documentation. I work across routing, switching, ISP connectivity, GPON, VPNs, tunnels and multi-site networks.
+I use this repository to keep practical network notes from work, troubleshooting, study and lab exercises. My experience includes live network operations, remote configuration, maintenance, upgrades and support across enterprise and ISP environments.
 
-My production work goes further than these public pages. I have configured, maintained, upgraded and troubleshot live routers, switches and servers, including remote work across different environments. I cannot publish company configurations, customer details, device backups or internal diagrams. What I can share is how I approach a problem, what I have learned and examples that are safe to make public. Not every example here is a production configuration.
+I cannot publish company configurations, customer details or internal network diagrams. The pages here are selected, sanitized references and independent examples. They are not all production configurations.
 
-I do not get everything right the first time. Sometimes a command behaves differently on another release; sometimes the first theory is wrong. I try to check the evidence, understand the impact, test carefully and write down what I learned. Before a risky change, I want to know how I will verify it and how I can back out if needed.
+![Illustrative enterprise network overview](./docs/network-overview.svg)
 
 ## Repository guide
 
@@ -87,19 +87,12 @@ See [portfolio structure](./PORTFOLIO-STRUCTURE.md) for where new material belon
 
 ## Security
 
-Do not publish raw backups, passwords, keys, SNMP communities, customer/provider information, real management addresses, private topology or employer documents. Review screenshots, configuration snippets and the full Git diff before committing.
+I do not publish raw backups, passwords, keys, customer/provider information, real management addresses, private topology or employer documents. I review screenshots, configuration snippets and changes before publishing.
+
+## Authorship
+
+The technical work and experience described here are mine. I sometimes use AI to edit wording or organize documentation, but not to replace hands-on work or technical judgement. I review what I publish and take responsibility for it.
 
 Maintained by [Md. Tanvir Hossain](https://github.com/thnayem) · [LinkedIn](https://www.linkedin.com/in/thnayem/)
 
 
-## Authorship, AI assistance and real-world work
-
-The technical work documented here is my own. The decisions, hands-on work, troubleshooting, lab activities, implementation experience and production-related context come from my real work and learning. I do not use AI to invent configurations, incidents, technical results, deployment history or experience claims.
-
-I have used AI assistance in a limited editorial role for some template-style wording, sentence structure and phrasing, and to help organize formal or licensing-related disclaimers and documentation layouts. That assistance does not make the underlying technical work, decisions, lab activity or production experience AI-generated. I remain responsible for the accuracy of what I publish, and I try to distinguish clearly between work I handled in production, sanitized references, and examples I built or tested in a lab.
-
-Some pages use familiar ITSM, ITIL or other framework terminology where it helps explain a process or meet a documentation need. Those references are organizational language, not a claim that every framework was formally adopted or followed in a particular workplace. I prefer practical evidence and honest context over textbook wording or claims that sound impressive but cannot be backed up.
-
----
-
-**Authorship and AI assistance:** The technical work, decisions, troubleshooting, lab activity and production experience described in this document are my own. I use AI as a practical writing and productivity aid for editing wording, organizing structure and preparing formal templates or disclaimers. AI does not replace or generate my technical skills, hands-on work or professional judgement. I review and take responsibility for what I publish.
