@@ -5,6 +5,15 @@ Network Administrator | Enterprise Networking | IT Infrastructure Operations
 
 A practical portfolio of network engineering references covering enterprise routing, switching, service-provider edge concepts, GPON access, traffic engineering, connectivity operations and troubleshooting.
 
+## Important context: production experience vs. published material
+
+My real-world, hands-on exposure to live production networks is considerably broader than the examples and notes published in this repository. This repository is only a selected glimpse of that experience; it is not a complete inventory of the networks, devices, incidents, changes or responsibilities I have worked with. More material and lessons are still waiting to be documented.
+
+I do not publish original employer/customer production configurations, raw router or switch backups, credentials, real management addressing, private topology or confidential network information. The content here consists of study notes, learning references, independently prepared lab/demo configurations, troubleshooting exercises, implementation practice and selected lessons from practical work. Production experience is described separately and at a high level. A sample or lab configuration must not be interpreted as an exact configuration taken from, or deployed unchanged in, a live production network.
+
+I can make mistakes, including technical or documentation mistakes. I believe professional responsibility means acknowledging them, checking the evidence, communicating the impact, correcting the issue and learning from the outcome. I aim to approach network changes carefully, prepare a recovery path and take ownership of the work assigned to me.
+
+
 ## Five-minute overview
 
 - **Production experience:** Hands-on involvement in live infrastructure, including remote configuration, upgrades, maintenance and troubleshooting of servers, routers and switches.
