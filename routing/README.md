@@ -3,7 +3,7 @@
 **Production operations:** Hands-on remote configuration, maintenance, upgrades, and troubleshooting of live production routing infrastructure, including BGP, OSPF, static routing, route policy, failover, and tunnel-based connectivity.
 
 - [OSPF](./ospf/)
-- [BGP](./bgp/)
+- [BGP](./bgp/) - eBGP fundamentals, dual-ISP traffic engineering, route policy and failover labs
 - [BGP policy, communities and prefix filtering](./bgp-policy/)
 - [Policy-Based Routing](./pbr/)
 - [Routing policy and prefix filtering](./policy/)
