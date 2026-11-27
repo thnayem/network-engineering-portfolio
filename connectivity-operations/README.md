@@ -4,7 +4,11 @@ A practical operations reference covering multi-site enterprise connectivity, NT
 
 This section documents operational responsibilities, design considerations, coordination workflows, and verification practices. It reflects hands-on operational work involving live production connectivity, remote router/switch configuration, upgrades, maintenance, troubleshooting, NTTN/vendor coordination, dark-fiber infrastructure, and DC/DR service continuity. Public examples intentionally use generic labels and do not disclose provider names, circuit IDs, real site details, IP addresses, or confidential topology.
 
-## Hands-on production connectivity operations\n\nOperational responsibilities include remote configuration and maintenance of production routers and switches, tunnel and routing troubleshooting, coordinating carrier/NTTN teams, monitoring service performance against agreed SLAs, managing organization-owned fiber fault/restoration activities, and coordinating DC/DR ports, bandwidth, routing, VPNs, and maintenance windows. Changes should follow authorization, impact assessment, backup, rollback, and post-change verification procedures.\n\n## 1. OSPF over GRE tunnels
+## Hands-on production connectivity operations
+
+Operational responsibilities include remote configuration and maintenance of production routers and switches, tunnel and routing troubleshooting, coordinating carrier/NTTN teams, monitoring service performance against agreed SLAs, managing organization-owned fiber fault/restoration activities, and coordinating DC/DR ports, bandwidth, routing, VPNs, and maintenance windows. Changes should follow authorization, impact assessment, backup, rollback, and post-change verification procedures.
+
+## 1. OSPF over GRE tunnels
 
 Use case: extend Layer 3 reachability and dynamic routing between separated sites across an IP underlay.
 
