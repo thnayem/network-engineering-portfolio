@@ -35,6 +35,7 @@ All public examples are sanitized or independently authored for documentation. T
 | [VPN](./vpn/) | Site-to-site, remote-access, IPsec, SSL/TLS VPN, design and troubleshooting |
 | [Tunnel technologies](./tunnels/) | GRE, IPsec, L2TP, GRE over IPsec, tunnel design |
 | [Connectivity and DC/DR operations](./connectivity-operations/) | OSPF over GRE, multi-site NTTN transport, vendor coordination, SLA, dark-fiber maintenance, DC/DR ports, bandwidth, routing, tunnels, and VPN |
+| [Operations case studies](./case-studies/) | Sanitized experience-based examples for NTTN connectivity and DC/DR operations |
 | [Network architecture](./network-architecture/) | Logical topology and segmentation examples |
 | [GPON/OLT operations](./gpon-olt/) | Vendor-neutral access-network troubleshooting |
 | [Troubleshooting](./troubleshooting/) | Operational fault-isolation references |
