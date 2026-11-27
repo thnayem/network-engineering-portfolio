@@ -22,3 +22,7 @@ Filter term order is important. A broad match placed before bypass terms can ste
 PBR is stateless steering, not stateful firewalling. Ensure the return path exists and is symmetric where required. Add explicit exemptions for management, internal services, monitoring, and other destinations that must not use the alternate uplink. Validate next-hop resolution in the forwarding instance and confirm feature support on the target Junos release.
 
 All addresses are lab values. Do not paste this into production without a complete traffic-flow and rollback plan.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
