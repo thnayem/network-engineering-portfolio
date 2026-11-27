@@ -90,3 +90,12 @@ See [portfolio structure](./PORTFOLIO-STRUCTURE.md) for where new material belon
 Do not publish raw backups, passwords, keys, SNMP communities, customer/provider information, real management addresses, private topology or employer documents. Review screenshots, configuration snippets and the full Git diff before committing.
 
 Maintained by [Md. Tanvir Hossain](https://github.com/thnayem) · [LinkedIn](https://www.linkedin.com/in/thnayem/)
+
+
+## Authorship, AI assistance and real-world work
+
+The technical work documented here is my own. The decisions, hands-on work, troubleshooting, lab activities, implementation experience and production-related context come from my real work and learning. I do not use AI to invent configurations, incidents, technical results, deployment history or experience claims.
+
+I have used AI assistance in a limited editorial role for some template-style wording, sentence structure and phrasing, and to help organize formal or licensing-related disclaimers and documentation layouts. That assistance does not make the underlying technical work, decisions, lab activity or production experience AI-generated. I remain responsible for the accuracy of what I publish, and I try to distinguish clearly between work I handled in production, sanitized references, and examples I built or tested in a lab.
+
+Some pages use familiar ITSM, ITIL or other framework terminology where it helps explain a process or meet a documentation need. Those references are organizational language, not a claim that every framework was formally adopted or followed in a particular workplace. I prefer practical evidence and honest context over textbook wording or claims that sound impressive but cannot be backed up.
