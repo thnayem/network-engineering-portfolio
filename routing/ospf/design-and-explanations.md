@@ -20,3 +20,7 @@ Form an OSPF adjacency in backbone area 0 between MX204 and a lab core router.
 
 ## Production notes
 Use passive interfaces by default and enable adjacency only on intended links. Plan authentication, unique router IDs, route redistribution policy, BFD support/timers, and monitoring. Do not redistribute static or BGP routes without explicit policy.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
