@@ -18,3 +18,7 @@ ip prefix-list LAB-OUT seq 100 deny 0.0.0.0/0 le 32
 ```
 
 This is a small teaching example, not a complete internet routing policy. Review exact-match and length-match behavior before use.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
