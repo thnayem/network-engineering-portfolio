@@ -17,3 +17,7 @@ TRANSIT-OUT-PREPEND adds the local AS twice to the AS path. This may make the pa
 
 ## Hardening
 Consider maximum-prefix limits, RPKI origin validation, AS-path/bogon filters, route authorization, IPv6 policy, and monitoring.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
