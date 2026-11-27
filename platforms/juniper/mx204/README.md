@@ -21,3 +21,7 @@ The examples cover logical systems, logical tunnels, aggregated Ethernet, VLAN-t
 The files are shortened examples, not original device backups or complete deployment configurations. Some labs are independent exercises rather than a reproduction of a single implementation. Check each file's dependencies and intended scope before using it.
 
 No MX204 commit-check or device validation has been performed for this public set. Verify syntax and feature support against the target Junos release and hardware, then test in an isolated lab.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
