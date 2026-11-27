@@ -32,3 +32,7 @@ SNMP and RoMON commands are intentionally omitted from the public example. Conne
 ## Validation and safety
 
 The example has not been imported into a CRS309 or validated against live hardware. Review VLAN membership, bridge CPU-port behavior, management reachability, and port roles before adapting it. Apply changes through a controlled maintenance window with out-of-band access and a rollback plan. Do not paste this file into production unchanged.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
