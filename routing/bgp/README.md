@@ -1,37 +1,35 @@
-# BGP Lab
+# BGP Labs and Engineering Notes
 
-**Lab date:** 2026-03-18 (reference archive date; independently authored example)
+BGP protocol references and independently authored lab examples. The examples use fictional ASNs and documentation-only prefixes.
 
-## Fictional topology
-- AS 64520: local lab
-- AS 64521: external lab peer
-- Peering link: 192.0.2.4/30
-- Peer address: 192.0.2.6
+## Start here
 
-## Cisco IOS
-```cisco
-router bgp 64520
- bgp log-neighbor-changes
- neighbor 192.0.2.6 remote-as 64521
- address-family ipv4
-  neighbor 192.0.2.6 activate
- exit-address-family
-```
+- [Dual-ISP BGP Traffic Engineering Lab](./dual-isp-traffic-engineering-lab.md) - eBGP peers, import/export filtering, Local Preference, AS-PATH prepending, communities, failover and verification.
+- [Basic eBGP session lab](./README.md) - a minimal Cisco IOS and Junos peer configuration reference.
+- [Juniper MX204 BGP policy lab](../bgp-policy/README.md) - prefix allow-lists, local preference, communities, AS-path prepend, explicit reject terms and rollback.
 
-## Junos
-```junos
-set routing-options autonomous-system 64520
-set protocols bgp group LAB-EBGP type external
-set protocols bgp group LAB-EBGP peer-as 64521
-set protocols bgp group LAB-EBGP neighbor 192.0.2.6
-```
+## Learning path
 
-## Operational safeguards
-- Apply explicit import and export policies.
-- Use prefix limits where supported.
-- Filter bogons and unexpected route ranges.
-- Protect the control plane and restrict peer reachability.
-- Never copy a live peer address, ASN, password or route policy into this lab.
+1. Establish peer reachability and understand the BGP finite-state machine.
+2. Configure eBGP and verify the session.
+3. Understand received, accepted, selected and advertised routes as separate stages.
+4. Apply explicit import/export policy using prefix lists and policy terms.
+5. Compare Local Preference, AS-PATH, MED, communities and next-hop handling.
+6. Test primary/backup behaviour and verify the actual forwarding path.
+7. Review route-leak prevention, maximum-prefix, RPKI/IRR, peer security and rollback.
 
-## Verification
-`show bgp summary`, `show ip bgp summary`, `show route protocol bgp`.
+## Operational checks
+
+- Peer state and uptime.
+- Received/accepted/advertised prefix counts.
+- Import and export policy attachment.
+- Best-path attributes and next-hop reachability.
+- Routing table and forwarding table.
+- Service reachability and return path.
+- Logs, reset counters and convergence evidence.
+
+## Evidence and validation
+
+The traffic-engineering page is an independent lab/demo reference, not a production configuration. It has not been claimed as emulator- or hardware-validated. Record the exact platform/release and actual results before marking the lab tested.
+
+Production experience described in the parent portfolio is separate from the validation status of these public examples.
