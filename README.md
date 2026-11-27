@@ -3,11 +3,11 @@
 **Md. Tanvir Hossain**  
 Network & Infrastructure Administrator | Enterprise and ISP Networks
 
-This is where I keep selected network notes, lab work, technical references and troubleshooting write-ups. The subjects come from areas I have worked with in production as well as things I continue to study and test: routing, switching, ISP connectivity, GPON, VPNs, tunnels and multi-site networks.
+I keep my network notes here. Some come from problems I have dealt with at work; others come from things I wanted to understand better, lab setups I tested, or mistakes that sent me back to the documentation. I work across routing, switching, ISP connectivity, GPON, VPNs, tunnels and multi-site networks.
 
-My hands-on production work goes beyond what is published here. I have configured, maintained, upgraded and troubleshot live routers, switches and servers, including remote work across different environments. I do not publish employer or customer backups, credentials, private addressing or internal diagrams. The examples here are therefore selected and sanitized. Some pages explain work I have been involved in; others are independent labs or study notes. A sample configuration should not be taken as a copy of a live production setup.
+My production work goes further than these public pages. I have configured, maintained, upgraded and troubleshot live routers, switches and servers, including remote work across different environments. I cannot publish company configurations, customer details, device backups or internal diagrams. What I can share is how I approach a problem, what I have learned and examples that are safe to make public. Not every example here is a production configuration.
 
-I make mistakes, too. What matters is being honest about them, checking the impact, finding the cause and correcting the problem safely. Before a network change, I try to understand the risk, prepare a rollback and know how I will verify the service afterward.
+I do not get everything right the first time. Sometimes a command behaves differently on another release; sometimes the first theory is wrong. I try to check the evidence, understand the impact, test carefully and write down what I learned. Before a risky change, I want to know how I will verify it and how I can back out if needed.
 
 ## Repository guide
 
@@ -74,7 +74,7 @@ For planned work, I want a clear scope, an agreed window, a backup or baseline, 
 
 ## Documentation
 
-New and updated pages use the [documentation guide](./DOCUMENTATION-GUIDE.md). The aim is to explain what a page is for, which environment it applies to, how the feature works, what was changed, how to troubleshoot it and how to verify or roll it back.
+New and updated pages use the [documentation guide](./DOCUMENTATION-GUIDE.md). I try to explain what a page is for, which environment it applies to, what I tried, what happened and how I checked the result. If something is only a lab example or still needs testing, I say so.
 
 See [portfolio structure](./PORTFOLIO-STRUCTURE.md) for where new material belongs.
 
