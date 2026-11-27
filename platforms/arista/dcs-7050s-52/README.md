@@ -68,3 +68,7 @@ show running-config
 ```
 
 No EOS parser or physical DCS-7050S-52 validation was performed. Check command support and feature behavior against EOS 4.18.11M and the exact switch hardware before adapting this reference.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
