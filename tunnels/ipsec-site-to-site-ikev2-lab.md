@@ -337,3 +337,7 @@ Do not mark this page as validated until you have run it and captured your own o
 - [OSPF over GRE lab walkthrough](../case-studies/ospf-over-gre-lab-walkthrough.md)
 - [Dual-ISP BGP traffic engineering lab](../routing/bgp/dual-isp-traffic-engineering-lab.md)
 - [Network documentation guide](../DOCUMENTATION-GUIDE.md)
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
