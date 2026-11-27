@@ -1,31 +1,33 @@
-# Documentation Guide - Network Engineering
+# How I document network work
 
-Use this structure for new protocol, device, architecture and troubleshooting pages. Keep it practical. A short page with accurate checks is better than a long page full of generic claims.
+I use these notes when adding a device, protocol, design or troubleshooting page. I do not want a document to look complete just because it has many headings. It should help someone understand the setup, follow the checks and see what has or has not been tested.
 
-## Required labels
+## First, explain what the page is
 
-At the top of each page, identify one or more of these:
+Choose the description that fits the material:
 
-- **Production experience:** Work I have been involved in. Describe scope and responsibility without confidential details.
-- **Sanitized reference:** A reduced/anonymized configuration or source-derived reference. State what was removed and what is incomplete.
-- **Lab/demo:** An independently authored example. State the platform/release and whether it was actually tested.
-- **Design note:** An architecture or packet-flow explanation.
-- **Template:** A reusable checklist or workflow, not a record of an actual event.
+- **Production experience:** A task or area of work I was involved in. Keep company, customer and site details private.
+- **Sanitized reference:** A shortened or anonymized example based on a source configuration. Say what was changed or left out.
+- **Lab/demo:** Something I built or tested separately. Mention the device/software release and the checks I actually ran.
+- **Design note:** An explanation of a topology, traffic flow or design choice.
+- **Template:** A checklist or workflow that someone still needs to adapt.
 
-Do not imply a lab was deployed in production. Do not imply a sanitized excerpt is a complete backup.
+A lab is not proof of a production deployment. A shortened configuration should not be mistaken for a complete device backup.
 
-## Page structure
+## What I try to include
 
-1. **Purpose and scope** - What problem or technology does this page cover?
-2. **Evidence and environment** - Evidence label, vendor/model, software release, source date if known, lab topology if applicable.
-3. **Topology and packet flow** - Add a Mermaid diagram when it helps explain peers, interfaces, underlay/overlay, VLANs or traffic direction.
-4. **Prerequisites and dependencies** - Addressing, interfaces, routing, licenses, MTU, firewall policy, upstream services.
-5. **Configuration example** - Sanitized commands with fictional names and documentation-only IPs. Explain each meaningful block.
-6. **Troubleshooting** - Symptom, checks, likely causes, evidence and safe next step.
-7. **Verification** - Commands to confirm state and what a healthy result should look like.
-8. **Change safety and rollback** - Backup/baseline, maintenance window, rollback trigger and recovery steps.
-9. **What I learned** - A short note about an assumption, unexpected result, limitation or next thing to test.
-10. **References** - Vendor documentation and related repository pages.
+1. **The problem or purpose.** What am I trying to explain or fix?
+2. **The environment.** Device model, software release, relevant source date and lab details, where known.
+3. **The topology.** A diagram if it makes the links, peers, VLANs or traffic path easier to follow.
+4. **Dependencies.** Interfaces, addressing, routing, MTU, licenses, firewall rules and upstream services.
+5. **The example.** Sanitized commands, with a short explanation of the parts that matter.
+6. **Troubleshooting.** What the symptom looks like, what I checked and what the evidence showed.
+7. **Verification.** The commands or tests used, plus the result that indicates the service is healthy.
+8. **Change safety.** Baseline or backup, maintenance window, rollback trigger and recovery steps.
+9. **A useful lesson.** Something that surprised me, an assumption that was wrong, or a point I still need to test.
+10. **References.** Vendor documentation and related pages.
+
+Not every short note needs all ten sections. Use what helps explain the work; leave out headings that have nothing useful to say.
 
 ## Example topology
 
@@ -39,23 +41,23 @@ flowchart LR
   EdgeB --- RoutingB[OSPF / BGP]
 ```
 
-Adapt the diagram to the actual example. Do not add devices, redundancy or protocols that are not part of the described design.
+Change the diagram to match the actual example. Do not add redundancy, devices or protocols just to make the design look more impressive.
 
 ## Example troubleshooting table
 
-| Symptom | Checks | Possible cause | Verification |
+| Symptom | What I would check | Possible area | How to confirm |
 |---|---|---|---|
-| OSPF neighbor not full | Interface state, area, timers, MTU, authentication, reachability | Underlay or adjacency mismatch | Neighbor state and route table |
-| GRE tunnel up but routes missing | Tunnel source/destination, reachability, OSPF interface/network type, MTU | Overlay or routing issue | Tunnel counters, adjacency and learned routes |
-| BGP session down | Peer reachability, source address, ASN, TCP 179, policy | Underlay, peer or policy issue | BGP summary and received/advertised routes |
+| OSPF neighbor not full | Interface state, area, timers, MTU, authentication and reachability | Underlay or adjacency mismatch | Neighbor state and route table |
+| GRE tunnel up but routes missing | Tunnel endpoints, reachability, OSPF interface/network type and MTU | Overlay or routing issue | Tunnel counters, adjacency and learned routes |
+| BGP session down | Peer reachability, source address, ASN, TCP 179 and policy | Underlay, peer or policy issue | BGP summary and received/advertised routes |
 | VLAN host unreachable | Access VLAN, trunk allow-list, STP, gateway and MAC learning | Layer 2 or gateway mismatch | MAC table, VLAN state and end-to-end test |
 
-These are investigation prompts, not a diagnosis. Confirm the actual cause from evidence.
+These checks help narrow down an issue. They are not a diagnosis until the evidence points to a cause.
 
-## Configuration and security rules
+## Before publishing or running an example
 
-- Use placeholders such as `<WAN_INTERFACE>` and fictional documentation addresses.
-- Never publish credentials, keys, communities, real customer/provider details or raw production backups.
-- Mark commands that are illustrative or untested.
-- Do not claim device/parser validation unless it was performed on the named platform and release.
-- Explain destructive commands and include a rollback or recovery note.
+- Replace real names and addresses with safe placeholders or documentation ranges.
+- Remove passwords, keys, SNMP communities, customer/provider details and raw production backups.
+- Mark examples that are illustrative or still untested.
+- Only say a configuration passed a parser or device check when that test was actually run on the named platform and release.
+- Explain commands that can interrupt service or remove configuration, and include a recovery path.
