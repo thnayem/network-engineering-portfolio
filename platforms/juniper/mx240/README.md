@@ -35,3 +35,7 @@ This file has not been committed on an MX240 or verified with Juniper's `commit 
 ## Privacy
 
 The public sample uses neutral service labels and documentation-only addresses. It does not identify an employer, customer, provider, site, or live network.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
