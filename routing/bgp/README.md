@@ -33,3 +33,7 @@ BGP protocol references and independently authored lab examples. The examples us
 The traffic-engineering page is an independent lab/demo reference, not a production configuration. It has not been claimed as emulator- or hardware-validated. Record the exact platform/release and actual results before marking the lab tested.
 
 Production experience described in the parent portfolio is separate from the validation status of these public examples.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
