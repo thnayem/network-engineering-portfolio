@@ -33,3 +33,7 @@ The example policer uses illustrative bandwidth and burst values. They are not o
 This excerpt has not been loaded on an MX240 and has not passed a Juniper commit check. Hardware support, FPC/PIC settings, logical-system syntax, interface dependencies, BGP reachability, and policy behavior all require validation on the target platform and release.
 
 All identifiers and addresses in the public example are fictional.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
