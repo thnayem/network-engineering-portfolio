@@ -5,6 +5,17 @@ Network Administrator | Enterprise Networking | IT Infrastructure Operations
 
 A practical portfolio of network engineering references covering enterprise routing, switching, service-provider edge concepts, GPON access, traffic engineering, and infrastructure operations.
 
+<**Hands-on Production Operations**>
+
+I bring extensive hands-on experience working with live production infrastructure, including remote configuration, upgrades, maintenance, and troubleshooting of servers, routers, and switches. My operational work spans enterprise and ISP environments, with a focus on service continuity, fault isolation, controlled changes, and post-change verification.
+
+**Core operational strengths**
+- Remote administration and troubleshooting of production servers, routers, and switches.
+- Device configuration, software/firmware upgrades, maintenance, and configuration review.
+- Routing and switching operations across BGP, OSPF, VLANs, trunks, and network edge/core infrastructure.
+- Incident handling, root-cause investigation, service restoration, and preventive follow-up.
+- Change planning, maintenance-window coordination, backup/rollback preparation, and post-change validation.
+
 The repository is organized in two complementary ways:
 
 - **By platform/vendor** for complete device-family references and source-derived configuration studies.
@@ -61,10 +72,11 @@ All public examples are sanitized or independently authored for documentation. T
 | VPN and tunneling | Site-to-site, remote access, IPsec, SSL/TLS VPN, GRE, L2TP, GRE over IPsec, OSPF over GRE |
 | WAN and transport operations | Multi-site NTTN connectivity, vendor coordination, SLA tracking, dark-fiber/core cable maintenance |
 | Data center operations | DC/DR connectivity, port and bandwidth management, tunnels, BGP, OSPF, VPN, maintenance coordination |
+| Server and infrastructure operations | Remote server administration, configuration, upgrades, maintenance, monitoring, and troubleshooting |
 | Traffic engineering | Prefix-lists, route-maps, communities, policing, QoS/PCQ |
 | Network security | ACLs, firewall filters, VPN security, management-plane controls, safe publication |
 | Access networks | GPON, OLT/ONU lifecycle, optical fault isolation |
-| Operations | Verification, fault isolation, change safety, rollback |
+| Operations | Production incident response, remote fault isolation, verification, change safety, rollback |
 
 For vendor-specific examples, start from the [platform index](./platforms/). For protocol-focused study, explore [Routing](./routing/), [Switching](./switching/), [VPN](./vpn/), and [Tunnel technologies](./tunnels/). For WAN transport and infrastructure operations, see [Connectivity and DC/DR operations](./connectivity-operations/).
 
@@ -73,7 +85,7 @@ For vendor-specific examples, start from the [platform index](./platforms/). For
 Each directory README describes its source, scope, software release, sanitization, and validation boundary where known.
 
 - **Source-derived reference:** a reduced and sanitized study of a supplied configuration. It is not a complete export or deployment-ready configuration.
-- **Lab example:** an independently authored example used to explain a feature or design pattern.
+- **Lab example:** an independently authored example used to explain a feature or design pattern. It should not be read as proof that the exact sample was deployed in production.
 - **Design note:** explains topology, packet flow, trade-offs, or control placement.
 - **Verification/rollback note:** lists checks and operational safeguards that should be adapted to the target environment.
 
