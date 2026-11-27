@@ -31,3 +31,7 @@ The public files are curated examples, not raw backups. They omit some nonessent
 ## Validation boundary
 
 The commands are based on the supplied BDCOM configuration syntax and have not been validated on physical hardware or an emulator. Verify command support on the exact BDCOM model and firmware. Review VLAN membership, uplink allow-lists, STP protections, aggregation behavior and management reachability before adapting. Use out-of-band access and a rollback plan for any live change.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
