@@ -49,3 +49,7 @@ To strengthen this evidence when disclosure is approved, add:
 ## Skills demonstrated
 
 Enterprise WAN operations, NTTN/provider coordination, incident ownership, routing and switching troubleshooting, service verification, SLA follow-up, stakeholder communication and change discipline.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
