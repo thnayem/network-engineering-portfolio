@@ -18,3 +18,7 @@ This section brings together selected examples of network work, troubleshooting 
 Some pages describe work I have been involved in; the lab walkthrough is an independent example. I do not want to blur those two things. Where I can share evidence, I prefer a redacted monitoring graph, a sanitized command output, a diagram using documentation-only addresses or a clear post-change check.
 
 I will not publish raw configurations, credentials, customer data, provider tickets, contracts or internal screenshots without permission. I also will not add uptime improvements, MTTR reductions, bandwidth gains or project savings unless I can verify the figures and am allowed to share them.
+
+---
+
+**Authorship and AI assistance:** The technical work, decisions, troubleshooting, lab activity and production experience described in this document are my own. I use AI as a practical writing and productivity aid for editing wording, organizing structure and preparing formal templates or disclaimers. AI does not replace or generate my technical skills, hands-on work or professional judgement. I review and take responsibility for what I publish.
