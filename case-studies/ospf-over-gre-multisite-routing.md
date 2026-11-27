@@ -95,3 +95,7 @@ The walkthrough is explicitly labelled as a lab/demo. It is not a copy of a prod
 ## Skills demonstrated
 
 GRE tunnel operations, OSPF adjacency and route verification, underlay/overlay troubleshooting, multi-site connectivity, change discipline, risk awareness and service validation.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
