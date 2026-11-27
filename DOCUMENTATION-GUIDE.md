@@ -61,3 +61,7 @@ These checks help narrow down an issue. They are not a diagnosis until the evide
 - Mark examples that are illustrative or still untested.
 - Only say a configuration passed a parser or device check when that test was actually run on the named platform and release.
 - Explain commands that can interrupt service or remove configuration, and include a recovery path.
+
+---
+
+**Authorship and AI assistance:** The technical work, decisions, troubleshooting, lab activity and production experience described in this document are my own. I use AI as a practical writing and productivity aid for editing wording, organizing structure and preparing formal templates or disclaimers. AI does not replace or generate my technical skills, hands-on work or professional judgement. I review and take responsibility for what I publish.
