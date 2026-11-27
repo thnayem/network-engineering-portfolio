@@ -68,3 +68,7 @@ If a future example requires IP addresses, use documentation ranges such as 192.
 ## Evidence standard
 
 A reference diagram demonstrates design understanding, not a verified implementation. To present a real project as evidence, add only authorized and sanitized material: reviewed topology, platform/version details, redacted routing output, test scope, observed results and change approval references.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
