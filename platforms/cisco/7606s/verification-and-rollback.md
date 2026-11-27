@@ -57,3 +57,7 @@ Some commands differ across IOS releases and feature sets; use platform CLI help
 - Validate syntax and platform support before applying.
 - Confirm management, routing and traffic behavior after each change.
 - Roll back the last change from the saved configuration if reachability or forwarding is affected.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
