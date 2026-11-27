@@ -65,3 +65,7 @@ show running-config
 ```
 
 Use a maintenance window, configuration backup and reviewed rollback plan before making changes to a live router.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
