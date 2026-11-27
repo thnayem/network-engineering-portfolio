@@ -27,3 +27,7 @@ flowchart TD
 The MX204 loopback is passive: its prefix is advertised but it does not form an adjacency. The routed link forms the adjacency. The remote router must advertise 192.0.2.2/32 for the MX204 to learn it.
 
 Both ends must agree on area, timers, network type, and authentication. This diagram describes OSPF control-plane behavior, not user-packet forwarding.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
