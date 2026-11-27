@@ -53,3 +53,7 @@ The BGP v7 example uses the explicit BGP instance menu available in RouterOS 7.2
 These files have not been imported into RouterOS or validated on a MikroTik device/CHR. Some examples are independent lab segments and require the referenced interfaces, addresses, peers, and routing tables to exist. Review command support and syntax against the exact RouterOS release. Test in an isolated CHR or lab, confirm route advertisements and NAT counters, and prepare a rollback before any live use.
 
 The CCR1009 file is a curated, anonymized excerpt and must not be imported as-is. No example is intended for direct deployment.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
