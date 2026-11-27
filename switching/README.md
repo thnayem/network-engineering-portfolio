@@ -19,3 +19,7 @@
 - Verify link state, MAC learning, VLAN forwarding, loop protection, LACP state, and end-to-end connectivity after changes.
 
 All examples are fictional, independently authored lab material. See vendor folders for syntax-specific samples. Production experience is distinct from the validation status of these published examples.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
