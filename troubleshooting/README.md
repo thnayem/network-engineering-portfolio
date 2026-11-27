@@ -1,5 +1,14 @@
 # Network Troubleshooting Runbook
 
+**Production operations experience:** Extensive hands-on remote troubleshooting of live production servers, routers, and switches, from physical/interface checks through Layer 2, Layer 3, security policy, server services, and end-to-end application reachability. The goal is controlled fault isolation and service restoration with minimal disruption.
+
+## Remote troubleshooting discipline
+
+- Confirm authorization, affected scope, business impact, and an available management path before starting.
+- Collect timestamps, logs, interface counters, resource utilization, routing state, and relevant monitoring evidence.
+- Avoid disruptive actions without approval, impact assessment, a maintenance window where required, and a rollback/recovery plan.
+- Change one variable at a time, verify from both ends, and document the final state and follow-up actions.
+
 ## Method
 
 Use a repeatable, evidence-based sequence. Avoid changing multiple variables at once.
@@ -23,11 +32,15 @@ Use a repeatable, evidence-based sequence. Avoid changing multiple variables at 
 - Verify interface addressing, VRF/routing-instance, ARP/ND, route lookup, next-hop reachability, and routing adjacency.
 - Check route policy, prefix filters, PBR, and asymmetric paths.
 
-### 5. Check services and policy
+### 5. Check servers and services
+- Check server reachability, CPU/memory/disk utilization, service/process state, system logs, DNS, DHCP, and application dependencies.
+- Separate host-level, network-level, and application-level symptoms before changing configuration.
+
+### 6. Check services and policy
 - Review ACL/firewall counters, NAT, QoS/policers, DNS, DHCP, and application ports.
 - Test from both the client and the network edge where possible.
 
-### 6. Change safely
+### 7. Change safely
 - Capture the current state.
 - State the expected result and rollback command before making a change.
 - Make one change at a time.
