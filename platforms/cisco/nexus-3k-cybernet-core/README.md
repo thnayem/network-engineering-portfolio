@@ -38,3 +38,7 @@ Check `show spanning-tree summary`, `show spanning-tree mst`, `show spanning-tre
 ## Sanitization
 
 Usernames, password hashes, SNMPv3 localized keys, SNMP community, management IPs, original hostname, provider/customer/site names, server labels and operational descriptions have been removed or replaced. VLAN IDs have been remapped to documentation values. The CoPP policy is represented only as a feature note; platform-default ACL internals and security credentials are not published.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
