@@ -1,5 +1,17 @@
 # Production Engineering Demonstrations
 
+## Hands-on production infrastructure experience
+
+I have extensive hands-on experience working with live production infrastructure and carrying out remote operational tasks across servers, routers, and switches. This includes:
+
+- Remote configuration and administration of production servers and network devices.
+- Router and switch configuration, service changes, routing/switching maintenance, and troubleshooting.
+- Server maintenance, configuration updates, software/OS upgrade activities, and fault isolation.
+- Planned upgrades and maintenance with impact assessment, backup, rollback preparation, and post-change verification.
+- Remote incident response, root-cause investigation, service restoration, and coordination with relevant teams or vendors.
+
+These are operational experience areas. The public configuration files below are sanitized technical references and are not represented as complete production backups or as proof that every published example was deployed unchanged.
+
 ## What this section represents
 
 The Cisco 7606-S, Juniper MX204, and Juniper MX240 sections describe network engineering work and implementation patterns I have handled. I have reduced and rewritten the public material so it can be reviewed without exposing an organization's network details.
@@ -35,6 +47,18 @@ The MX240 reference uses Junos 18.2R3-S5.3-style set commands. It illustrates lo
 It is a reduced excerpt. It does not include every dependency or every configuration element needed to build a complete router configuration.
 
 See [the Juniper MX240 section](./platforms/juniper/mx240/).
+
+## Remote operations and change discipline
+
+Remote production work requires controlled access and a clear recovery path. A typical workflow includes:
+
+1. Confirm authorization, maintenance window, impact, and out-of-band or alternate access where available.
+2. Capture the current configuration and operational state.
+3. Review dependencies, platform/software compatibility, and expected service impact.
+4. Prepare and peer-review the change and rollback plan.
+5. Apply one controlled change at a time.
+6. Verify device health, routing, switching, server services, monitoring, and user/application reachability.
+7. Record the outcome, evidence, and follow-up actions.
 
 ## How to interpret the files
 
