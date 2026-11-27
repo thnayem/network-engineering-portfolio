@@ -23,6 +23,7 @@ All public examples are sanitized or independently authored for documentation. T
 | [Switching](./switching/) | VLANs, trunks, RSTP, ACLs, Nexus labs |
 | [VPN](./vpn/) | Site-to-site, remote-access, IPsec, SSL/TLS VPN, design and troubleshooting |
 | [Tunnel technologies](./tunnels/) | GRE, IPsec, L2TP, GRE over IPsec, tunnel design |
+| [Connectivity and DC/DR operations](./connectivity-operations/) | OSPF over GRE, multi-site NTTN transport, vendor coordination, SLA, dark-fiber maintenance, DC/DR ports, bandwidth, routing, tunnels, and VPN |
 | [Network architecture](./network-architecture/) | Logical topology and segmentation examples |
 | [GPON/OLT operations](./gpon-olt/) | Vendor-neutral access-network troubleshooting |
 | [Troubleshooting](./troubleshooting/) | Operational fault-isolation references |
@@ -57,13 +58,15 @@ All public examples are sanitized or independently authored for documentation. T
 |---|---|
 | Routing | BGP, OSPF, static routing, PBR, route filtering and policy |
 | Switching | VLANs, access/trunk ports, STP/RSTP/MSTP, LACP, ACLs |
-| VPN and tunneling | Site-to-site, remote access, IPsec, SSL/TLS VPN, GRE, L2TP, GRE over IPsec |
+| VPN and tunneling | Site-to-site, remote access, IPsec, SSL/TLS VPN, GRE, L2TP, GRE over IPsec, OSPF over GRE |
+| WAN and transport operations | Multi-site NTTN connectivity, vendor coordination, SLA tracking, dark-fiber/core cable maintenance |
+| Data center operations | DC/DR connectivity, port and bandwidth management, tunnels, BGP, OSPF, VPN, maintenance coordination |
 | Traffic engineering | Prefix-lists, route-maps, communities, policing, QoS/PCQ |
 | Network security | ACLs, firewall filters, VPN security, management-plane controls, safe publication |
 | Access networks | GPON, OLT/ONU lifecycle, optical fault isolation |
 | Operations | Verification, fault isolation, change safety, rollback |
 
-For vendor-specific examples, start from the [platform index](./platforms/). For protocol-focused study, explore [Routing](./routing/), [Switching](./switching/), [VPN](./vpn/), and [Tunnel technologies](./tunnels/).
+For vendor-specific examples, start from the [platform index](./platforms/). For protocol-focused study, explore [Routing](./routing/), [Switching](./switching/), [VPN](./vpn/), and [Tunnel technologies](./tunnels/). For WAN transport and infrastructure operations, see [Connectivity and DC/DR operations](./connectivity-operations/).
 
 ## How to read the examples
 
