@@ -37,3 +37,7 @@ The source uses `channel-group ... mode active` on selected member interfaces, s
 ## Validation
 
 The sanitized file is a documentation reference and has not been loaded into a physical Nexus switch or checked by a Cisco configuration parser. Validate NX-OS feature support, interface naming, VLAN membership, MST region consistency, LACP partner settings, SPAN resource limits, and management reachability against the exact hardware and release before lab use. Do not reintroduce BPDU Filter on switch-to-switch links without a documented exception and compensating loop-prevention controls. Do not paste it into production unchanged.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
