@@ -6,7 +6,7 @@ This section presents sanitized, experience-based case studies focused on operat
 
 - [Multi-site NTTN connectivity operations](multi-site-nttn-connectivity.md) — provider coordination, fault isolation, service checks, SLA follow-up and restoration verification.
 - [Data Centre and Disaster Recovery connectivity operations](dc-dr-connectivity-operations.md) — port and bandwidth coordination, cross-connects, routing, VPN/tunnel checks and maintenance coordination.
-- [OSPF over GRE for multi-site connectivity](ospf-over-gre-multisite-routing.md) — underlay/overlay separation, GRE operations, OSPF adjacency and route verification, MTU considerations and troubleshooting.
+- [OSPF over GRE for multi-site connectivity](ospf-over-gre-multisite-routing.md) — sanitized production-experience summary, underlay/overlay architecture, operational verification and risks.\n- [OSPF over GRE - Complete Lab Walkthrough](ospf-over-gre-lab-walkthrough.md) — fictional two-router lab, IOS-style configuration, verification commands, troubleshooting, MTU and rollback.
 
 ## Architecture references
 
