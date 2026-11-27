@@ -49,3 +49,7 @@ VPN is documented as a separate technical domain from tunneling. A tunnel provid
 - Never publish pre-shared keys, passwords, private keys, certificates, real peer addresses, customer networks, or unredacted configuration exports.
 
 This document is a vendor-neutral design and troubleshooting reference. Platform-specific configuration examples should be added only with the target vendor, model, and software release identified. No production deployment or physical-device validation is claimed here.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
