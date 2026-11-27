@@ -26,3 +26,7 @@ Confirm the actual received and advertised route sets. A configured policy alone
     commit confirmed 5
 
 Never test export policy against a live peer without approved prefixes and change authorization.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
