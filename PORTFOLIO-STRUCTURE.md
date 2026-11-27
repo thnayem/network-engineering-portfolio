@@ -111,3 +111,7 @@ Before publishing a new item:
 8. Never claim parser, emulator, or hardware validation unless it was actually performed.
 
 See [SECURITY.md](./SECURITY.md) for publication restrictions and [PRODUCTION-IMPLEMENTATIONS.md](./PRODUCTION-IMPLEMENTATIONS.md) for how source-derived references are described.
+
+---
+
+**Authorship and AI assistance:** The technical work, decisions, troubleshooting, lab activity and production experience described in this document are my own. I use AI as a practical writing and productivity aid for editing wording, organizing structure and preparing formal templates or disclaimers. AI does not replace or generate my technical skills, hands-on work or professional judgement. I review and take responsibility for what I publish.
