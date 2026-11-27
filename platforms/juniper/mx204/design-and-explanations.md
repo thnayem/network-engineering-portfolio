@@ -29,3 +29,7 @@ The MX240 examples are maintained under [../mx240](../mx240/). Do not infer MX24
 ## 5. Sanitization
 
 Public references use documentation prefixes and private lab values in place of operational addresses, peer IPs, loopbacks, service prefixes, ASNs, account names, and network identifiers. No real customer/provider identities, credentials, authentication secrets, SNMP communities, or API keys are included.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
