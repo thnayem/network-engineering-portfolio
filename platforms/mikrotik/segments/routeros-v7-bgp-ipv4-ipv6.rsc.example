@@ -57,9 +57,7 @@ add name=LAB-TRANSIT-V6 instance=LAB-BGP local.role=ebgp \
     afi=ip,ipv6 input.filter=LAB-V6-IN \
     output.filter-chain=LAB-V6-OUT
 
-# IPv6 originated routes require a matching route in the routing table.
-/ipv6 route
-add dst-address=2001:db8:100::/48 type=blackhole comment=LAB-ORIGINATED-V6
+# The IPv6 blackhole route above satisfies the origin prefix used by LAB-V6-OUT.
 
 # Verification:
 # /routing bgp connection print detail
