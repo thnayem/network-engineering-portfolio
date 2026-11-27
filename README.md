@@ -8,7 +8,7 @@ A practical portfolio of network engineering references covering enterprise rout
 The repository is organized in two complementary ways:
 
 - **By platform/vendor** for complete device-family references and source-derived configuration studies.
-- **By technical domain** for reusable concepts such as BGP, OSPF, VLANs, RSTP, PBR, ACLs, and routing policy.
+- **By technical domain** for reusable concepts such as BGP, OSPF, VLANs, RSTP, PBR, ACLs, VPNs, and routing policy.
 
 All public examples are sanitized or independently authored for documentation. They use fictional identifiers and documentation-only addressing. Source-derived references are reduced excerpts, not raw backups. Lab examples are not evidence of production deployment. No file should be pasted into a live network without checking dependencies, platform support, software release, and change/rollback requirements.
 
@@ -21,6 +21,8 @@ All public examples are sanitized or independently authored for documentation. T
 | [Platform index](./platforms/) | Vendor and device-family references |
 | [Routing](./routing/) | BGP, OSPF, PBR, routing policy, static routing |
 | [Switching](./switching/) | VLANs, trunks, RSTP, ACLs, Nexus labs |
+| [VPN](./vpn/) | Site-to-site, remote-access, IPsec, SSL/TLS VPN, design and troubleshooting |
+| [Tunnel technologies](./tunnels/) | GRE, IPsec, L2TP, GRE over IPsec, tunnel design |
 | [Network architecture](./network-architecture/) | Logical topology and segmentation examples |
 | [GPON/OLT operations](./gpon-olt/) | Vendor-neutral access-network troubleshooting |
 | [Troubleshooting](./troubleshooting/) | Operational fault-isolation references |
@@ -55,12 +57,13 @@ All public examples are sanitized or independently authored for documentation. T
 |---|---|
 | Routing | BGP, OSPF, static routing, PBR, route filtering and policy |
 | Switching | VLANs, access/trunk ports, STP/RSTP/MSTP, LACP, ACLs |
+| VPN and tunneling | Site-to-site, remote access, IPsec, SSL/TLS VPN, GRE, L2TP, GRE over IPsec |
 | Traffic engineering | Prefix-lists, route-maps, communities, policing, QoS/PCQ |
-| Network security | ACLs, firewall filters, management-plane controls, safe publication |
+| Network security | ACLs, firewall filters, VPN security, management-plane controls, safe publication |
 | Access networks | GPON, OLT/ONU lifecycle, optical fault isolation |
 | Operations | Verification, fault isolation, change safety, rollback |
 
-For vendor-specific examples, start from the [platform index](./platforms/). For protocol-focused study, start from [Routing](./routing/) or [Switching](./switching/).
+For vendor-specific examples, start from the [platform index](./platforms/). For protocol-focused study, explore [Routing](./routing/), [Switching](./switching/), [VPN](./vpn/), and [Tunnel technologies](./tunnels/).
 
 ## How to read the examples
 
