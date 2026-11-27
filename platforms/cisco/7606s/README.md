@@ -38,3 +38,7 @@ The files are shortened and use fictional values. They are not a complete router
 The EtherChannel example is static; it does not use LACP. The spanning-tree example documents PVST, not Rapid-PVST+. Keep those distinctions when comparing or extending the configuration.
 
 Feature support depends on the supervisor, line cards, IOS image, and licenses. Check the exact platform and release, then test in an isolated lab before using any command on a live device.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
