@@ -27,3 +27,7 @@ This section provides a vendor-neutral operational checklist for GPON access net
 Before changing PON profiles or VLAN mapping, identify affected services, save an approved backup in a private location, confirm rollback steps, and arrange an appropriate maintenance window.
 
 Vendor command syntax and optical thresholds vary by platform. Use the official manual for the exact OLT model and software release.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
