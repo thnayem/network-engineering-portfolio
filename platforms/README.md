@@ -28,3 +28,7 @@ My production work has involved remote configuration, planned upgrades, maintena
 - The exact hardware model is stated only when supported by the source material.
 
 Check compatibility and dependencies on the exact platform and software release before adapting any configuration.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
