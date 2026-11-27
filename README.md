@@ -1,17 +1,17 @@
 # Network Engineering Portfolio
 
 **Md. Tanvir Hossain**  
-Network Administrator | Enterprise & ISP Networking | IT Infrastructure
+Network & Infrastructure Administrator | Enterprise and ISP Networks
 
-This repository is my working collection of network notes, configuration references, lab examples and troubleshooting write-ups. It covers the platforms and network topics I have dealt with or studied, including enterprise routing and switching, ISP connectivity, GPON access, traffic engineering, VPNs, tunnels and multi-site links.
+This is where I keep selected network notes, lab work, technical references and troubleshooting write-ups. The subjects come from areas I have worked with in production as well as things I continue to study and test: routing, switching, ISP connectivity, GPON, VPNs, tunnels and multi-site networks.
 
-My production work is broader than what is written here. I have worked hands-on with live routers, switches and servers, including remote configuration, upgrades, maintenance and troubleshooting. I cannot publish employer or customer backups, credentials, private addressing or internal diagrams. The material here is therefore selected and sanitized. Some pages describe areas of production work; others are independent lab examples or study notes. A sample configuration is not a claim that it was copied from or deployed unchanged in a live network.
+My hands-on production work goes beyond what is published here. I have configured, maintained, upgraded and troubleshot live routers, switches and servers, including remote work across different environments. I do not publish employer or customer backups, credentials, private addressing or internal diagrams. The examples here are therefore selected and sanitized. Some pages explain work I have been involved in; others are independent labs or study notes. A sample configuration should not be taken as a copy of a live production setup.
 
-I still get things wrong sometimes. When I do, I need to check the facts, understand the impact, correct the issue and learn from it. For network changes, that also means thinking about service impact and rollback before making a change.
+I make mistakes, too. What matters is being honest about them, checking the impact, finding the cause and correcting the problem safely. Before a network change, I try to understand the risk, prepare a rollback and know how I will verify the service afterward.
 
-## Start here
+## Repository guide
 
-| Section | Contents |
+| Section | What it covers |
 |---|---|
 | [Platforms](./platforms/) | Vendor and device-family notes |
 | [Routing](./routing/) | BGP, OSPF, PBR, routing policy and static routing |
@@ -52,13 +52,11 @@ I still get things wrong sometimes. When I do, I need to check the facts, unders
 
 My practical work has included remote administration and troubleshooting of production routers, switches and servers; routing and switching support; multi-site connectivity over NTTN links; OSPF routing over GRE; VPN and tunnel support; and DC/DR connectivity coordination.
 
-Depending on the issue, the work can involve checking interface state and counters, tracing a routing problem, reviewing VLAN or trunk settings, checking tunnel health, coordinating with a provider or arranging a maintenance window. I also try to capture a baseline, keep a backup and agree on a recovery plan before a risky change.
+Depending on the issue, I may be checking interface state and counters, tracing a routing problem, reviewing VLAN or trunk settings, checking tunnel health, coordinating with a provider or arranging a maintenance window. I try to capture a baseline, keep a backup and agree on a recovery plan before a risky change.
 
-These are descriptions of areas I have been involved in. They do not mean every example in this repository is a production configuration.
+These are areas of work I have been involved in. They do not mean every example in this repository is a production configuration.
 
 ## How to read the examples
-
-I use these labels to avoid mixing different kinds of material:
 
 - **Production experience:** A high-level description of work I have been involved in. Sensitive details are left out.
 - **Sanitized reference:** A reduced or anonymized technical reference, not a raw device backup.
@@ -70,18 +68,25 @@ Please check the device model, software release and feature support before using
 
 ## Troubleshooting and change work
 
-I normally start by asking what service is affected, when the problem began and whether anything changed recently. Then I narrow it down: physical link, interface errors, VLAN and Layer 2, routing, tunnel or VPN, policy, MTU, remote endpoint or provider path. I try not to change several unrelated things at once because that makes it harder to know what fixed the issue.
+I normally start by asking what service is affected, when the problem began and whether anything changed recently. Then I narrow it down: physical link, interface errors, VLAN and Layer 2, routing, tunnel or VPN, policy, MTU, remote endpoint or provider path. I avoid changing several unrelated things at once because that makes it harder to know what fixed the issue.
 
 For planned work, I want a clear scope, an agreed window, a backup or baseline, a rollback option and checks that prove the service is back. A green interface alone does not always mean the application or user service is working.
 
 ## Documentation
 
-New and updated pages use the [documentation guide](./DOCUMENTATION-GUIDE.md). The aim is to explain what the page is for, what environment it applies to, how traffic or the feature works, what was changed, how to troubleshoot it and how to verify or roll it back.
+New and updated pages use the [documentation guide](./DOCUMENTATION-GUIDE.md). The aim is to explain what a page is for, which environment it applies to, how the feature works, what was changed, how to troubleshoot it and how to verify or roll it back.
 
 See [portfolio structure](./PORTFOLIO-STRUCTURE.md) for where new material belongs.
+
+## Related portfolios
+
+- [System & Server Administration](https://github.com/thnayem/system-server-virtualization-portfolio)
+- [Enterprise IT Operations](https://github.com/thnayem/enterprise-it-operations-portfolio)
+- [GitHub profile](https://github.com/thnayem)
+- [LinkedIn](https://www.linkedin.com/in/thnayem/)
 
 ## Security
 
 Do not publish raw backups, passwords, keys, SNMP communities, customer/provider information, real management addresses, private topology or employer documents. Review screenshots, configuration snippets and the full Git diff before committing.
 
-I do not claim vendor-parser or physical-device validation unless the relevant page records the platform, release and test.
+Maintained by [Md. Tanvir Hossain](https://github.com/thnayem) · [LinkedIn](https://www.linkedin.com/in/thnayem/)
