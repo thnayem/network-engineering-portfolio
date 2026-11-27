@@ -48,3 +48,7 @@ The walkthrough is an illustrative Cisco IOS/IOS-XE-style lab reference. It has 
 This document is a protocol and design reference. Add platform-specific lab configurations only after confirming the target vendor, model, and software release. No production deployment or physical-device validation is claimed here.
 
 **Security:** Do not publish pre-shared keys, passwords, certificates/private keys, real peer addresses, customer networks, or unredacted configuration exports. Use documentation-only addressing in public examples.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
