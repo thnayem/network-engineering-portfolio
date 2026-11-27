@@ -1,8 +1,8 @@
 # Platform Index
 
-Vendor-specific references are grouped here. Keep device families and source releases separate when they represent distinct configurations.
+I have grouped the device notes by vendor so it is easier to find the right model and software family. A Cisco IOS example and a Juniper Junos example are not interchangeable, and even devices from the same vendor can behave differently across releases.
 
-**Production operations experience:** Extensive hands-on remote work with live production servers, routers, and switches, including configuration, planned upgrades, routine maintenance, fault isolation, troubleshooting, service restoration, and post-change verification. The examples in this repository are sanitized references, not complete live-device backups.
+My production work has involved remote configuration, planned upgrades, maintenance and troubleshooting of live routers, switches and servers. The public files are shortened or independently prepared examples. They are not full backups of the equipment I have worked on.
 
 | Vendor | Device/reference | Scope |
 |---|---|---|
@@ -27,4 +27,4 @@ Vendor-specific references are grouped here. Keep device families and source rel
 - Source-derived references and independently authored labs are labelled separately.
 - The exact hardware model is stated only when supported by the source material.
 
-All configurations are examples for review and lab adaptation. Check compatibility and dependencies on the exact platform and software release before use.
+Check compatibility and dependencies on the exact platform and software release before adapting any configuration.
