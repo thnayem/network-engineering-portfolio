@@ -17,7 +17,7 @@ A practical portfolio of network engineering references covering enterprise rout
 | Section | What you will find |
 |---|---|
 | [Platform index](./platforms/) | Vendor and device-family references |
-| [Routing](./routing/) | BGP, OSPF, PBR, routing policy and static routing |
+| [Routing](./routing/) | BGP, OSPF, PBR, routing policy and static routing |\n| [Dual-ISP BGP lab](./routing/bgp/dual-isp-traffic-engineering-lab.md) | eBGP, Local Preference, AS-PATH prepending, filtering and failover |
 | [Switching](./switching/) | VLANs, trunks, RSTP, ACLs and Nexus references |
 | [VPN](./vpn/) | Site-to-site, remote access and IPsec references |
 | [Tunnel technologies](./tunnels/) | GRE, IPsec, L2TP, GRE over IPsec and tunnel design |
