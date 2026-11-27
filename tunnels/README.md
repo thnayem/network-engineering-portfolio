@@ -36,6 +36,13 @@ A practical reference for common routed and remote-access tunneling technologies
 - Test both directions and confirm that only intended traffic is routed or selected for encryption.
 - Review logs and counters at both endpoints; a tunnel being *up* does not prove application reachability.
 
+
+## Reproducible lab walkthrough
+
+- [Site-to-Site IPsec VPN with IKEv2](./ipsec-site-to-site-ikev2-lab.md) - policy-based crypto-map example, IKEv2 negotiation, ESP SAs, traffic selectors, NAT-T, verification, troubleshooting, MTU and rollback.
+
+The walkthrough is an illustrative Cisco IOS/IOS-XE-style lab reference. It has not been claimed as validated on a named release or deployed in production. Review the exact platform syntax and cryptographic baseline before testing. Never commit real keys or production peer details.
+
 ## Lab scope
 
 This document is a protocol and design reference. Add platform-specific lab configurations only after confirming the target vendor, model, and software release. No production deployment or physical-device validation is claimed here.
