@@ -125,3 +125,7 @@ Coordinate connectivity between the primary Data Center (DC), Disaster Recovery 
 - Distinguish design examples from production-validated configurations. Validate all commands against the exact platform and software release before implementation.
 
 This repository section is a vendor-neutral operational reference. It does not disclose confidential infrastructure details or claim that the examples have been validated on a live production network.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
