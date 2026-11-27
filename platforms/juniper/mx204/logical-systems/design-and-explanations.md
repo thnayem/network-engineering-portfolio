@@ -16,3 +16,7 @@ Static routes in both contexts point the remote loopback through the directly co
 VLAN 100 and 200 are represented as L3 units on ae0 inside CDN-LS. Confirm the physical aggregate, logical-system ownership, encapsulation, and feature support for the exact MX204/Junos release.
 
 Logical systems are not a substitute for physical security boundaries. Check scale, resource allocation, control-plane protection, and management access.
+
+---
+
+**A note on this documentation:** The technical work and experience behind these notes are mine. Some wording and the way I have organized the material have had AI assistance, mainly to make the writing clearer and save time. The examples, decisions and work described are not AI-generated. I check what I publish and stand behind it.
