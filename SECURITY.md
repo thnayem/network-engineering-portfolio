@@ -33,3 +33,7 @@ Configuration examples are educational references. Review syntax and feature sup
 ## Reporting a concern
 
 If you identify a credential, sensitive identifier, or other security concern, please report it privately to the repository owner rather than opening a public issue containing the sensitive material.
+
+---
+
+**Authorship and AI assistance:** The technical work, decisions, troubleshooting, lab activity and production experience described in this document are my own. I use AI as a practical writing and productivity aid for editing wording, organizing structure and preparing formal templates or disclaimers. AI does not replace or generate my technical skills, hands-on work or professional judgement. I review and take responsibility for what I publish.
